@@ -18,38 +18,28 @@ public class SwerveDrive extends RobotDriveBase {
             rlWheel,
             rrWheel;
     
-    private final double
-            maxWheelSpeed,
+    private double
             turnSpeed,
-            directMoveSpeed,
-            widthToHeightRatio;
+            directMoveSpeed;
+    
+    private final double widthToHeightRatio;
     
     /**
      * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels and several speed constants.
-     * <b>Note: {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double, double,
-     * double, double)} should be used instead if the wheelbase and track are not equal.</b>
+     * <b>Note: {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double)}
+     * should be used instead if the wheelbase and track are not equal.</b>
      * @param _flWheel              The front left {@code SwerveWheel}
      * @param _frWheel              The front right {@code SwerveWheel}
      * @param _rlWheel              The rear left {@code SwerveWheel}
      * @param _rrWheel              The rear right {@code SwerveWheel}
-     * @param _maxWheelSpeed        The maximum directional speed that a {@code SwerveWheel} can be set to
-     * @param _turnSpeed            A value deciding how quickly the robot will turn, relative to {@code
-     * _directMoveSpeed}. This should be adjusted over time while testing. A recommended initial value is
-     * 1/2 of {@code _maxWheelSpeed}.
-     * @param _directMoveSpeed      A value deciding how quickly the robot will strafe, relative to {@code
-     * _turnSpeed}. This should be adjusted over time while testing. A recommended initial value is
-     * 1/2 of {@code _maxWheelSpeed}.
      */
     public SwerveDrive (
         SwerveWheel _flWheel,
         SwerveWheel _frWheel,
         SwerveWheel _rlWheel,
-        SwerveWheel _rrWheel,
-        double _maxWheelSpeed,
-        double _turnSpeed,
-        double _directMoveSpeed) {
+        SwerveWheel _rrWheel) {
         
-        this(_flWheel, _frWheel, _rlWheel, _rrWheel, _maxWheelSpeed, _turnSpeed, _directMoveSpeed, 1);
+        this(_flWheel, _frWheel, _rlWheel, _rrWheel, 1);
     }
     
     /**
@@ -58,26 +48,15 @@ public class SwerveDrive extends RobotDriveBase {
      * @param _frWheel              The front right {@code SwerveWheel}
      * @param _rlWheel              The rear left {@code SwerveWheel}
      * @param _rrWheel              The rear right {@code SwerveWheel}
-     * @param _maxWheelSpeed        The maximum directional speed that a {@code SwerveWheel} can be set to
-     * @param _turnSpeed            A value deciding how quickly the robot will turn, relative to {@code
-     * _directMoveSpeed}. This should be adjusted over time while testing. A recommended initial value is
-     * 1/2 of {@code _maxWheelSpeed}.
-     * @param _directMoveSpeed      A value deciding how quickly the robot will strafe, relative to {@code
-     * _turnSpeed}. This should be adjusted over time while testing. A recommended initial value is
-     * 1/2 of {@code _maxWheelSpeed}.
      * @param _widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
-     * {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double, double, double)} is
-     * recommended if this ratio is 1:1.
+     * {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel)} is recommended if this ratio is 1:1.
      */
     public SwerveDrive (
         SwerveWheel _flWheel,
         SwerveWheel _frWheel,
         SwerveWheel _rlWheel,
         SwerveWheel _rrWheel,
-        double _maxWheelSpeed,
-        double _turnSpeed,
-        double _directMoveSpeed,
         double _widthToHeightRatio) {
         
         flWheel = _flWheel;
@@ -85,9 +64,8 @@ public class SwerveDrive extends RobotDriveBase {
         rlWheel = _rlWheel;
         rrWheel = _rrWheel;
         
-        maxWheelSpeed = _maxWheelSpeed;
-        turnSpeed = _turnSpeed;
-        directMoveSpeed = _directMoveSpeed;
+        directMoveSpeed = 0.5 * m_maxOutput;
+        turnSpeed = 0.5 * m_maxOutput;
         
         widthToHeightRatio = _widthToHeightRatio;
     }
@@ -102,9 +80,15 @@ public class SwerveDrive extends RobotDriveBase {
      */
     public void drive (double directMoveX, double directMoveY, double rotate) {
         
+        // Deadbands
+        directMoveX = accountForDeadband(directMoveX);
+        directMoveY = accountForDeadband(directMoveY);
+        rotate = accountForDeadband(rotate);
+        
+        // Calculating vectors
         final Vector baseVector = new Vector(directMoveX * directMoveSpeed, directMoveY * directMoveSpeed);
         // Rotate vector FR is the rotation vector that will be added to the FR wheel
-        final Vector rotateVectorFR = new Vector(rotate * turnSpeed * widthToHeightRatio, -rotate * turnSpeed);
+        final Vector rotateVectorFR = new Vector(rotate * widthToHeightRatio * turnSpeed, -rotate * turnSpeed);
         
         /*
         Clockwise rotation vector additions.
@@ -139,16 +123,16 @@ public class SwerveDrive extends RobotDriveBase {
         // then scale to fit the upper limit again.
         final double maxSpeed = Math.max(Math.max(flSpeed, frSpeed), Math.max(rlSpeed, rrSpeed));
         
-        if (maxSpeed > maxWheelSpeed) {
+        if (maxSpeed > m_maxOutput) {
             flSpeed /= maxSpeed;
             frSpeed /= maxSpeed;
             rlSpeed /= maxSpeed;
             rrSpeed /= maxSpeed;
             
-            flSpeed *= maxWheelSpeed;
-            frSpeed *= maxWheelSpeed;
-            rlSpeed *= maxWheelSpeed;
-            rrSpeed *= maxWheelSpeed;
+            flSpeed *= m_maxOutput;
+            frSpeed *= m_maxOutput;
+            rlSpeed *= m_maxOutput;
+            rrSpeed *= m_maxOutput;
         }
         
         // Sets the final wheel speeds and rotations
@@ -174,6 +158,7 @@ public class SwerveDrive extends RobotDriveBase {
      * This value is determined by the average distance traveled for each {@link SwerveWheel},
      * so the return value of this method is <b>only going to be accurate if all
      * {@code SwerveWheel} wheels have the same rotation</b> (or an equivalent angle).
+     * @return The number of inches traveled
      * @see #setDistanceReference()
      */
     public double getDistanceTraveled () {
@@ -197,6 +182,19 @@ public class SwerveDrive extends RobotDriveBase {
     @Override
     public String getDescription () {
         return "swerve drive";
+    }
+    
+    @Override
+    public void setMaxOutput(double maxOutput) {
+        m_maxOutput = maxOutput;
+        directMoveSpeed = 0.5 * m_maxOutput;
+        turnSpeed = 0.5 * m_maxOutput;
+    }
+    
+    private double accountForDeadband (double value) {
+        if (Math.abs(value) < m_deadband) return 0;
+        // Puts value in [m_deadband, 1] or [-1, -m_deadband] into range [0, 1] or [-1, 0]
+        return (value + (value > 0 ? -m_deadband : m_deadband)) / (1 - m_deadband);
     }
     
 }
