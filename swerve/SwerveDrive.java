@@ -159,6 +159,31 @@ public class SwerveDrive extends RobotDriveBase {
     }
     
     /**
+     * Sets a distance reference on the encoders, such that the output of
+     * {@link #getDistanceTraveled()} will be based on the distance from this reference.
+     */
+    public void setDistanceReference () {
+        flWheel.resetDirectionalEncoder();
+        frWheel.resetDirectionalEncoder();
+        rlWheel.resetDirectionalEncoder();
+        rrWheel.resetDirectionalEncoder();
+    }
+    
+    /**
+     * Gets the distance traveled, in inches, since the last distance reference was set.
+     * This value is determined by the average distance traveled for each {@link SwerveWheel},
+     * so the return value of this method is <b>only going to be accurate if all
+     * {@code SwerveWheel} wheels have the same rotation</b> (or an equivalent angle).
+     * @see #setDistanceReference()
+     */
+    public double getDistanceTraveled () {
+        return (Math.abs(flWheel.getDirectionalDifference()) +
+                Math.abs(frWheel.getDirectionalDifference()) +
+                Math.abs(rlWheel.getDirectionalDifference()) +
+                Math.abs(rrWheel.getDirectionalDifference())) / 4;
+    }
+    
+    /**
      * Stops all modules immediately.
      */
     @Override

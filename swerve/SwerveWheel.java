@@ -22,7 +22,7 @@ abstract public class SwerveWheel extends SubsystemBase {
      * <b>should not be trimmed to stay within a certain range</b> (i.e. an output of 1.2 rotations
      * should not be looped around to the equivalent angle 0.2 rotations).
      */
-    abstract protected double getRotation ();
+    abstract public double getRotation ();
     
     /**
      * This should set the target positional rotation of the wheel, using the same rotational
@@ -34,7 +34,7 @@ abstract public class SwerveWheel extends SubsystemBase {
      * @see #setSpeedAndRotation(double, double)
      * @see #setSpeed(double)
      */
-    abstract protected void setRotation (double targetRotation);
+    abstract public void setRotation (double targetRotation);
     
     /**
      * Sets the directional speed of the wheel on the interval [-1, 1].
@@ -42,20 +42,34 @@ abstract public class SwerveWheel extends SubsystemBase {
      * @see #setSpeedAndRotation(double, double)
      * @see #setRotation(double)
      */
-    abstract protected void setSpeed (double speed);
+    abstract public void setSpeed (double speed);
     
     /**
      * Immediately stops all rotational movement.
      */
-    abstract protected void stopRotationalMovement ();
+    abstract public void stopRotationalMovement ();
     
     /**
-     * Resets the encoders to a position of zero. This should only be used when
+     * Resets the rotational encoder to a value of zero. This should only be used when
      * it is certain that the wheel is facing directly forward (i.e. the encoders
      * are properly set up such that {@link #getRotation()} will return the correct
      * rotation when called).
      */
-    abstract public void resetEncoder ();
+    abstract public void resetRotationalEncoder ();
+    
+    /**
+     * Resets the directional encoder to a value of zero. This can be used to set a
+     * reference point for determining the distance traveled over a period of time.
+     * @see #getDirectionalDifference()
+     */
+    abstract public void resetDirectionalEncoder ();
+    
+    /**
+     * Gets the directional encoder difference from the last directional encoder reset,
+     * converted into inches traveled along the ground.
+     * @see #resetDirectionalEncoder()
+     */
+    abstract public double getDirectionalDifference ();
     
     /**
      * Sets the directional speed of the wheel, along with the target rotation
