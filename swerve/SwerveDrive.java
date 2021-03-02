@@ -27,7 +27,7 @@ public class SwerveDrive extends RobotDriveBase {
     /**
      * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels and several speed constants.
      * <b>Note: {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double, double,
-     * double, double)} should be used instead if the wheelbase is not a square.</b>
+     * double, double)} should be used instead if the wheelbase and track are not equal.</b>
      * @param _flWheel              The front left {@code SwerveWheel}
      * @param _frWheel              The front right {@code SwerveWheel}
      * @param _rlWheel              The rear left {@code SwerveWheel}
@@ -65,10 +65,10 @@ public class SwerveDrive extends RobotDriveBase {
      * @param _directMoveSpeed      A value deciding how quickly the robot will strafe, relative to {@code
      * _turnSpeed}. This should be adjusted over time while testing. A recommended initial value is
      * 1/2 of {@code _maxWheelSpeed}.
-     * @param _widthToHeightRatio   The distance between the centers of the front (or back) two wheels divided
-     * by the distance between the centers of the right (or left) two wheels. The ratio from the width of the
-     * wheelbase to the height of the wheelbase (where "up" is forward). {@link #SwerveDrive(SwerveWheel,
-     * SwerveWheel, SwerveWheel, SwerveWheel, double, double, double)} is recommended if this ratio is 1:1.
+     * @param _widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
+     * of the front or back wheels divided by the distance between the centers of the left or right wheels).
+     * {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double, double, double)} is
+     * recommended if this ratio is 1:1.
      */
     public SwerveDrive (
         SwerveWheel _flWheel,
