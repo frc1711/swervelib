@@ -97,9 +97,9 @@ abstract public class SwerveWheel extends SubsystemBase {
     }
     
     /**
-     * Sets directional speed to 0.
+     * Stops all movement within the module.
      */
-    public final void stop () {
+    public void stop () {
         setSpeed(0);
         stopRotationalMovement();
     }
