@@ -4,13 +4,13 @@
 
 package swerve;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.drive.RobotDriveBase;
 
 /**
- * Utilizes {@link SwerveWheel} subsystems to create a singular, easy-to-use swerve drive subsystem.
+ * Utilizes {@link SwerveWheel} subsystems to create a singular, easy-to-use swerve drive.
  * @author Gabriel Seaver
  */
-public class SwerveDrive extends SubsystemBase {
+public class SwerveDrive extends RobotDriveBase {
     
     private final SwerveWheel
             flWheel,
@@ -161,11 +161,17 @@ public class SwerveDrive extends SubsystemBase {
     /**
      * Stops all modules immediately.
      */
-    public void stop () {
+    @Override
+    public void stopMotor () {
         flWheel.stop();
         frWheel.stop();
         rlWheel.stop();
         rrWheel.stop();
+    }
+    
+    @Override
+    public String getDescription () {
+        return "swerve drive";
     }
     
 }

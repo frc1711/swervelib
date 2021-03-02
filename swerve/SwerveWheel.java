@@ -97,7 +97,7 @@ abstract public class SwerveWheel extends SubsystemBase {
     }
     
     /**
-     * Sets directional speed to 0 and 
+     * Sets directional speed to 0.
      */
     public final void stop () {
         setSpeed(0);
