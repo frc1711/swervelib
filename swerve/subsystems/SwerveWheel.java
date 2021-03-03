@@ -2,12 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package swerve;
+package swerve.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
- * An abstract class used by {@link SwerveDrive} to represent a module. Each {@code SwerveWheel}
+ * An abstract class used by {@link swerve.drive.SwerveDrive} to represent a module. Each {@code SwerveWheel}
  * contains a wheel which can steer in any direction and drive forwards or backwards.
  * <b>Note: Based on encoder functionality, the wheel should be facing directly forwards when
  * this subsystem is instantiated, or {@link #resetSteerEncoder()} should be used along with
@@ -15,6 +15,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @author Gabriel Seaver
  */
 abstract public class SwerveWheel extends SubsystemBase {
+    
+    /**
+     * Creates a new {@code SwerveWheel}.
+     */
+    public SwerveWheel () {
+        resetSteerEncoder();
+    }
     
     /**
      * Gets the wheel's steering direction in revolutions, starting with 0 = directly forwards
@@ -59,28 +66,14 @@ abstract public class SwerveWheel extends SubsystemBase {
     abstract public void resetSteerEncoder ();
     
     /**
-     * Resets the drive encoder to a value of zero. This can be used to set a
-     * reference point for determining the distance traveled over a period of time.
-     * @see #getPositionDifference()
-     */
-    abstract public void resetDriveEncoder ();
-    
-    /**
-     * Gets the drive encoder difference from the last drive encoder reset,
-     * converted into inches traveled along the ground.
-     * @return The inches traveled since the last {@link #resetDriveEncoder()} call
-     */
-    abstract public double getPositionDifference ();
-    
-    /**
      * Sets the drive speed of the wheel, along with the target steering direction
      * of the module. The drive speed of the wheel should be on the interval [-1, 1],
      * and the target steering direction should be on the interval [0, 360). A target
      * steering direction of 0 degrees should correspond with moving directly forward,
      * where an increase in target steering direction corresponds with a clockwise movement
      * in target steering direction (from a top-down point of view).
-     * @param targetDirection The target steering direction, as specified above
-     * @param speed     The drive speed of the wheel
+     * @param targetDirection   The target steering direction, as specified above
+     * @param speed             The drive speed of the wheel
      * @see #setDriveSpeed(double)
      * @see #setDirection(double)
      */

@@ -2,9 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package swerve;
+package swerve.drive;
 
 import edu.wpi.first.wpilibj.drive.RobotDriveBase;
+
+import swerve.util.Vector;
+import swerve.subsystems.SwerveWheel;
 
 /**
  * Utilizes {@link SwerveWheel} subsystems to create a singular, easy-to-use swerve drive.
@@ -12,7 +15,7 @@ import edu.wpi.first.wpilibj.drive.RobotDriveBase;
  */
 public class SwerveDrive extends RobotDriveBase {
     
-    private final SwerveWheel
+    protected final SwerveWheel
             flWheel,
             frWheel,
             rlWheel,
@@ -25,7 +28,7 @@ public class SwerveDrive extends RobotDriveBase {
     private final double widthToHeightRatio;
     
     /**
-     * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels and several speed constants.
+     * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
      * <b>Note: {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double)}
      * should be used instead if the wheelbase and track are not equal.</b>
      * @param _flWheel              The front left {@code SwerveWheel}
@@ -43,7 +46,7 @@ public class SwerveDrive extends RobotDriveBase {
     }
     
     /**
-     * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels and several speed constants.
+     * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
      * @param _flWheel              The front left {@code SwerveWheel}
      * @param _frWheel              The front right {@code SwerveWheel}
      * @param _rlWheel              The rear left {@code SwerveWheel}
@@ -180,7 +183,7 @@ public class SwerveDrive extends RobotDriveBase {
     
     @Override
     public String getDescription () {
-        return "swerve drive";
+        return "SwerveDrive";
     }
     
     @Override
