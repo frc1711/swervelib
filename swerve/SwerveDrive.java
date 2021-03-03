@@ -19,8 +19,8 @@ public class SwerveDrive extends RobotDriveBase {
             rrWheel;
     
     private double
-            turnSpeed,
-            directMoveSpeed;
+            steerSpeed,
+            driveSpeed;
     
     private final double widthToHeightRatio;
     
@@ -64,34 +64,33 @@ public class SwerveDrive extends RobotDriveBase {
         rlWheel = _rlWheel;
         rrWheel = _rrWheel;
         
-        directMoveSpeed = 0.5 * m_maxOutput;
-        turnSpeed = 0.5 * m_maxOutput;
+        driveSpeed = 0.5 * m_maxOutput;
+        steerSpeed = 0.5 * m_maxOutput;
         
         widthToHeightRatio = _widthToHeightRatio;
     }
     
     /**
-     * Drives the {@code SwerveDrive} given direct movement inputs and rotational inputs,
+     * Drives the {@code SwerveDrive} given strafing and steering inputs,
      * all on the interval [-1, 1], where +y is forwards and +x is to the right.
-     * @param directMoveX   The strafing speed in the x direction
-     * @param directMoveY   The strafing speed in the y direction
-     * @param rotate        The rotational speed, where a positive value rotates clockwise
-     * and a negative value rotates counterclockwise
+     * @param strafeX       The strafing speed in the x direction
+     * @param strafeY       The strafing speed in the y direction
+     * @param steering      The steering speed, where a positive value steers clockwise from a top-down point of view
      */
-    public void drive (double directMoveX, double directMoveY, double rotate) {
+    public void drive (double strafeX, double strafeY, double steering) {
         
         // Deadbands
-        directMoveX = accountForDeadband(directMoveX);
-        directMoveY = accountForDeadband(directMoveY);
-        rotate = accountForDeadband(rotate);
+        strafeX = accountForDeadband(strafeX);
+        strafeY = accountForDeadband(strafeY);
+        steering = accountForDeadband(steering);
         
         // Calculating vectors
-        final Vector baseVector = new Vector(directMoveX * directMoveSpeed, directMoveY * directMoveSpeed);
-        // Rotate vector FR is the rotation vector that will be added to the FR wheel
-        final Vector rotateVectorFR = new Vector(rotate * widthToHeightRatio * turnSpeed, -rotate * turnSpeed);
+        final Vector baseVector = new Vector(strafeX * driveSpeed, strafeY * driveSpeed);
+        // Steering vector FR is the steering vector that will be added to the FR wheel
+        final Vector steeringVectorFR = new Vector(steering * widthToHeightRatio * steerSpeed, -steering * steerSpeed);
         
         /*
-        Clockwise rotation vector additions.
+        Clockwise steering vector additions:
         (top-down view of robot with --+ representing vector arrows for clockwise turning)
         See https://www.desmos.com/calculator/3rogeuv7u2
         |
@@ -104,10 +103,10 @@ public class SwerveDrive extends RobotDriveBase {
         |            +
         */
         
-        final Vector frVector = baseVector.add(rotateVectorFR);
-        final Vector rrVector = baseVector.add(rotateVectorFR.reflectAcrossY());
-        final Vector rlVector = baseVector.add(rotateVectorFR.scale(-1));
-        final Vector flVector = baseVector.add(rotateVectorFR.reflectAcrossX());
+        final Vector frVector = baseVector.add(steeringVectorFR);
+        final Vector rrVector = baseVector.add(steeringVectorFR.reflectAcrossY());
+        final Vector rlVector = baseVector.add(steeringVectorFR.scale(-1));
+        final Vector flVector = baseVector.add(steeringVectorFR.reflectAcrossX());
         
         // Set wheel speeds
         double
@@ -136,10 +135,10 @@ public class SwerveDrive extends RobotDriveBase {
         }
         
         // Sets the final wheel speeds and rotations
-        flWheel.setSpeedAndRotation(flVector.getRotationDegrees(), flSpeed);
-        frWheel.setSpeedAndRotation(frVector.getRotationDegrees(), frSpeed);
-        rlWheel.setSpeedAndRotation(rlVector.getRotationDegrees(), rlSpeed);
-        rrWheel.setSpeedAndRotation(rrVector.getRotationDegrees(), rrSpeed);
+        flWheel.steerAndDrive(flVector.getRotationDegrees(), flSpeed);
+        frWheel.steerAndDrive(frVector.getRotationDegrees(), frSpeed);
+        rlWheel.steerAndDrive(rlVector.getRotationDegrees(), rlSpeed);
+        rrWheel.steerAndDrive(rrVector.getRotationDegrees(), rrSpeed);
     }
     
     /**
@@ -147,25 +146,25 @@ public class SwerveDrive extends RobotDriveBase {
      * {@link #getDistanceTraveled()} will be based on the distance from this reference.
      */
     public void setDistanceReference () {
-        flWheel.resetDirectionalEncoder();
-        frWheel.resetDirectionalEncoder();
-        rlWheel.resetDirectionalEncoder();
-        rrWheel.resetDirectionalEncoder();
+        flWheel.resetDriveEncoder();
+        frWheel.resetDriveEncoder();
+        rlWheel.resetDriveEncoder();
+        rrWheel.resetDriveEncoder();
     }
     
     /**
      * Gets the distance traveled, in inches, since the last distance reference was set.
      * This value is determined by the average distance traveled for each {@link SwerveWheel},
      * so the return value of this method is <b>only going to be accurate if all
-     * {@code SwerveWheel} wheels have the same rotation</b> (or an equivalent angle).
+     * {@code SwerveWheel} wheels are steered in the same direction</b> (or an equivalent angle).
      * @return The number of inches traveled
      * @see #setDistanceReference()
      */
     public double getDistanceTraveled () {
-        return (Math.abs(flWheel.getDirectionalDifference()) +
-                Math.abs(frWheel.getDirectionalDifference()) +
-                Math.abs(rlWheel.getDirectionalDifference()) +
-                Math.abs(rrWheel.getDirectionalDifference())) / 4;
+        return (Math.abs(flWheel.getPositionDifference()) +
+                Math.abs(frWheel.getPositionDifference()) +
+                Math.abs(rlWheel.getPositionDifference()) +
+                Math.abs(rrWheel.getPositionDifference())) / 4;
     }
     
     /**
@@ -185,10 +184,10 @@ public class SwerveDrive extends RobotDriveBase {
     }
     
     @Override
-    public void setMaxOutput(double maxOutput) {
+    public void setMaxOutput (double maxOutput) {
         m_maxOutput = maxOutput;
-        directMoveSpeed = 0.5 * m_maxOutput;
-        turnSpeed = 0.5 * m_maxOutput;
+        driveSpeed = 0.5 * m_maxOutput;
+        steerSpeed = 0.5 * m_maxOutput;
     }
     
     private double accountForDeadband (double value) {
