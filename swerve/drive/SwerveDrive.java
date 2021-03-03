@@ -80,7 +80,7 @@ public class SwerveDrive extends RobotDriveBase {
      * @param strafeY       The strafing speed in the y direction
      * @param steering      The steering speed, where a positive value steers clockwise from a top-down point of view
      */
-    public void drive (double strafeX, double strafeY, double steering) {
+    public void steerAndDrive (double strafeX, double strafeY, double steering) {
         
         // Deadbands
         strafeX = accountForDeadband(strafeX);
@@ -145,32 +145,6 @@ public class SwerveDrive extends RobotDriveBase {
     }
     
     /**
-     * Sets a distance reference on the encoders, such that the output of
-     * {@link #getDistanceTraveled()} will be based on the distance from this reference.
-     */
-    public void setDistanceReference () {
-        flWheel.resetDriveEncoder();
-        frWheel.resetDriveEncoder();
-        rlWheel.resetDriveEncoder();
-        rrWheel.resetDriveEncoder();
-    }
-    
-    /**
-     * Gets the distance traveled, in inches, since the last distance reference was set.
-     * This value is determined by the average distance traveled for each {@link SwerveWheel},
-     * so the return value of this method is <b>only going to be accurate if all
-     * {@code SwerveWheel} wheels are steered in the same direction</b> (or an equivalent angle).
-     * @return The number of inches traveled
-     * @see #setDistanceReference()
-     */
-    public double getDistanceTraveled () {
-        return (Math.abs(flWheel.getPositionDifference()) +
-                Math.abs(frWheel.getPositionDifference()) +
-                Math.abs(rlWheel.getPositionDifference()) +
-                Math.abs(rrWheel.getPositionDifference())) / 4;
-    }
-    
-    /**
      * Stops all modules immediately.
      */
     @Override
@@ -200,3 +174,4 @@ public class SwerveDrive extends RobotDriveBase {
     }
     
 }
+// TODO: Turn into real gradle library: https://docs.gradle.org/current/samples/sample_building_java_libraries.html
