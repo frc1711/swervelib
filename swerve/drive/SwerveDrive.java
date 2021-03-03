@@ -145,6 +145,22 @@ public class SwerveDrive extends RobotDriveBase {
     }
     
     /**
+     * Steers and drives all wheels in the same direction and with the same speed.
+     * {@code targetDirection} must be on the interval [0, 360), where 0 represents
+     * steering directly forwards and an increase represents steering further clockwise.
+     * {@code speed} must be on the interval [0, 1], where 1 represents directly
+     * forwards and -1 represents directly backwards.
+     * @param targetDirection
+     * @param speed
+     */
+    public void steerAndDriveAll (double targetDirection, double speed) {
+        flWheel.steerAndDrive(targetDirection, speed);
+        frWheel.steerAndDrive(targetDirection, speed);
+        rlWheel.steerAndDrive(targetDirection, speed);
+        rrWheel.steerAndDrive(targetDirection, speed);
+    }
+    
+    /**
      * Stops all modules immediately.
      */
     @Override

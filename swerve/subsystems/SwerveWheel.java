@@ -67,7 +67,7 @@ abstract public class SwerveWheel extends SubsystemBase {
     
     /**
      * Sets the drive speed of the wheel, along with the target steering direction
-     * of the module. The drive speed of the wheel should be on the interval [-1, 1],
+     * of the module. The drive speed of the wheel should be on the interval [0, 1],
      * and the target steering direction should be on the interval [0, 360). A target
      * steering direction of 0 degrees should correspond with moving directly forward,
      * where an increase in target steering direction corresponds with a clockwise movement
@@ -78,8 +78,8 @@ abstract public class SwerveWheel extends SubsystemBase {
      * @see #setDirection(double)
      */
     public final void steerAndDrive (double targetDirection, double speed) {
-        if (speed < -1 || speed > 1) throw new IllegalArgumentException("speed should be within range [-1, 1]");
-        if (targetDirection >= 360 || targetDirection < 0) throw new IllegalArgumentException("targetRot should be within range [0, 360)");
+        if (speed < 0 || speed > 1) throw new IllegalArgumentException("speed should be within range [-1, 1]");
+        if (targetDirection >= 360 || targetDirection < 0) throw new IllegalArgumentException("targetDirection should be within range [0, 360)");
         
         // Finds current direction in degrees within range [0, 360)
         double currentDirection = getDirection() * 360;
