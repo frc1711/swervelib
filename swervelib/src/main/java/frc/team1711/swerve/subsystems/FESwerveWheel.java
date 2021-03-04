@@ -5,7 +5,7 @@
 package frc.team1711.swerve.subsystems;
 
 /**
- * Used by {@link swerve.drive.FESwerveDrive} to represent a module, with "full encoder" (FE)
+ * Used by {@link frc.team1711.swerve.drive.FESwerveDrive} to represent a module, with "full encoder" (FE)
  * functionality, meaning it has drive encoders in addition to the necessary rotational encoders.
  * <b>Note: Based on encoder functionality, the wheel should be facing directly forwards when
  * this subsystem is instantiated, or {@link #resetSteerEncoder()} should be used along with

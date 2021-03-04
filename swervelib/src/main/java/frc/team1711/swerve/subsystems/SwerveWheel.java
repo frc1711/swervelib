@@ -7,13 +7,12 @@ package frc.team1711.swerve.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
- * An abstract class used by {@link swerve.drive.SwerveDrive} to represent a
+ * An abstract class used by {@link frc.team1711.swerve.drive.SwerveDrive} to represent a
  * module. Each {@code SwerveWheel} contains a wheel which can steer in any
  * direction and drive forwards or backwards. <b>Note: Based on encoder
  * functionality, the wheel should be facing directly forwards when this
  * subsystem is instantiated, or {@link #resetSteerEncoder()} should be used
  * along with a homing sequence.</b>
- * 
  * @author Gabriel Seaver
  */
 abstract public class SwerveWheel extends SubsystemBase {
