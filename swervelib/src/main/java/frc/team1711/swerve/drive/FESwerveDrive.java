@@ -2,9 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package swerve.drive;
+package frc.team1711.swerve.drive;
 
-import swerve.subsystems.FESwerveWheel;
+import frc.team1711.swerve.subsystems.FESwerveWheel;
 
 /**
  * Expands on the {@link SwerveDrive} for better autonomous control. Uses swerve wheels with

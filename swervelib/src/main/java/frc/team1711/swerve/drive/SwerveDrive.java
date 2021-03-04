@@ -2,12 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package swerve.drive;
+package frc.team1711.swerve.drive;
 
 import edu.wpi.first.wpilibj.drive.RobotDriveBase;
 
-import swerve.util.Vector;
-import swerve.subsystems.SwerveWheel;
+import frc.team1711.swerve.util.Vector;
+import frc.team1711.swerve.subsystems.SwerveWheel;
 
 /**
  * Utilizes {@link SwerveWheel} subsystems to create a singular, easy-to-use swerve drive.

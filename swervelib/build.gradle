@@ -40,4 +40,4 @@ java {
 }
 
 version = '0.1.0'
-group = 'frc.team1711'
+group = 'io.github.frc1711'
