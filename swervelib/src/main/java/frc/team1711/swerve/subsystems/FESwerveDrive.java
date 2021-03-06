@@ -2,9 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.team1711.swerve.drive;
-
-import frc.team1711.swerve.subsystems.FESwerveWheel;
+package frc.team1711.swerve.subsystems;
 
 /**
  * Expands on the {@link SwerveDrive} for better autonomous control. Uses swerve wheels with
@@ -75,11 +73,6 @@ public class FESwerveDrive extends SwerveDrive {
                 Math.abs(((FESwerveWheel)frWheel).getPositionDifference()) +
                 Math.abs(((FESwerveWheel)rlWheel).getPositionDifference()) +
                 Math.abs(((FESwerveWheel)rrWheel).getPositionDifference())) / 4;
-    }
-    
-    @Override
-    public String getDescription () {
-        return "FESwerveDrive";
     }
     
 }

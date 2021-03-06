@@ -4,27 +4,25 @@
 
 package frc.team1711.swerve.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 /**
- * An abstract class used by {@link frc.team1711.swerve.drive.SwerveDrive} to represent a
+ * An abstract class used by {@link SwerveDrive} to represent a
  * module. Each {@code SwerveWheel} contains a wheel which can steer in any
  * direction and drive forwards or backwards.
  * @author Gabriel Seaver
  */
-abstract public class SwerveWheel extends SubsystemBase {
+abstract public class SwerveWheel {
     
     /**
      * Sets the drive speed of the wheel on the interval [-1, 1].
      * @param speed The drive speed
      * @see #steerAndDrive(double, double)
      */
-    abstract public void setDriveSpeed (double speed);
+    abstract protected void setDriveSpeed (double speed);
     
     /**
      * Immediately stops all steering movement.
      */
-    abstract public void stopSteering ();
+    abstract protected void stopSteering ();
     
     /**
      * Sets the drive speed of the wheel, along with the target steering direction
@@ -38,7 +36,7 @@ abstract public class SwerveWheel extends SubsystemBase {
      * @see #setDriveSpeed(double)
      * @see #setDirection(double)
      */
-    public final void steerAndDrive (double targetDirection, double speed) {
+    protected final void steerAndDrive (double targetDirection, double speed) {
         if (speed < 0 || speed > 1) throw new IllegalArgumentException("speed should be within range [0, 1]");
         if (targetDirection >= 360 || targetDirection < 0) throw new IllegalArgumentException("targetDirection should be within range [0, 360)");
         
@@ -75,7 +73,7 @@ abstract public class SwerveWheel extends SubsystemBase {
      * @return The steering direction of the wheel
      * @see #setDirection(double)
      */
-    abstract public double getDirection ();
+    abstract protected double getDirection ();
     
     /**
      * Sets the target steering direction of the wheel on the interval [0, 360), where zero degrees
@@ -84,7 +82,7 @@ abstract public class SwerveWheel extends SubsystemBase {
      * @see #getDirection()
      * @see #steerAndDrive(double, double)
      */
-    abstract public void setDirection (double targetDirection);
+    abstract protected void setDirection (double targetDirection);
     
     /**
      * Checks whether or not the wheel's current steering direction is near a certain direction,
@@ -99,7 +97,7 @@ abstract public class SwerveWheel extends SubsystemBase {
      * target range.
      * @see #checkWithin180Range(double, double)
      */
-    public boolean checkWithinRange (double direction, double marginOfError) {
+    protected boolean checkWithinRange (double direction, double marginOfError) {
 		double directionalDifference = direction - getDirection();
         while (directionalDifference > 180) directionalDifference -= 360;
         while (directionalDifference < -180) directionalDifference += 360;
@@ -115,7 +113,7 @@ abstract public class SwerveWheel extends SubsystemBase {
      * @return              Whether or not the current steering direction is within the
      * target range.
      */
-    public boolean checkWithin180Range (double direction, double marginOfError) {
+    protected boolean checkWithin180Range (double direction, double marginOfError) {
         double direction180 = direction + 180;
         if (direction180 >= 360) direction180 -= 360;
         return checkWithinRange(direction, marginOfError) || checkWithinRange(direction180, marginOfError);
@@ -124,7 +122,7 @@ abstract public class SwerveWheel extends SubsystemBase {
     /**
      * Stops all movement.
      */
-    public void stop () {
+    protected void stop () {
         setDriveSpeed(0);
         stopSteering();
     }

@@ -6,8 +6,15 @@ package frc.team1711.swerve.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import frc.team1711.swerve.drive.FESwerveDrive;
+import frc.team1711.swerve.subsystems.FESwerveDrive;
 
+/**
+ * A command which drives a given {@link frc.team1711.swerve.subsystems.FESwerveDrive} in any
+ * direction, without turning.
+ * <b>TODO: Still a work in progress.
+ * </b>
+ * @author Gabriel Seaver
+ */
 public class AutonDrive extends CommandBase {
     
     private static final double DIRECTION_MARGIN_OF_ERROR = 5;
@@ -36,15 +43,16 @@ public class AutonDrive extends CommandBase {
      */
     public AutonDrive (FESwerveDrive _swerveDrive, double _direction, double _distance, double _speed) {
         swerveDrive = _swerveDrive;
-        phase = Phases.DRIVING;
         direction = _direction;
         distance = _distance;
         speed = _speed;
+        phase = Phases.DRIVING;
+        addRequirements(_swerveDrive);
     }
     
     @Override
     public void initialize () {
-        swerveDrive.stopMotor();
+        swerveDrive.stop();
     }
     
     @Override
@@ -71,7 +79,7 @@ public class AutonDrive extends CommandBase {
     
     @Override
     public void end (boolean interrupted) {
-        swerveDrive.stopMotor();
+        swerveDrive.stop();
     }
     
     @Override

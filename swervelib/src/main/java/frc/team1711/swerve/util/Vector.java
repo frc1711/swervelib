@@ -5,7 +5,7 @@
 package frc.team1711.swerve.util;
 
 /**
- * A vector class used by {@link frc.team1711.swerve.drive.SwerveDrive} for calculating target velocities and rotational positions.
+ * A vector class used by {@link frc.team1711.swerve.subsystems.SwerveDrive} for calculating target velocities and rotational positions.
  * @author Gabriel Seaver
  */
 public class Vector {

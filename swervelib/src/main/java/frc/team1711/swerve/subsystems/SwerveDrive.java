@@ -2,18 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.team1711.swerve.drive;
+package frc.team1711.swerve.subsystems;
 
-import edu.wpi.first.wpilibj.drive.RobotDriveBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.team1711.swerve.util.Vector;
-import frc.team1711.swerve.subsystems.SwerveWheel;
 
 /**
  * Utilizes {@link SwerveWheel} subsystems to create a singular, easy-to-use swerve drive.
  * @author Gabriel Seaver
  */
-public class SwerveDrive extends RobotDriveBase {
+public class SwerveDrive extends SubsystemBase {
     
     protected final SwerveWheel
             flWheel,
@@ -21,9 +20,25 @@ public class SwerveDrive extends RobotDriveBase {
             rlWheel,
             rrWheel;
     
+    /**
+     * Default steering speed input scalar.
+     * @see #setSteerRelativeSpeed(double)
+     * @see #driveRelativeSpeedDefault
+     */
+    public static double steerRelativeSpeedDefault = 0.3;
+    
+    /**
+     * Default driving speed input scalar.
+     * @see #setDriveRelativeSpeed(double)
+     * @see #steerRelativeSpeedDefault
+     */
+    public static double driveRelativeSpeedDefault = 0.5;
+    
     private double
-            steerSpeed,
-            driveSpeed;
+            steerRelativeSpeed,
+            driveRelativeSpeed,
+            maxOutput,
+            deadband;
     
     private final double widthToHeightRatio;
     
@@ -67,8 +82,8 @@ public class SwerveDrive extends RobotDriveBase {
         rlWheel = _rlWheel;
         rrWheel = _rrWheel;
         
-        driveSpeed = 0.5 * m_maxOutput;
-        steerSpeed = 0.5 * m_maxOutput;
+        driveRelativeSpeed = driveRelativeSpeedDefault;
+        steerRelativeSpeed = steerRelativeSpeedDefault;
         
         widthToHeightRatio = _widthToHeightRatio;
     }
@@ -84,12 +99,12 @@ public class SwerveDrive extends RobotDriveBase {
     public void inputDrive (double strafeX, double strafeY, double steering) {
         
         // Calculating vectors
-        Vector baseVector = new Vector(strafeX * driveSpeed, strafeY * driveSpeed);
+        Vector baseVector = new Vector(strafeX * driveRelativeSpeed, strafeY * driveRelativeSpeed);
         if (accountForDeadband(baseVector.getMagnitude()) == 0) baseVector = new Vector(0, 0);
         
         // Steering vector FR is the steering vector that will be added to the FR wheel
         steering = accountForDeadband(steering);
-        final Vector steeringVectorFR = new Vector(steering * widthToHeightRatio * steerSpeed, -steering * steerSpeed);
+        final Vector steeringVectorFR = new Vector(steering * widthToHeightRatio * steerRelativeSpeed, -steering * steerRelativeSpeed);
         
         /*
         Clockwise steering vector additions:
@@ -124,16 +139,16 @@ public class SwerveDrive extends RobotDriveBase {
         // then scale to fit the upper limit again.
         final double maxSpeed = Math.max(Math.max(flSpeed, frSpeed), Math.max(rlSpeed, rrSpeed));
         
-        if (maxSpeed > m_maxOutput) {
+        if (maxSpeed > maxOutput) {
             flSpeed /= maxSpeed;
             frSpeed /= maxSpeed;
             rlSpeed /= maxSpeed;
             rrSpeed /= maxSpeed;
             
-            flSpeed *= m_maxOutput;
-            frSpeed *= m_maxOutput;
-            rlSpeed *= m_maxOutput;
-            rrSpeed *= m_maxOutput;
+            flSpeed *= maxOutput;
+            frSpeed *= maxOutput;
+            rlSpeed *= maxOutput;
+            rrSpeed *= maxOutput;
         }
         
         // Vectors default to 90 degrees; no direction change if there's no input
@@ -147,8 +162,6 @@ public class SwerveDrive extends RobotDriveBase {
         frWheel.steerAndDrive(frDirection, frSpeed);
         rlWheel.steerAndDrive(rlDirection, rlSpeed);
         rrWheel.steerAndDrive(rrDirection, rrSpeed);
-        
-        feed();
     }
     
     /**
@@ -166,8 +179,6 @@ public class SwerveDrive extends RobotDriveBase {
         frWheel.steerAndDrive(direction, speed);
         rlWheel.steerAndDrive(direction, speed);
         rrWheel.steerAndDrive(direction, speed);
-        
-        feed();
     }
     
     /**
@@ -186,8 +197,6 @@ public class SwerveDrive extends RobotDriveBase {
         rlWheel.steerAndDrive(direction, 0);
         rrWheel.steerAndDrive(direction, 0);
         
-        feed();
-        
         // TODO: Maybe make a system print for each one of these conditions individually
         // to see why it fails
         return  flWheel.checkWithin180Range(direction, marginOfError) &&
@@ -199,32 +208,54 @@ public class SwerveDrive extends RobotDriveBase {
     /**
      * Stops all modules immediately.
      */
-    @Override
-    public void stopMotor () {
+    public void stop () {
         flWheel.stop();
         frWheel.stop();
         rlWheel.stop();
         rrWheel.stop();
-        
-        feed();
     }
     
-    @Override
-    public String getDescription () {
-        return "SwerveDrive";
+    /**
+     * Sets the maximum possible drive speed of a swerve wheel.
+     * @param _maxOutput    The maximum possible drive speed.
+     */
+    public void setMaxOutput (double _maxOutput) {
+        maxOutput = _maxOutput;
     }
     
-    @Override
-    public void setMaxOutput (double maxOutput) {
-        m_maxOutput = maxOutput;
-        driveSpeed = 0.5 * m_maxOutput;
-        steerSpeed = 0.5 * m_maxOutput;
+    /**
+     * Sets the input deadband for {@link #inputDrive(double, double, double)} (i.e. sets the minimum input
+     * value required for it to count as being a nonzero input).
+     * @param _deadband The new input deadband
+     */
+    public void setDeadband (double _deadband) {
+        deadband = _deadband;
+    }
+    
+    /**
+     * Sets the sensitivity of {@link #inputDrive(double, double, double)} towards
+     * steering inputs.
+     * @param _steerRelativeSpeed The new sensitivity
+     * @see #steerRelativeSpeedDefault
+     */
+    public void setSteerRelativeSpeed (double _steerRelativeSpeed) {
+        steerRelativeSpeed = _steerRelativeSpeed;
+    }
+    
+    /**
+     * Sets the sensitivity of {@link #inputDrive(double, double, double)} towards
+     * driving inputs.
+     * @param _driveRelativeSpeed The new sensitivity
+     * @see #driveRelativeSpeedDefault
+     */
+    public void setDriveRelativeSpeed (double _driveRelativeSpeed) {
+        driveRelativeSpeed = _driveRelativeSpeed;
     }
     
     private double accountForDeadband (double value) {
-        if (Math.abs(value) < m_deadband) return 0;
+        if (Math.abs(value) < deadband) return 0;
         // Puts value in [m_deadband, 1] or [-1, -m_deadband] into range [0, 1] or [-1, 0]
-        return (value + (value > 0 ? -m_deadband : m_deadband)) / (1 - m_deadband);
+        return (value + (value > 0 ? -deadband : deadband)) / (1 - deadband);
     }
     
 }
