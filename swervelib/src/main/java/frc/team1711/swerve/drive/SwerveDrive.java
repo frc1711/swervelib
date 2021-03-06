@@ -83,14 +83,12 @@ public class SwerveDrive extends RobotDriveBase {
      */
     public void inputDrive (double strafeX, double strafeY, double steering) {
         
-        // Deadbands
-        strafeX = accountForDeadband(strafeX);
-        strafeY = accountForDeadband(strafeY);
-        steering = accountForDeadband(steering);
-        
         // Calculating vectors
-        final Vector baseVector = new Vector(strafeX * driveSpeed, strafeY * driveSpeed);
+        Vector baseVector = new Vector(strafeX * driveSpeed, strafeY * driveSpeed);
+        if (accountForDeadband(baseVector.getMagnitude()) == 0) baseVector = new Vector(0, 0);
+        
         // Steering vector FR is the steering vector that will be added to the FR wheel
+        steering = accountForDeadband(steering);
         final Vector steeringVectorFR = new Vector(steering * widthToHeightRatio * steerSpeed, -steering * steerSpeed);
         
         /*
@@ -138,11 +136,17 @@ public class SwerveDrive extends RobotDriveBase {
             rrSpeed *= m_maxOutput;
         }
         
+        // Vectors default to 90 degrees; no direction change if there's no input
+        double flDirection = flVector.getMagnitude() > 0 ? flVector.getRotationDegrees() : flWheel.getDirection();
+        double frDirection = flVector.getMagnitude() > 0 ? frVector.getRotationDegrees() : frWheel.getDirection();
+        double rlDirection = flVector.getMagnitude() > 0 ? rlVector.getRotationDegrees() : rlWheel.getDirection();
+        double rrDirection = flVector.getMagnitude() > 0 ? rrVector.getRotationDegrees() : rrWheel.getDirection();
+        
         // Sets the final wheel speeds and rotations
-        flWheel.steerAndDrive(flVector.getRotationDegrees(), flSpeed);
-        frWheel.steerAndDrive(frVector.getRotationDegrees(), frSpeed);
-        rlWheel.steerAndDrive(rlVector.getRotationDegrees(), rlSpeed);
-        rrWheel.steerAndDrive(rrVector.getRotationDegrees(), rrSpeed);
+        flWheel.steerAndDrive(flDirection, flSpeed);
+        frWheel.steerAndDrive(frDirection, frSpeed);
+        rlWheel.steerAndDrive(rlDirection, rlSpeed);
+        rrWheel.steerAndDrive(rrDirection, rrSpeed);
         
         feed();
     }
@@ -184,6 +188,8 @@ public class SwerveDrive extends RobotDriveBase {
         
         feed();
         
+        // TODO: Maybe make a system print for each one of these conditions individually
+        // to see why it fails
         return  flWheel.checkWithin180Range(direction, marginOfError) &&
                 frWheel.checkWithin180Range(direction, marginOfError) &&
                 rlWheel.checkWithin180Range(direction, marginOfError) &&

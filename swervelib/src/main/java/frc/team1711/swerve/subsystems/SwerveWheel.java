@@ -9,40 +9,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /**
  * An abstract class used by {@link frc.team1711.swerve.drive.SwerveDrive} to represent a
  * module. Each {@code SwerveWheel} contains a wheel which can steer in any
- * direction and drive forwards or backwards. <b>Note: Based on encoder
- * functionality, the wheel should be facing directly forwards when this
- * subsystem is instantiated, or {@link #resetSteerEncoder()} should be used
- * along with a homing sequence.</b>
+ * direction and drive forwards or backwards.
  * @author Gabriel Seaver
  */
 abstract public class SwerveWheel extends SubsystemBase {
     
     /**
-     * Gets the wheel's steering direction in revolutions, starting with 0 = directly forwards
-     * and increasing as the wheel steers clockwise (from a top-down point of view). The output
-     * <b>should not be trimmed to stay within a certain range</b> (i.e. an output of 1.2 revolutions
-     * should not be looped around to the equivalent angle 0.2 revolutions).
-     * @return The wheel's steering direction
-     */
-    abstract public double getRawDirection ();
-    
-    /**
-     * Sets the target steering direction of the wheel, using the same rotational
-     * measurement as {@link #getRawDirection()}. This means that if you were to pass 1.2 revolutions
-     * as an argument, the input <b>should not wrap to the equivalent angle of 0.2 revolutions</b>,
-     * and the module should instead perform whatever steering action is necessary in order to make the
-     * output of {@code getDirection()} closer to 1.2.
-     * @param targetDirection The target steering direction
-     * @see #steerAndDrive(double, double)
-     * @see #setDriveSpeed(double)
-     */
-    abstract public void setRawDirection (double targetDirection);
-    
-    /**
      * Sets the drive speed of the wheel on the interval [-1, 1].
      * @param speed The drive speed
      * @see #steerAndDrive(double, double)
-     * @see #setRawDirection(double)
      */
     abstract public void setDriveSpeed (double speed);
     
@@ -50,14 +25,6 @@ abstract public class SwerveWheel extends SubsystemBase {
      * Immediately stops all steering movement.
      */
     abstract public void stopSteering ();
-    
-    /**
-     * Resets the steering encoder to a value of zero. This should only be used when
-     * it is certain that the wheel is facing directly forward (i.e. the encoders
-     * are properly set up such that {@link #getDirection()} will return the correct
-     * steering direction when called).
-     */
-    abstract public void resetSteerEncoder ();
     
     /**
      * Sets the drive speed of the wheel, along with the target steering direction
@@ -69,19 +36,14 @@ abstract public class SwerveWheel extends SubsystemBase {
      * @param targetDirection   The target steering direction, as specified above
      * @param speed             The drive speed of the wheel
      * @see #setDriveSpeed(double)
-     * @see #setRawDirection(double)
+     * @see #setDirection(double)
      */
     public final void steerAndDrive (double targetDirection, double speed) {
-        if (speed < 0 || speed > 1) throw new IllegalArgumentException("speed should be within range [-1, 1]");
+        if (speed < 0 || speed > 1) throw new IllegalArgumentException("speed should be within range [0, 1]");
         if (targetDirection >= 360 || targetDirection < 0) throw new IllegalArgumentException("targetDirection should be within range [0, 360)");
         
-        // Finds current direction in degrees within range [0, 360)
-        double currentDirection = getRawDirection() * 360;
-        while (currentDirection < 0) currentDirection += 360;
-        while (currentDirection >= 360) currentDirection -= 360;
-        
-        // Finds the number of degrees we need to turn, plus the direction
-        double moveDirection = targetDirection - currentDirection;
+        // Finds the number of degrees we need to turn
+        double moveDirection = targetDirection - getDirection();
         while (moveDirection > 180) moveDirection -= 360;
         while (moveDirection < -180) moveDirection += 360;
         
@@ -94,7 +56,14 @@ abstract public class SwerveWheel extends SubsystemBase {
             else moveDirection += 180;
         }
         
-        setRawDirection(moveDirection / 360 + getRawDirection());
+        // Finds new target direction based on 180 degrees reverse stuff above,
+        // and wraps within [0, 360)
+        targetDirection = moveDirection + getDirection();
+        while (targetDirection >= 360) targetDirection -= 360;
+        while (targetDirection < 0) targetDirection += 360;
+        
+        // Sets drive speed and direction
+        setDirection(moveDirection + getDirection());
         setDriveSpeed(speed * reverse);
     }
     
@@ -104,13 +73,18 @@ abstract public class SwerveWheel extends SubsystemBase {
      * the direction increases, the steering direction is further clockwise from a
      * top-down view.
      * @return The steering direction of the wheel
+     * @see #setDirection(double)
      */
-    public double getDirection () {
-        double direction = getRawDirection() * 360;
-        while (direction >= 360) direction -= 360;
-        while (direction < 0) direction += 360;
-        return direction;
-    }
+    abstract public double getDirection ();
+    
+    /**
+     * Sets the target steering direction of the wheel on the interval [0, 360), where zero degrees
+     * is directly forwards and an increase in direction indicates a further clockwise target direction.
+     * @param targetDirection The target steering direction
+     * @see #getDirection()
+     * @see #steerAndDrive(double, double)
+     */
+    abstract public void setDirection (double targetDirection);
     
     /**
      * Checks whether or not the wheel's current steering direction is near a certain direction,
@@ -129,7 +103,7 @@ abstract public class SwerveWheel extends SubsystemBase {
 		double directionalDifference = direction - getDirection();
         while (directionalDifference > 180) directionalDifference -= 360;
         while (directionalDifference < -180) directionalDifference += 360;
-        return directionalDifference >= -marginOfError && directionalDifference <= marginOfError;
+        return Math.abs(directionalDifference) <= marginOfError;
 	}
     
     /**
