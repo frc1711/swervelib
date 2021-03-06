@@ -102,13 +102,33 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands"><span class="typeNameLink">AutonDrive</span></a> - Class in <a href="frc/team1711/swerve/commands/package-summary.html">frc.team1711.swerve.commands</a></dt>
 <dd>
-<div class="block">A command which drives a given <a href="frc/team1711/swerve/subsystems/FESwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>FESwerveDrive</code></a> in any
+<div class="block">A command which drives a given <a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> in any
  direction, without turning.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.FESwerveDrive,double,double,double)">AutonDrive(FESwerveDrive, double, double, double)</a></span> - Constructor for class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double)">AutonDrive(AutoSwerveDrive, double, double, double)</a></span> - Constructor for class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></dt>
 <dd>
 <div class="block">Strafes the swerve drive in a certain direction, at a certain speed, over a certain distance.</div>
 </dd>
+<dt><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><span class="typeNameLink">AutoSwerveDrive</span></a> - Class in <a href="frc/team1711/swerve/subsystems/package-summary.html">frc.team1711.swerve.subsystems</a></dt>
+<dd>
+<div class="block">Expands on the <a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> for autonomous control.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel)">AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel)</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></dt>
+<dd>
+<div class="block">Creates a new <code>AutoSwerveDrive</code> given <a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> wheels.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double)">AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, double)</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></dt>
+<dd>
+<div class="block">Creates a new <code>AutoSwerveDrive</code> given <a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> wheels.</div>
+</dd>
+<dt><a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><span class="typeNameLink">AutoSwerveWheel</span></a> - Class in <a href="frc/team1711/swerve/subsystems/package-summary.html">frc.team1711.swerve.subsystems</a></dt>
+<dd>
+<div class="block">Used by <a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> to represent a module with encoders on the drive motors,
+ in addition to the encoders on the steering motors which are necessary for basic swerve
+ functionality.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html#%3Cinit%3E()">AutoSwerveWheel()</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <a id="I:C">
 <!--   -->
@@ -152,25 +172,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">F</h2>
 <dl>
-<dt><a href="frc/team1711/swerve/subsystems/FESwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><span class="typeNameLink">FESwerveDrive</span></a> - Class in <a href="frc/team1711/swerve/subsystems/package-summary.html">frc.team1711.swerve.subsystems</a></dt>
-<dd>
-<div class="block">Expands on the <a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> for better autonomous control.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/FESwerveDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.FESwerveWheel,frc.team1711.swerve.subsystems.FESwerveWheel,frc.team1711.swerve.subsystems.FESwerveWheel,frc.team1711.swerve.subsystems.FESwerveWheel)">FESwerveDrive(FESwerveWheel, FESwerveWheel, FESwerveWheel, FESwerveWheel)</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/FESwerveDrive.html" title="class in frc.team1711.swerve.subsystems">FESwerveDrive</a></dt>
-<dd>
-<div class="block">Creates a new <code>FESwerveDrive</code> given <a href="frc/team1711/swerve/subsystems/FESwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>FESwerveWheel</code></a> wheels.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/FESwerveDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.FESwerveWheel,frc.team1711.swerve.subsystems.FESwerveWheel,frc.team1711.swerve.subsystems.FESwerveWheel,frc.team1711.swerve.subsystems.FESwerveWheel,double)">FESwerveDrive(FESwerveWheel, FESwerveWheel, FESwerveWheel, FESwerveWheel, double)</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/FESwerveDrive.html" title="class in frc.team1711.swerve.subsystems">FESwerveDrive</a></dt>
-<dd>
-<div class="block">Creates a new <code>FESwerveDrive</code> given <a href="frc/team1711/swerve/subsystems/FESwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>FESwerveWheel</code></a> wheels.</div>
-</dd>
-<dt><a href="frc/team1711/swerve/subsystems/FESwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><span class="typeNameLink">FESwerveWheel</span></a> - Class in <a href="frc/team1711/swerve/subsystems/package-summary.html">frc.team1711.swerve.subsystems</a></dt>
-<dd>
-<div class="block">Used by <a href="frc/team1711/swerve/subsystems/FESwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>FESwerveDrive</code></a> to represent a module, with "full encoder" (FE)
- functionality, meaning it has drive encoders in addition to the necessary rotational encoders.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/FESwerveWheel.html#%3Cinit%3E()">FESwerveWheel()</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/FESwerveWheel.html" title="class in frc.team1711.swerve.subsystems">FESwerveWheel</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveDrive.html#flWheel">flWheel</a></span> - Variable in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/team1711/swerve/commands/package-summary.html">frc.team1711.swerve.commands</a> - package frc.team1711.swerve.commands</dt>
@@ -191,13 +192,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the current steering direction, in degrees, on the interval [0, 360).</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/FESwerveDrive.html#getDistanceTraveled()">getDistanceTraveled()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/FESwerveDrive.html" title="class in frc.team1711.swerve.subsystems">FESwerveDrive</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html#getDistanceTraveled()">getDistanceTraveled()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></dt>
 <dd>
 <div class="block">Gets the distance traveled, in inches, since the last distance reference was set.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/Vector.html#getMagnitude()">getMagnitude()</a></span> - Method in class frc.team1711.swerve.util.<a href="frc/team1711/swerve/util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/FESwerveWheel.html#getPositionDifference()">getPositionDifference()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/FESwerveWheel.html" title="class in frc.team1711.swerve.subsystems">FESwerveWheel</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html#getPositionDifference()">getPositionDifference()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a></dt>
 <dd>
 <div class="block">Gets the drive encoder difference from the last drive encoder reset,
  converted into inches traveled along the ground.</div>
@@ -235,7 +236,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Reflects across the y axis.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/FESwerveWheel.html#resetDriveEncoder()">resetDriveEncoder()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/FESwerveWheel.html" title="class in frc.team1711.swerve.subsystems">FESwerveWheel</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html#resetDriveEncoder()">resetDriveEncoder()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a></dt>
 <dd>
 <div class="block">Resets the drive encoder to a value of zero.</div>
 </dd>
@@ -262,10 +263,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Sets the target steering direction of the wheel on the interval [0, 360), where zero degrees
  is directly forwards and an increase in direction indicates a further clockwise target direction.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/FESwerveDrive.html#setDistanceReference()">setDistanceReference()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/FESwerveDrive.html" title="class in frc.team1711.swerve.subsystems">FESwerveDrive</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html#setDistanceReference()">setDistanceReference()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></dt>
 <dd>
 <div class="block">Sets a distance reference on the encoders, such that the output of
- <a href="frc/team1711/swerve/subsystems/FESwerveDrive.html#getDistanceTraveled()"><code>FESwerveDrive.getDistanceTraveled()</code></a> will be based on the distance from this reference.</div>
+ <a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html#getDistanceTraveled()"><code>AutoSwerveDrive.getDistanceTraveled()</code></a> will be based on the distance from this reference.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveDrive.html#setDriveRelativeSpeed(double)">setDriveRelativeSpeed(double)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></dt>
 <dd>

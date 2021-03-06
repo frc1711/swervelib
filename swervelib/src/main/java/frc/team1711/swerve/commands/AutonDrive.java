@@ -6,10 +6,10 @@ package frc.team1711.swerve.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import frc.team1711.swerve.subsystems.FESwerveDrive;
+import frc.team1711.swerve.subsystems.AutoSwerveDrive;
 
 /**
- * A command which drives a given {@link frc.team1711.swerve.subsystems.FESwerveDrive} in any
+ * A command which drives a given {@link frc.team1711.swerve.subsystems.AutoSwerveDrive} in any
  * direction, without turning.
  * <b>TODO: Still a work in progress.
  * </b>
@@ -24,7 +24,7 @@ public class AutonDrive extends CommandBase {
         ENDING,
     }
     
-    private final FESwerveDrive swerveDrive;
+    private final AutoSwerveDrive swerveDrive;
     private Phases phase;
     private final double
             direction,
@@ -33,7 +33,7 @@ public class AutonDrive extends CommandBase {
     
     /**
      * Strafes the swerve drive in a certain direction, at a certain speed, over a certain distance.
-     * @param _swerveDrive   The {@link FESwerveDrive} drive train
+     * @param _swerveDrive   The {@link AutoSwerveDrive} drive train
      * @param _direction     The direction, in degrees, to travel in. Zero degrees corresponds with
      * directly forward, and an increase in {@code direction} corresponds with a direction further
      * clockwise from a top-down view. This value must be on the interval [0, 360).
@@ -41,7 +41,7 @@ public class AutonDrive extends CommandBase {
      * must be on the interval (0, infinity).
      * @param _speed         The speed to travel at. This value must be on the interval (0, 1].
      */
-    public AutonDrive (FESwerveDrive _swerveDrive, double _direction, double _distance, double _speed) {
+    public AutonDrive (AutoSwerveDrive _swerveDrive, double _direction, double _distance, double _speed) {
         swerveDrive = _swerveDrive;
         direction = _direction;
         distance = _distance;

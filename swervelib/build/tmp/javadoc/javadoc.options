@@ -5,8 +5,8 @@
 -quiet 
 -windowtitle 'swervelib 1.1 API'
 'D:\\programming\\Robotics\\Swerve Library\\swervelib\\src\\main\\java\\frc\\team1711\\swerve\\commands\\AutonDrive.java'
-'D:\\programming\\Robotics\\Swerve Library\\swervelib\\src\\main\\java\\frc\\team1711\\swerve\\subsystems\\FESwerveDrive.java'
-'D:\\programming\\Robotics\\Swerve Library\\swervelib\\src\\main\\java\\frc\\team1711\\swerve\\subsystems\\FESwerveWheel.java'
+'D:\\programming\\Robotics\\Swerve Library\\swervelib\\src\\main\\java\\frc\\team1711\\swerve\\subsystems\\AutoSwerveDrive.java'
+'D:\\programming\\Robotics\\Swerve Library\\swervelib\\src\\main\\java\\frc\\team1711\\swerve\\subsystems\\AutoSwerveWheel.java'
 'D:\\programming\\Robotics\\Swerve Library\\swervelib\\src\\main\\java\\frc\\team1711\\swerve\\subsystems\\SwerveDrive.java'
 'D:\\programming\\Robotics\\Swerve Library\\swervelib\\src\\main\\java\\frc\\team1711\\swerve\\subsystems\\SwerveWheel.java'
 'D:\\programming\\Robotics\\Swerve Library\\swervelib\\src\\main\\java\\frc\\team1711\\swerve\\util\\Vector.java'

@@ -5,11 +5,12 @@
 package frc.team1711.swerve.subsystems;
 
 /**
- * Used by {@link FESwerveDrive} to represent a module, with "full encoder" (FE)
- * functionality, meaning it has drive encoders in addition to the necessary rotational encoders.
+ * Used by {@link AutoSwerveDrive} to represent a module with encoders on the drive motors,
+ * in addition to the encoders on the steering motors which are necessary for basic swerve
+ * functionality.
  * @author Gabriel Seaver
  */
-abstract public class FESwerveWheel extends SwerveWheel {
+abstract public class AutoSwerveWheel extends SwerveWheel {
     
     /**
      * Resets the drive encoder to a value of zero. This can be used to set a
