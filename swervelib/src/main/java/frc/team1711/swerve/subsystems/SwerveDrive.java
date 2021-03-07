@@ -34,7 +34,7 @@ public class SwerveDrive extends SubsystemBase {
      */
     public static double driveRelativeSpeedDefault = 0.5;
     
-    private double
+    protected double
             steerRelativeSpeed,
             driveRelativeSpeed,
             maxOutput,
@@ -252,7 +252,7 @@ public class SwerveDrive extends SubsystemBase {
         driveRelativeSpeed = _driveRelativeSpeed;
     }
     
-    private double accountForDeadband (double value) {
+    protected double accountForDeadband (double value) {
         if (Math.abs(value) < deadband) return 0;
         // Puts value in [m_deadband, 1] or [-1, -m_deadband] into range [0, 1] or [-1, 0]
         return (value + (value > 0 ? -deadband : deadband)) / (1 - deadband);
