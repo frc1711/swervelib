@@ -23,6 +23,80 @@ public class Vector {
     }
     
     /**
+     * @return The x component of the vector
+     */
+    public double getX () {
+        return x;
+    }
+    
+    /**
+     * @return The y component of the vector
+     */
+    public double getY () {
+        return y;
+    }
+    
+    /**
+     * Rotates this vector to a given rotation.
+     * @param radians   The rotation of the new vector, in radians, progressing
+     * counterclockwise starting directly to the right of the origin on the x
+     * axis.
+     * @return          The new rotated vector
+     */
+    public Vector toRotationRadians (double radians) {
+        final double mag = getMagnitude();
+        return new Vector(mag * Math.cos(radians), mag * Math.sin(radians));
+    }
+    
+    /**
+     * Rotates this vector to a given rotation.
+     * @param degrees   The rotation of the new vector, in degrees, progressing
+     * clockwise starting directly above the origin on the y axis.
+     * @return          The new rotated vector
+     */
+    public Vector toRotationDegrees (double degrees) {
+        return toRotationDegrees(degreesToRadians(degrees));
+    }
+    
+    /**
+     * Converts a rotation in radians to degrees, where the radians starts at
+     * directly right of the origin on the x axis and progresses counterclockwise,
+     * and degrees starts directly above the origin on the y axis and progresses
+     * clockwise.
+     * @param radians   The radians to convert to degrees
+     * @return          The degrees converted from radians
+     */
+    public static double radiansToDegrees (double radians) {
+        double degrees = radians / Math.PI * 180;
+        degrees = -degrees; // Converts from counterclockwise to clockwise
+        degrees += 90; // Converts from starting at right-pointing x axis to top-pointing y axis
+        
+        // Puts into interval [0, 360)
+        while (degrees < 0) degrees += 360;
+        while (degrees >= 360) degrees -= 360;
+        return degrees;
+    }
+    
+    /**
+     * Converts a rotation in degrees to radians, where the radians starts at
+     * directly right of the origin on the x axis and progresses counterclockwise,
+     * and degrees starts directly above the origin on the y axis and progresses
+     * clockwise.
+     * @param degrees   The degrees to convert to radians
+     * @return          The radians converted from degrees
+     */
+    public static double degreesToRadians (double degrees) {
+        double radians = degrees * Math.PI / 180;
+        radians = -radians; // Converts from counterclockwise to clockwise
+        radians += Math.PI / 2; // Converts from starting at right-pointing x axis to top-pointing y axis
+        
+        // Puts into interval [0, 360)
+        while (radians < 0) radians += 360;
+        while (radians >= 360) radians -= 360;
+        return radians;
+    }
+    
+    /**
      * Adds a vector and returns the summed vector.
      * @param v2    The vector to add
      * @return      The summed vector
@@ -89,17 +163,7 @@ public class Vector {
      * having a rotation of 0, in the range [0, 360).
      */
     public double getRotationDegrees () {
-        final double radians = getRotationRadians();
-        double degrees = radians / Math.PI * 180;
-        
-        degrees = -degrees; // Converts from counterclockwise to clockwise
-        degrees += 90; // Converts from starting at right-pointing x axis to top-pointing y axis
-        
-        // // Puts into interval [0, 360)
-        while (degrees < 0) degrees += 360;
-        while (degrees >= 360) degrees -= 360;
-        
-        return degrees;
+        return radiansToDegrees(getRotationRadians());
     }
     
     /**
