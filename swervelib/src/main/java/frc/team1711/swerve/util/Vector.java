@@ -55,7 +55,7 @@ public class Vector {
      * @return          The new rotated vector
      */
     public Vector toRotationDegrees (double degrees) {
-        return toRotationDegrees(degreesToRadians(degrees));
+        return toRotationRadians(degreesToRadians(degrees));
     }
     
     /**
