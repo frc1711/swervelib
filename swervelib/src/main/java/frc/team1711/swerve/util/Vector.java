@@ -90,9 +90,12 @@ public class Vector {
         radians = -radians; // Converts from counterclockwise to clockwise
         radians += Math.PI / 2; // Converts from starting at right-pointing x axis to top-pointing y axis
         
+        
+        final double TAU = Math.PI * 2;
+        
         // Puts into interval [0, 360)
-        while (radians < 0) radians += 360;
-        while (radians >= 360) radians -= 360;
+        while (radians < 0) radians += TAU;
+        while (radians >= TAU) radians -= TAU;
         return radians;
     }
     

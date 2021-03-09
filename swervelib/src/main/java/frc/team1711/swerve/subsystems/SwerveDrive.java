@@ -153,9 +153,9 @@ public class SwerveDrive extends SubsystemBase {
         
         // Vectors default to 90 degrees; no direction change if there's no input
         double flDirection = flVector.getMagnitude() > 0 ? flVector.getRotationDegrees() : flWheel.getDirection();
-        double frDirection = flVector.getMagnitude() > 0 ? frVector.getRotationDegrees() : frWheel.getDirection();
-        double rlDirection = flVector.getMagnitude() > 0 ? rlVector.getRotationDegrees() : rlWheel.getDirection();
-        double rrDirection = flVector.getMagnitude() > 0 ? rrVector.getRotationDegrees() : rrWheel.getDirection();
+        double frDirection = frVector.getMagnitude() > 0 ? frVector.getRotationDegrees() : frWheel.getDirection();
+        double rlDirection = rlVector.getMagnitude() > 0 ? rlVector.getRotationDegrees() : rlWheel.getDirection();
+        double rrDirection = rrVector.getMagnitude() > 0 ? rrVector.getRotationDegrees() : rrWheel.getDirection();
         
         // Sets the final wheel speeds and rotations
         flWheel.steerAndDrive(flDirection, flSpeed);
