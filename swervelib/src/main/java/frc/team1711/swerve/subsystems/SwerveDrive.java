@@ -196,11 +196,6 @@ public class SwerveDrive extends SubsystemBase {
         rlWheel.steerAndDrive(rlDirection, rlSpeed);
         rrWheel.steerAndDrive(rrDirection, rrSpeed);
         
-        System.out.println(flVector);
-        System.out.println(frVector);
-        System.out.println(rlVector);
-        System.out.println(rrVector);
-        
     }
     
     /**

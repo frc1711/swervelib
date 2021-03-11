@@ -2,6 +2,8 @@ frc/team1711/swerve/subsystems/AutoSwerveWheel.java
  frc.team1711.swerve.subsystems.AutoSwerveWheel
 frc/team1711/swerve/subsystems/SwerveWheel.java
  frc.team1711.swerve.subsystems.SwerveWheel
+frc/team1711/swerve/util/Vector.java
+ frc.team1711.swerve.util.Vector
 frc/team1711/swerve/subsystems/AutoSwerveDrive.java
  frc.team1711.swerve.subsystems.AutoSwerveDrive
 frc/team1711/swerve/subsystems/SwerveDrive.java
@@ -9,5 +11,3 @@ frc/team1711/swerve/subsystems/SwerveDrive.java
 frc/team1711/swerve/commands/AutonDrive.java
  frc.team1711.swerve.commands.AutonDrive
  frc.team1711.swerve.commands.AutonDrive$Phases
-frc/team1711/swerve/util/Vector.java
- frc.team1711.swerve.util.Vector
