@@ -14,12 +14,12 @@ public class Vector {
     
     /**
      * Makes a new vector.
-     * @param _x    The x component of the vector
-     * @param _y    The y component of the vector
+     * @param x    The x component of the vector
+     * @param y    The y component of the vector
      */
-    public Vector (double _x, double _y) {
-        x = _x;
-        y = _y;
+    public Vector (double x, double y) {
+        this.x = x;
+        this.y = y;
     }
     
     /**
@@ -89,7 +89,6 @@ public class Vector {
         double radians = degrees * Math.PI / 180;
         radians = -radians; // Converts from counterclockwise to clockwise
         radians += Math.PI / 2; // Converts from starting at right-pointing x axis to top-pointing y axis
-        
         
         final double TAU = Math.PI * 2;
         

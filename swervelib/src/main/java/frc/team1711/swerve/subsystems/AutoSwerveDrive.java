@@ -15,38 +15,38 @@ public class AutoSwerveDrive extends SwerveDrive {
      * Creates a new {@code AutoSwerveDrive} given {@link AutoSwerveWheel} wheels.
      * <b>Note: {@link #AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, double)}
      * should be used instead if the wheelbase and track are not equal.</b>
-     * @param _flWheel              The front left {@code SwerveWheel}
-     * @param _frWheel              The front right {@code SwerveWheel}
-     * @param _rlWheel              The rear left {@code SwerveWheel}
-     * @param _rrWheel              The rear right {@code SwerveWheel}
+     * @param flWheel              The front left {@code SwerveWheel}
+     * @param frWheel              The front right {@code SwerveWheel}
+     * @param rlWheel              The rear left {@code SwerveWheel}
+     * @param rrWheel              The rear right {@code SwerveWheel}
      */
     public AutoSwerveDrive (
-        AutoSwerveWheel _flWheel,
-        AutoSwerveWheel _frWheel,
-        AutoSwerveWheel _rlWheel,
-        AutoSwerveWheel _rrWheel) {
+        AutoSwerveWheel flWheel,
+        AutoSwerveWheel frWheel,
+        AutoSwerveWheel rlWheel,
+        AutoSwerveWheel rrWheel) {
         
-        super(_flWheel, _frWheel, _rlWheel, _rrWheel, 1);
+        super(flWheel, frWheel, rlWheel, rrWheel, 1);
     }
     
     /**
      * Creates a new {@code AutoSwerveDrive} given {@link AutoSwerveWheel} wheels.
-     * @param _flWheel              The front left {@code SwerveWheel}
-     * @param _frWheel              The front right {@code SwerveWheel}
-     * @param _rlWheel              The rear left {@code SwerveWheel}
-     * @param _rrWheel              The rear right {@code SwerveWheel}
-     * @param _widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
+     * @param flWheel              The front left {@code SwerveWheel}
+     * @param frWheel              The front right {@code SwerveWheel}
+     * @param rlWheel              The rear left {@code SwerveWheel}
+     * @param rrWheel              The rear right {@code SwerveWheel}
+     * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
      * {@link #AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel)} is recommended if this ratio is 1:1.
      */
     public AutoSwerveDrive (
-        AutoSwerveWheel _flWheel,
-        AutoSwerveWheel _frWheel,
-        AutoSwerveWheel _rlWheel,
-        AutoSwerveWheel _rrWheel,
-        double _widthToHeightRatio) {
+        AutoSwerveWheel flWheel,
+        AutoSwerveWheel frWheel,
+        AutoSwerveWheel rlWheel,
+        AutoSwerveWheel rrWheel,
+        double widthToHeightRatio) {
         
-        super(_flWheel, _frWheel, _rlWheel, _rrWheel, _widthToHeightRatio);
+        super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio);
     }
     
     /**

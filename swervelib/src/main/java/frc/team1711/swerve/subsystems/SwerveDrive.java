@@ -14,6 +14,9 @@ import frc.team1711.swerve.util.Vector;
  */
 public class SwerveDrive extends SubsystemBase {
     
+    /**
+     * One of the four {@link SwerveWheel} wheels. FR is front right, RL is rear left.
+     */
     protected final SwerveWheel
             flWheel,
             frWheel,
@@ -21,24 +24,54 @@ public class SwerveDrive extends SubsystemBase {
             rrWheel;
     
     /**
-     * Default steering speed input scalar.
+     * The default steering speed input scalar
      * @see #setSteerRelativeSpeed(double)
      * @see #driveRelativeSpeedDefault
      */
     public static double steerRelativeSpeedDefault = 0.3;
     
     /**
-     * Default driving speed input scalar.
+     * The default driving speed input scalar
      * @see #setDriveRelativeSpeed(double)
      * @see #steerRelativeSpeedDefault
      */
     public static double driveRelativeSpeedDefault = 0.5;
     
-    protected double
-            steerRelativeSpeed,
-            driveRelativeSpeed,
-            maxOutput,
-            deadband;
+    /**
+     * The default input deadband for {@link #inputDrive(double, double, double)}
+     * @see #setDeadband(double)
+     */
+    public static double deadbandDefault = 0.06;
+    
+    /**
+     * The default maximum wheel speed after all calculations
+     * @see #setMaxOutput(double)
+     */
+    public static double maxOutputDefault = 1.0;
+    
+    /**
+     * The relative steering speed (compared to {@link #driveRelativeSpeed})
+     * @see #steerRelativeSpeedDefault
+     */
+    protected double steerRelativeSpeed = steerRelativeSpeedDefault;
+    
+    /**
+     * The relative driving speed (compared to {@link #steerRelativeSpeed})
+     * @see #driveRelativeSpeedDefault
+     */
+    protected double driveRelativeSpeed = driveRelativeSpeedDefault;
+    
+    /**
+     * The maximum wheel speed after all calculations
+     * @see #maxOutputDefault
+     */
+    protected double maxOutput = maxOutputDefault;
+    
+    /**
+     * The input deadband for {@link #inputDrive(double, double, double)}
+     * @see #deadbandDefault
+     */
+    protected double deadband = deadbandDefault;
     
     private final double widthToHeightRatio;
     
@@ -46,46 +79,46 @@ public class SwerveDrive extends SubsystemBase {
      * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
      * <b>Note: {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double)}
      * should be used instead if the wheelbase and track are not equal.</b>
-     * @param _flWheel              The front left {@code SwerveWheel}
-     * @param _frWheel              The front right {@code SwerveWheel}
-     * @param _rlWheel              The rear left {@code SwerveWheel}
-     * @param _rrWheel              The rear right {@code SwerveWheel}
+     * @param flWheel              The front left {@code SwerveWheel}
+     * @param frWheel              The front right {@code SwerveWheel}
+     * @param rlWheel              The rear left {@code SwerveWheel}
+     * @param rrWheel              The rear right {@code SwerveWheel}
      */
     public SwerveDrive (
-        SwerveWheel _flWheel,
-        SwerveWheel _frWheel,
-        SwerveWheel _rlWheel,
-        SwerveWheel _rrWheel) {
+        SwerveWheel flWheel,
+        SwerveWheel frWheel,
+        SwerveWheel rlWheel,
+        SwerveWheel rrWheel) {
         
-        this(_flWheel, _frWheel, _rlWheel, _rrWheel, 1);
+        this(flWheel, frWheel, rlWheel, rrWheel, 1);
     }
     
     /**
      * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
-     * @param _flWheel              The front left {@code SwerveWheel}
-     * @param _frWheel              The front right {@code SwerveWheel}
-     * @param _rlWheel              The rear left {@code SwerveWheel}
-     * @param _rrWheel              The rear right {@code SwerveWheel}
-     * @param _widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
+     * @param flWheel              The front left {@code SwerveWheel}
+     * @param frWheel              The front right {@code SwerveWheel}
+     * @param rlWheel              The rear left {@code SwerveWheel}
+     * @param rrWheel              The rear right {@code SwerveWheel}
+     * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
      * {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel)} is recommended if this ratio is 1:1.
      */
     public SwerveDrive (
-        SwerveWheel _flWheel,
-        SwerveWheel _frWheel,
-        SwerveWheel _rlWheel,
-        SwerveWheel _rrWheel,
-        double _widthToHeightRatio) {
+        SwerveWheel flWheel,
+        SwerveWheel frWheel,
+        SwerveWheel rlWheel,
+        SwerveWheel rrWheel,
+        double widthToHeightRatio) {
         
-        flWheel = _flWheel;
-        frWheel = _frWheel;
-        rlWheel = _rlWheel;
-        rrWheel = _rrWheel;
+        this.flWheel = flWheel;
+        this.frWheel = frWheel;
+        this.rlWheel = rlWheel;
+        this.rrWheel = rrWheel;
         
         driveRelativeSpeed = driveRelativeSpeedDefault;
         steerRelativeSpeed = steerRelativeSpeedDefault;
         
-        widthToHeightRatio = _widthToHeightRatio;
+        this.widthToHeightRatio = widthToHeightRatio;
     }
     
     /**
@@ -162,6 +195,12 @@ public class SwerveDrive extends SubsystemBase {
         frWheel.steerAndDrive(frDirection, frSpeed);
         rlWheel.steerAndDrive(rlDirection, rlSpeed);
         rrWheel.steerAndDrive(rrDirection, rrSpeed);
+        
+        System.out.println(flVector);
+        System.out.println(frVector);
+        System.out.println(rlVector);
+        System.out.println(rrVector);
+        
     }
     
     /**
@@ -169,7 +208,7 @@ public class SwerveDrive extends SubsystemBase {
      * {@code targetDirection} must be on the interval [0, 360), where 0 represents
      * steering directly forwards and an increase represents steering further clockwise.
      * {@code speed} must be on the interval [0, 1], where 1 represents directly
-     * forwards and -1 represents directly backwards.
+     * forwards.
      * @param direction         The target steering direction
      * @param speed             The speed to drive at
      * @see #inputDrive(double, double, double)
@@ -192,13 +231,8 @@ public class SwerveDrive extends SubsystemBase {
      * {@code false} otherwise.
      */
     public boolean steerAllWithinRange (double direction, double marginOfError) {
-        flWheel.steerAndDrive(direction, 0);
-        frWheel.steerAndDrive(direction, 0);
-        rlWheel.steerAndDrive(direction, 0);
-        rrWheel.steerAndDrive(direction, 0);
+        steerAndDriveAll(direction, 0);
         
-        // TODO: Maybe make a system print for each one of these conditions individually
-        // to see why it fails
         return  flWheel.checkWithin180Range(direction, marginOfError) &&
                 frWheel.checkWithin180Range(direction, marginOfError) &&
                 rlWheel.checkWithin180Range(direction, marginOfError) &&
@@ -226,20 +260,21 @@ public class SwerveDrive extends SubsystemBase {
     /**
      * Sets the input deadband for {@link #inputDrive(double, double, double)} (i.e. sets the minimum input
      * value required for it to count as being a nonzero input).
-     * @param _deadband The new input deadband
+     * @param deadband The new input deadband
+     * @see #deadbandDefault
      */
-    public void setDeadband (double _deadband) {
-        deadband = _deadband;
+    public void setDeadband (double deadband) {
+        this.deadband = deadband;
     }
     
     /**
      * Sets the sensitivity of {@link #inputDrive(double, double, double)} towards
      * steering inputs.
-     * @param _steerRelativeSpeed The new sensitivity
+     * @param steerRelativeSpeed The new sensitivity
      * @see #steerRelativeSpeedDefault
      */
-    public void setSteerRelativeSpeed (double _steerRelativeSpeed) {
-        steerRelativeSpeed = _steerRelativeSpeed;
+    public void setSteerRelativeSpeed (double steerRelativeSpeed) {
+        this.steerRelativeSpeed = steerRelativeSpeed;
     }
     
     /**
@@ -252,9 +287,14 @@ public class SwerveDrive extends SubsystemBase {
         driveRelativeSpeed = _driveRelativeSpeed;
     }
     
+    /**
+     * Places an input value on interval [-1, 1] to either [deadband, 1] or [-1, -deadband]
+     * @param value The value to place within the deadband
+     * @return      The value, after accounting for the input deadband
+     */
     protected double accountForDeadband (double value) {
         if (Math.abs(value) < deadband) return 0;
-        // Puts value in [m_deadband, 1] or [-1, -m_deadband] into range [0, 1] or [-1, 0]
+        // Puts value in [0, 1] or [-1, 0] into range [deadband, 1] or [-1, -deadband]
         return (value + (value > 0 ? -deadband : deadband)) / (1 - deadband);
     }
     

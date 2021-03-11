@@ -33,21 +33,21 @@ public class AutonDrive extends CommandBase {
     
     /**
      * Strafes the swerve drive in a certain direction, at a certain speed, over a certain distance.
-     * @param _swerveDrive   The {@link AutoSwerveDrive} drive train
-     * @param _direction     The direction, in degrees, to travel in. Zero degrees corresponds with
+     * @param swerveDrive   The {@link AutoSwerveDrive} drive train
+     * @param direction     The direction, in degrees, to travel in. Zero degrees corresponds with
      * directly forward, and an increase in {@code direction} corresponds with a direction further
      * clockwise from a top-down view. This value must be on the interval [0, 360).
-     * @param _distance      The distance to travel in the specified direction, in inches. This value
+     * @param distance      The distance to travel in the specified direction, in inches. This value
      * must be on the interval (0, infinity).
-     * @param _speed         The speed to travel at. This value must be on the interval (0, 1].
+     * @param speed         The speed to travel at. This value must be on the interval (0, 1].
      */
-    public AutonDrive (AutoSwerveDrive _swerveDrive, double _direction, double _distance, double _speed) {
-        swerveDrive = _swerveDrive;
-        direction = _direction;
-        distance = _distance;
-        speed = _speed;
+    public AutonDrive (AutoSwerveDrive swerveDrive, double direction, double distance, double speed) {
+        this.swerveDrive = swerveDrive;
+        this.direction = direction;
+        this.distance = distance;
+        this.speed = speed;
         phase = Phases.DRIVING;
-        addRequirements(_swerveDrive);
+        addRequirements(swerveDrive);
     }
     
     @Override
