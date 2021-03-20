@@ -7,26 +7,23 @@ package frc.team1711.swerve.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.team1711.swerve.subsystems.AutoSwerveDrive;
+import frc.team1711.swerve.util.Vector;
 
 /**
  * A command which drives a given {@link frc.team1711.swerve.subsystems.AutoSwerveDrive} in any
  * direction, without turning.
- * <b>TODO: Still a work in progress.
- * </b>
  * @author Gabriel Seaver
  */
 public class AutonDrive extends CommandBase {
     
-    private static final double DIRECTION_MARGIN_OF_ERROR = 5;
-    private static enum Phases {
-        STEERING,
-        DRIVING,
-        ENDING,
-    }
+    private static final double correctionTurnScalar = 0.08;
     
     private final AutoSwerveDrive swerveDrive;
-    private Phases phase;
+    
+    private boolean finished;
+    
     private final double
+            initalGyroAngle,
             direction,
             distance,
             speed;
@@ -46,35 +43,34 @@ public class AutonDrive extends CommandBase {
         this.direction = direction;
         this.distance = distance;
         this.speed = speed;
-        phase = Phases.DRIVING;
+        
+        initalGyroAngle = swerveDrive.getGyroAngle();
+        finished = false;
+        
         addRequirements(swerveDrive);
     }
     
     @Override
     public void initialize () {
         swerveDrive.stop();
+        swerveDrive.setDistanceReference();
     }
     
     @Override
     public void execute () {
-        if (phase == Phases.STEERING) executeSteering();
-        else if (phase == Phases.DRIVING) executeDriving();
-    }
-    
-    private void executeSteering () {
-        // TODO: Debug this (maybe a system print --- you've tested it and the degree check functions work properly so maybe margin is too low)
-        if (swerveDrive.steerAllWithinRange(direction, DIRECTION_MARGIN_OF_ERROR)) {
-            swerveDrive.setDistanceReference();
-            phase = Phases.DRIVING;
-        }
-    }
-    
-    private void executeDriving () {
         if (swerveDrive.getDistanceTraveled() < distance) {
-            swerveDrive.steerAndDriveAll(direction, speed);
+            final Vector driveVector = new Vector(1, 0).toRotationDegrees(direction).scale(speed);
+            swerveDrive.inputDrive(driveVector.getX(), driveVector.getY(), getCorrectionTurn());
         } else {
-            phase = Phases.ENDING;
+            finished = true;
         }
+    }
+    
+    private double getCorrectionTurn () {
+        double correctionTurn = initalGyroAngle - swerveDrive.getGyroAngle();
+        while (correctionTurn >= 180) correctionTurn -= 360;
+        while (correctionTurn < -180) correctionTurn += 360;
+        return Math.max(Math.min(correctionTurn * correctionTurnScalar, 1), -1);
     }
     
     @Override
@@ -84,7 +80,7 @@ public class AutonDrive extends CommandBase {
     
     @Override
     public boolean isFinished () {
-        return phase == Phases.ENDING;
+        return finished;
     }
     
 }

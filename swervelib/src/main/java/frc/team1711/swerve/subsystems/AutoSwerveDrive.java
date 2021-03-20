@@ -4,12 +4,14 @@
 
 package frc.team1711.swerve.subsystems;
 
+import frc.team1711.swerve.util.Vector;
+
 /**
  * Expands on the {@link SwerveDrive} for autonomous control. Uses swerve wheels with
- * drive encoders, in the form of {@link AutoSwerveWheel}.
+ * drive encoders, in the form of {@link AutoSwerveWheel}. Includes gyros.
  * @author Gabriel Seaver
  */
-public class AutoSwerveDrive extends SwerveDrive {
+public abstract class AutoSwerveDrive extends SwerveDrive {
     
     /**
      * Creates a new {@code AutoSwerveDrive} given {@link AutoSwerveWheel} wheels.
@@ -26,7 +28,7 @@ public class AutoSwerveDrive extends SwerveDrive {
         AutoSwerveWheel rlWheel,
         AutoSwerveWheel rrWheel) {
         
-        super(flWheel, frWheel, rlWheel, rrWheel, 1);
+        this(flWheel, frWheel, rlWheel, rrWheel, 1);
     }
     
     /**
@@ -73,6 +75,46 @@ public class AutoSwerveDrive extends SwerveDrive {
                 Math.abs(((AutoSwerveWheel)frWheel).getPositionDifference()) +
                 Math.abs(((AutoSwerveWheel)rlWheel).getPositionDifference()) +
                 Math.abs(((AutoSwerveWheel)rrWheel).getPositionDifference())) / 4;
+    }
+    
+    /**
+     * Drives the {@code AutoSwerveDrive} given strafing and steering inputs,
+     * all on the interval [-1, 1], where +y is forwards and +x is to the right.
+     * Strafing is field relative, not robot relative.
+     * @param strafeX
+     * @param strafeY
+     * @param steerX
+     */
+    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steerX) {
+        final Vector strafeInput = new Vector(strafeX, strafeY);
+        final Vector fieldStrafeInput = strafeInput.toRotationDegrees(fieldRelativeToRobotRelative(strafeInput.getRotationDegrees()));
+        
+        super.inputDrive(
+                fieldStrafeInput.getX(),
+                fieldStrafeInput.getY(),
+                steerX);
+    }
+    
+    /**
+     * Gets the gyro yaw angle on the range [0, 360) degrees.
+     * @return 
+     */
+    public abstract double getGyroAngle ();
+    
+    /**
+     * Resets the gyro to a yaw angle of 0. It is recommended that this
+     * be called when this {@code AutoSwerveDrive} object is first
+     * instantiated, so the robot should be facing in the (field relative)
+     * forward direction when this class is instantiated in order to have an
+     * accurate {@link #fieldRelativeInputDrive(double, double, double)}.
+     */
+    public abstract void resetGyro ();
+    
+    private double fieldRelativeToRobotRelative (double rotation) {
+        double moveRotation = rotation - getGyroAngle();
+        while (moveRotation < 0) moveRotation += 360;
+        while (moveRotation >= 360) moveRotation -= 360;
+        return moveRotation;
     }
     
 }
