@@ -39,5 +39,5 @@ java {
     withJavadocJar()
 }
 
-version = '1.5'
+version = '1.6'
 group = 'io.github.frc1711'
