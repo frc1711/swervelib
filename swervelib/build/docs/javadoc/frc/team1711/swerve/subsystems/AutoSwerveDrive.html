@@ -225,7 +225,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fieldRelativeInputDrive(double,double,double)">fieldRelativeInputDrive</a></span>&#8203;(double&nbsp;strafeX,
                        double&nbsp;strafeY,
-                       double&nbsp;steerX)</code></th>
+                       double&nbsp;steer)</code></th>
 <td class="colLast">
 <div class="block">Drives the <code>AutoSwerveDrive</code> given strafing and steering inputs,
  all on the interval [-1, 1], where +y is forwards and +x is to the right.</div>
@@ -406,15 +406,15 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <h4>fieldRelativeInputDrive</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;fieldRelativeInputDrive&#8203;(double&nbsp;strafeX,
                                     double&nbsp;strafeY,
-                                    double&nbsp;steerX)</pre>
+                                    double&nbsp;steer)</pre>
 <div class="block">Drives the <code>AutoSwerveDrive</code> given strafing and steering inputs,
  all on the interval [-1, 1], where +y is forwards and +x is to the right.
  Strafing is field relative, not robot relative.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>strafeX</code> - </dd>
-<dd><code>strafeY</code> - </dd>
-<dd><code>steerX</code> - </dd>
+<dd><code>strafeX</code> - The strafe x input</dd>
+<dd><code>strafeY</code> - The strafe y input</dd>
+<dd><code>steer</code> - The steering input</dd>
 </dl>
 </li>
 </ul>
@@ -428,6 +428,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <div class="block">Gets the gyro yaw angle on the range [0, 360) degrees.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
+<dd>The gyro yaw angle.</dd>
 </dl>
 </li>
 </ul>

@@ -78,7 +78,7 @@ public class Vector {
     }
     
     /**
-     * Converts a rotation in degrees to radians, where the radians starts at
+     * Converts a rotation in degrees to radians, where the radians starts
      * directly right of the origin on the x axis and progresses counterclockwise,
      * and degrees starts directly above the origin on the y axis and progresses
      * clockwise.
@@ -96,6 +96,28 @@ public class Vector {
         while (radians < 0) radians += TAU;
         while (radians >= TAU) radians -= TAU;
         return radians;
+    }
+    
+    /**
+     * Creates a new vector with the specified {@code direction} and {@code magnitude}.
+     * @param direction The direction of the vector, in degrees, starting directly above
+     * the origin on the y axis and progressing clockwise.
+     * @param magnitude The magnitude of the vector
+     * @return          The vector
+     */
+    public static Vector fromPolarDegrees (double direction, double magnitude) {
+        return new Vector(1, 0).toRotationDegrees(direction).scale(magnitude);
+    }
+    
+    /**
+     * Creates a new vector with the specified {@code direction} and {@code magnitude}.
+     * @param direction The direction of the vector, in radians, starting
+     * directly right of the origin on the x axis and progressing counterclockwise
+     * @param magnitude The magnitude of the vector
+     * @return          The vector
+     */
+    public static Vector fromPolarRadians (double direction, double magnitude) {
+        return new Vector(1, 0).toRotationRadians(direction).scale(magnitude);
     }
     
     /**

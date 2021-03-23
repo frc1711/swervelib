@@ -81,23 +81,23 @@ public abstract class AutoSwerveDrive extends SwerveDrive {
      * Drives the {@code AutoSwerveDrive} given strafing and steering inputs,
      * all on the interval [-1, 1], where +y is forwards and +x is to the right.
      * Strafing is field relative, not robot relative.
-     * @param strafeX
-     * @param strafeY
-     * @param steerX
+     * @param strafeX   The strafe x input
+     * @param strafeY   The strafe y input
+     * @param steer     The steering input
      */
-    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steerX) {
+    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steer) {
         final Vector strafeInput = new Vector(strafeX, strafeY);
         final Vector fieldStrafeInput = strafeInput.toRotationDegrees(fieldRelativeToRobotRelative(strafeInput.getRotationDegrees()));
         
         super.inputDrive(
                 fieldStrafeInput.getX(),
                 fieldStrafeInput.getY(),
-                steerX);
+                steer);
     }
     
     /**
      * Gets the gyro yaw angle on the range [0, 360) degrees.
-     * @return 
+     * @return The gyro yaw angle.
      */
     public abstract double getGyroAngle ();
     
