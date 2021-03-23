@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.team1711.swerve.commands.absolute;
+package frc.team1711.swerve.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -13,7 +13,7 @@ import frc.team1711.swerve.subsystems.AutoSwerveDrive;
  * relative to the gyro's initialization orientation.
  * @author Gabriel Seaver
  */
-public class AutonTurnAbs extends CommandBase {
+public class AutonTurn extends CommandBase {
     
     private static final double
             MARGIN_OF_ERROR = 5,
@@ -27,16 +27,18 @@ public class AutonTurnAbs extends CommandBase {
     private final double direction;
     
     /**
-     * Constructs a new {@code AutonTurnAbs}.
+     * Constructs a new {@code AutonTurn}.
      * @param swerveDrive   The {@link AutoSwerveDrive} drive train
      * @param direction     The direction, in degrees, to turn the body towards. Zero degrees
-     * corresponds with directly forward relative to the field (that is, the initial gyro
-     * orientation), and an increase in {@code direction} corresponds with a direction further
-     * clockwise from a top-down view. This value must be on the interval [0, 360).
+     * corresponds with directly forward, and an increase in {@code direction} corresponds with
+     * a direction further clockwise from a top-down view. This value must be on the interval
+     * [0, 360).
+     * @param frameOfReference  The {@link FrameOfReference} for this autonomous command.
      */
-    public AutonTurnAbs (AutoSwerveDrive swerveDrive, double direction) {
+    public AutonTurn (AutoSwerveDrive swerveDrive, double direction, FrameOfReference frameOfReference) {
         this.swerveDrive = swerveDrive;
         
+        if (frameOfReference == FrameOfReference.ROBOT) direction += swerveDrive.getGyroAngle();
         while (direction >= 180) direction -= 360;
         while (direction < -180) direction += 360;
         this.direction = direction;
