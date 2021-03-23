@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.team1711.swerve.commands;
+package frc.team1711.swerve.commands.relative;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -11,7 +11,7 @@ import frc.team1711.swerve.util.Vector;
 
 /**
  * Drives the robot in a given direction without first turning the wheels. The wheels
- * will automatically turn while driving, but because they don't necessary start off
+ * will automatically turn while driving, but because they don't necessarily start off
  * being steered in the correct direction, driving will be slightly inaccurate.
  * @author Gabriel Seaver
  */
