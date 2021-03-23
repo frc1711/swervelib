@@ -9,13 +9,13 @@ import frc.team1711.swerve.subsystems.AutoSwerveDrive;
 
 /**
  * A command which drives a given {@link frc.team1711.swerve.subsystems.AutoSwerveDrive} in any
- * direction, without turning, relative to the robot.
+ * direction, without turning.
  * @author Gabriel Seaver
  */
 public class AutonDrive extends SequentialCommandGroup {
     
     /**
-     * Constructs an {@code AutonDrive} command.
+     * Constructs an {@code AutonDriveRel} command.
      * @param swerveDrive       The {@link AutoSwerveDrive} drive train
      * @param direction         The direction, in degrees, to travel in. Zero degrees corresponds with
      * directly forward, and an increase in {@code direction} corresponds with

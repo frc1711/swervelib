@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team1711.swerve.subsystems.AutoSwerveDrive;
 
 /**
- * Turns the entire {@link AutoSwerveDrive} body in a certain direction,
- * relative to the gyro's initialization orientation.
+ * Turns the entire {@link AutoSwerveDrive} body in a certain direction.
  * @author Gabriel Seaver
  */
 public class AutonTurn extends CommandBase {
