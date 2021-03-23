@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team1711.swerve.subsystems.AutoSwerveDrive;
 
 /**
- * Steers the {@link AutoSwerveDrive}'s wheels in a certain direction,
- * relative to the robot.
+ * Steers the {@link AutoSwerveDrive}'s wheels in a certain direction, relative to the robot.
  * @author Gabriel Seaver
  */
 class AutonWheelTurn extends CommandBase {
@@ -27,8 +26,9 @@ class AutonWheelTurn extends CommandBase {
      * Constructs a new {@code AutonWheelTurn}.
      * @param swerveDrive   The {@link AutoSwerveDrive} drive train
      * @param direction     The direction, in degrees, to steer the wheels in. Zero degrees
-     * corresponds with directly forward, and an increase in {@code direction} corresponds with
-     * a direction further clockwise from a top-down view. This value must be on the interval [0, 360).
+     * corresponds with directly forward relative to the robot, and an increase in {@code direction}
+     * corresponds with a direction further clockwise from a top-down view. This value must be on the
+     * interval [0, 360).
      */
     AutonWheelTurn (AutoSwerveDrive swerveDrive, double direction) {
         this.swerveDrive = swerveDrive;

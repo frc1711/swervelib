@@ -13,7 +13,7 @@ import frc.team1711.swerve.subsystems.AutoSwerveDrive;
  * relative to the gyro's initialization orientation.
  * @author Gabriel Seaver
  */
-public class AutonBodyTurnAbs extends CommandBase {
+public class AutonTurnAbs extends CommandBase {
     
     private static final double
             MARGIN_OF_ERROR = 5,
@@ -27,15 +27,18 @@ public class AutonBodyTurnAbs extends CommandBase {
     private final double direction;
     
     /**
-     * Constructs a new {@code AutonBodyTurnAbs}.
+     * Constructs a new {@code AutonTurnAbs}.
      * @param swerveDrive   The {@link AutoSwerveDrive} drive train
      * @param direction     The direction, in degrees, to turn the body towards. Zero degrees
      * corresponds with directly forward relative to the field (that is, the initial gyro
      * orientation), and an increase in {@code direction} corresponds with a direction further
      * clockwise from a top-down view. This value must be on the interval [0, 360).
      */
-    public AutonBodyTurnAbs (AutoSwerveDrive swerveDrive, double direction) {
+    public AutonTurnAbs (AutoSwerveDrive swerveDrive, double direction) {
         this.swerveDrive = swerveDrive;
+        
+        while (direction >= 180) direction -= 360;
+        while (direction < -180) direction += 360;
         this.direction = direction;
         
         finished = false;
