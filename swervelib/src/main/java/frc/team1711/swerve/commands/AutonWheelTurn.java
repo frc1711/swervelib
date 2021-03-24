@@ -27,8 +27,7 @@ class AutonWheelTurn extends CommandBase {
      * @param swerveDrive   The {@link AutoSwerveDrive} drive train
      * @param direction     The direction, in degrees, to steer the wheels in. Zero degrees
      * corresponds with directly forward relative to the robot, and an increase in {@code direction}
-     * corresponds with a direction further clockwise from a top-down view. This value must be on the
-     * interval [0, 360).
+     * corresponds with a direction further clockwise from a top-down view.
      */
     AutonWheelTurn (AutoSwerveDrive swerveDrive, double direction) {
         this.swerveDrive = swerveDrive;

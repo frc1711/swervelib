@@ -4,6 +4,7 @@
 
 package frc.team1711.swerve.subsystems;
 
+import frc.team1711.swerve.util.Angles;
 import frc.team1711.swerve.util.Vector;
 
 /**
@@ -84,15 +85,21 @@ public abstract class AutoSwerveDrive extends SwerveDrive {
      * @param strafeX   The strafe x input
      * @param strafeY   The strafe y input
      * @param steer     The steering input
+     * @param useInputDeadbands Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
+     * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values). {@code true}
+     * means the deadband will be applied.
      */
-    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steer) {
+    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steer, boolean useInputDeadbands) {
         final Vector strafeInput = new Vector(strafeX, strafeY);
-        final Vector fieldStrafeInput = strafeInput.toRotationDegrees(fieldRelativeToRobotRelative(strafeInput.getRotationDegrees()));
+        
+        // Turns the strafeInput vector into a new vector with same magnitude but rotation adjusted for field relative
+        final Vector fieldStrafeInput = strafeInput.toRotationDegrees(fieldRelToRobotRel(strafeInput.getRotationDegrees()));
         
         super.inputDrive(
                 fieldStrafeInput.getX(),
                 fieldStrafeInput.getY(),
-                steer);
+                steer,
+                useInputDeadbands);
     }
     
     /**
@@ -106,15 +113,12 @@ public abstract class AutoSwerveDrive extends SwerveDrive {
      * be called when this {@code AutoSwerveDrive} object is first
      * instantiated, so the robot should be facing in the (field relative)
      * forward direction when this class is instantiated in order to have an
-     * accurate {@link #fieldRelativeInputDrive(double, double, double)}.
+     * accurate {@link #fieldRelativeInputDrive(double, double, double, boolean)}.
      */
     public abstract void resetGyro ();
     
-    private double fieldRelativeToRobotRelative (double rotation) {
-        double moveRotation = rotation - getGyroAngle();
-        while (moveRotation < 0) moveRotation += 360;
-        while (moveRotation >= 360) moveRotation -= 360;
-        return moveRotation;
+    private double fieldRelToRobotRel (double rotation) {
+        return Angles.wrapDegrees(rotation - getGyroAngle());
     }
     
 }

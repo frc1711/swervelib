@@ -7,6 +7,7 @@ package frc.team1711.swerve.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.team1711.swerve.subsystems.AutoSwerveDrive;
+import frc.team1711.swerve.util.Angles;
 import frc.team1711.swerve.util.Vector;
 
 /**
@@ -17,7 +18,7 @@ import frc.team1711.swerve.util.Vector;
  */
 class AutonDriveSimple extends CommandBase {
     
-    private static final double correctionTurnScalar = 0.08;
+    private static final double TURN_SPEED = 0.1;
     
     private final AutoSwerveDrive swerveDrive;
     
@@ -33,8 +34,8 @@ class AutonDriveSimple extends CommandBase {
      * Constructs an {@code AutonDriveSimple} command.
      * @param swerveDrive   The {@link AutoSwerveDrive} drive train
      * @param direction     The direction, in degrees, to travel in. Zero degrees corresponds with
-     * directly forward, and an increase in {@code direction} corresponds with a direction further
-     * clockwise from a top-down view. This value must be on the interval [0, 360).
+     * directly forward relative to the robot, and an increase in {@code direction} corresponds with
+     * a direction further clockwise from a top-down view.
      * @param distance      The distance to travel in the specified direction, in inches. This value
      * must be on the interval (0, infinity).
      * @param speed         The speed to travel at. This value must be on the interval (0, 1].
@@ -61,17 +62,15 @@ class AutonDriveSimple extends CommandBase {
     public void execute () {
         if (swerveDrive.getDistanceTraveled() < distance) {
             final Vector driveVector = Vector.fromPolarDegrees(direction, speed);
-            swerveDrive.inputDrive(driveVector.getX(), driveVector.getY(), getCorrectionTurn());
+            swerveDrive.inputDrive(driveVector.getX(), driveVector.getY(), getCorrectionTurn(), false);
         } else {
             finished = true;
         }
     }
     
     private double getCorrectionTurn () {
-        double correctionTurn = initalGyroAngle - swerveDrive.getGyroAngle();
-        while (correctionTurn >= 180) correctionTurn -= 360;
-        while (correctionTurn < -180) correctionTurn += 360;
-        return Math.max(Math.min(correctionTurn * correctionTurnScalar, 1), -1);
+        double correctionTurn = Angles.wrapDegreesZeroCenter(initalGyroAngle - swerveDrive.getGyroAngle());
+        return correctionTurn > 0 ? TURN_SPEED : -TURN_SPEED;
     }
     
     @Override

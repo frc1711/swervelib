@@ -55,47 +55,7 @@ public class Vector {
      * @return          The new rotated vector
      */
     public Vector toRotationDegrees (double degrees) {
-        return toRotationRadians(degreesToRadians(degrees));
-    }
-    
-    /**
-     * Converts a rotation in radians to degrees, where the radians starts at
-     * directly right of the origin on the x axis and progresses counterclockwise,
-     * and degrees starts directly above the origin on the y axis and progresses
-     * clockwise.
-     * @param radians   The radians to convert to degrees
-     * @return          The degrees converted from radians
-     */
-    public static double radiansToDegrees (double radians) {
-        double degrees = radians / Math.PI * 180;
-        degrees = -degrees; // Converts from counterclockwise to clockwise
-        degrees += 90; // Converts from starting at right-pointing x axis to top-pointing y axis
-        
-        // Puts into interval [0, 360)
-        while (degrees < 0) degrees += 360;
-        while (degrees >= 360) degrees -= 360;
-        return degrees;
-    }
-    
-    /**
-     * Converts a rotation in degrees to radians, where the radians starts
-     * directly right of the origin on the x axis and progresses counterclockwise,
-     * and degrees starts directly above the origin on the y axis and progresses
-     * clockwise.
-     * @param degrees   The degrees to convert to radians
-     * @return          The radians converted from degrees
-     */
-    public static double degreesToRadians (double degrees) {
-        double radians = degrees * Math.PI / 180;
-        radians = -radians; // Converts from counterclockwise to clockwise
-        radians += Math.PI / 2; // Converts from starting at right-pointing x axis to top-pointing y axis
-        
-        final double TAU = Math.PI * 2;
-        
-        // Puts into interval [0, 360)
-        while (radians < 0) radians += TAU;
-        while (radians >= TAU) radians -= TAU;
-        return radians;
+        return toRotationRadians(Angles.degreesToRadians(degrees));
     }
     
     /**
@@ -159,8 +119,6 @@ public class Vector {
      * having a rotation of 0, in the range [0, 2pi).
      */
     public double getRotationRadians () {
-        final double TAU = 2 * Math.PI;
-        
         // Puts the coordinate on the unit circle, returning a rotation of 0 is the point is on the origin
         final double dist = Math.sqrt(x*x + y*y);
         if (dist == 0) return 0;
@@ -173,13 +131,9 @@ public class Vector {
         double rotation = Math.acos(_x);
         
         // Adjusting for y value
-        if (_y < 0) rotation = 2 * Math.PI - rotation; // Acos can only find rotation based on x value, y is ignored
+        if (_y < 0) rotation = 2 * Angles.PI - rotation; // Acos can only find rotation based on x value, y is ignored
         
-        // Puts rotation within bounds of [0, 2pi)
-        while (rotation < 0) rotation += TAU;
-        while (rotation >= TAU) rotation -= TAU;
-        
-        return rotation;
+        return Angles.wrapRadians(rotation);
     }
     
     /**
@@ -187,7 +141,7 @@ public class Vector {
      * having a rotation of 0, in the range [0, 360).
      */
     public double getRotationDegrees () {
-        return radiansToDegrees(getRotationRadians());
+        return Angles.radiansToDegrees(getRotationRadians());
     }
     
     /**

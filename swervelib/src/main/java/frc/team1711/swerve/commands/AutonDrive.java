@@ -30,8 +30,6 @@ public class AutonDrive extends SequentialCommandGroup {
      */
     public AutonDrive (AutoSwerveDrive swerveDrive, double direction, double distance, double speed, FrameOfReference frameOfReference) {
         if (frameOfReference == FrameOfReference.FIELD) direction -= swerveDrive.getGyroAngle();
-        while (direction >= 180) direction -= 360;
-        while (direction < -180) direction += 360;
         addCommands(
             new AutonWheelTurn(swerveDrive, direction),
             new AutonDriveSimple(swerveDrive, direction, distance, speed));

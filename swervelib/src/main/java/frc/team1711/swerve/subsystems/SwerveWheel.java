@@ -4,6 +4,8 @@
 
 package frc.team1711.swerve.subsystems;
 
+import frc.team1711.swerve.util.Angles;
+
 /**
  * An abstract class used by {@link SwerveDrive} to represent a
  * module. Each {@code SwerveWheel} contains a wheel which can steer in any
@@ -26,9 +28,8 @@ abstract public class SwerveWheel {
     
     /**
      * Sets the drive speed of the wheel, along with the target steering direction
-     * of the module. The drive speed of the wheel should be on the interval [0, 1],
-     * and the target steering direction should be on the interval [0, 360). A target
-     * steering direction of 0 degrees should correspond with moving directly forward,
+     * of the module. The drive speed of the wheel should be on the interval [0, 1].
+     * A target steering direction of 0 degrees should correspond with moving directly forward,
      * where an increase in target steering direction corresponds with a clockwise movement
      * in target steering direction (from a top-down point of view).
      * @param targetDirection   The target steering direction, as specified above
@@ -38,12 +39,9 @@ abstract public class SwerveWheel {
      */
     protected final void steerAndDrive (double targetDirection, double speed) {
         if (speed < 0 || speed > 1) throw new IllegalArgumentException("speed should be within range [0, 1]");
-        if (targetDirection >= 360 || targetDirection < 0) throw new IllegalArgumentException("targetDirection should be within range [0, 360)");
         
-        // Finds the number of degrees we need to turn
-        double moveDirection = targetDirection - getDirection();
-        while (moveDirection > 180) moveDirection -= 360;
-        while (moveDirection < -180) moveDirection += 360;
+        // Finds the number of degrees we need to turn and places on interval [-180, 180)
+        double moveDirection = Angles.wrapDegreesZeroCenter(targetDirection - getDirection());
         
         // If the number of degrees we need to turn is closer
         // to 180 than 0, we turn the opposite way and go in reverse
@@ -54,14 +52,8 @@ abstract public class SwerveWheel {
             else moveDirection += 180;
         }
         
-        // Finds new target direction based on 180 degrees reverse stuff above,
-        // and wraps within [0, 360)
-        targetDirection = moveDirection + getDirection();
-        while (targetDirection >= 360) targetDirection -= 360;
-        while (targetDirection < 0) targetDirection += 360;
-        
         // Sets drive speed and direction
-        setDirection(moveDirection + getDirection());
+        setDirection(Angles.wrapDegrees(moveDirection + getDirection()));
         setDriveSpeed(speed * reverse);
     }
     
@@ -87,10 +79,10 @@ abstract public class SwerveWheel {
     /**
      * Checks whether or not the wheel's current steering direction is near a certain direction,
      * with a specified margin of error. Both {@code direction} and {@code marginOfError}
-     * are measured in degrees. {@code direction} must be on the interval [0, 360), and
-     * {@code marginOfError} must be on the interval (0, 360). A {@code direction} of zero
-     * corresponds with directly forwards on the robot, and as {@code direction} increases,
-     * the target steering direction moves clockwise from a top-down view.
+     * are measured in degrees. {@code marginOfError} must be on the interval (0, 360). A
+     * {@code direction} of zero corresponds with directly forwards on the robot, and as
+     * {@code direction} increases, the target steering direction moves clockwise from a
+     * top-down view.
      * @param direction     The steering direction to check against
      * @param marginOfError The acceptable margin of error, above or below {@code direction}
      * @return              Whether or not the current steering direction is within the
@@ -98,10 +90,9 @@ abstract public class SwerveWheel {
      * @see #checkWithin180Range(double, double)
      */
     protected boolean checkWithinRange (double direction, double marginOfError) {
-		double directionalDifference = direction - getDirection();
-        while (directionalDifference > 180) directionalDifference -= 360;
-        while (directionalDifference < -180) directionalDifference += 360;
-        return Math.abs(directionalDifference) <= marginOfError;
+        // Gets absolute difference in directions
+		double directionalDifference = Math.abs(Angles.wrapDegreesZeroCenter(direction - getDirection()));
+        return directionalDifference <= marginOfError;
 	}
     
     /**
@@ -114,9 +105,8 @@ abstract public class SwerveWheel {
      * target range.
      */
     protected boolean checkWithin180Range (double direction, double marginOfError) {
-        double direction180 = direction + 180;
-        if (direction180 >= 360) direction180 -= 360;
-        return checkWithinRange(direction, marginOfError) || checkWithinRange(direction180, marginOfError);
+        double oppositeDirection = direction + 180; // Gets opposite direction
+        return checkWithinRange(direction, marginOfError) || checkWithinRange(oppositeDirection, marginOfError);
     }
     
     /**
