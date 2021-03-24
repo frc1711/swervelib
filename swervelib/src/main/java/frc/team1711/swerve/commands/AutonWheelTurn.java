@@ -41,7 +41,6 @@ class AutonWheelTurn extends CommandBase {
     @Override
     public void initialize () {
         swerveDrive.stop();
-        swerveDrive.setDistanceReference();
     }
     
     @Override

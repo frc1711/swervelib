@@ -31,8 +31,8 @@ public class AutonDrive extends SequentialCommandGroup {
     public AutonDrive (AutoSwerveDrive swerveDrive, double direction, double distance, double speed, FrameOfReference frameOfReference) {
         if (frameOfReference == FrameOfReference.FIELD) direction -= swerveDrive.getGyroAngle();
         addCommands(
-            new AutonWheelTurn(swerveDrive, direction),
-            new AutonDriveSimple(swerveDrive, direction, distance, speed));
+                new AutonWheelTurn(swerveDrive, direction),
+                new AutonDriveSimple(swerveDrive, direction, distance, speed));
     }
     
     /**
@@ -49,7 +49,12 @@ public class AutonDrive extends SequentialCommandGroup {
      * to the gyro's initial orientation.
      * @return                  The {@code AutonDrive}
      */
-    public static AutonDrive fromMovement (AutoSwerveDrive swerveDrive, double inchesRight, double inchesForward, double speed, FrameOfReference frameOfReference) {
+    public static AutonDrive fromMovement (
+                AutoSwerveDrive swerveDrive,
+                double inchesRight,
+                double inchesForward,
+                double speed,
+                FrameOfReference frameOfReference) {
         final Vector moveVector = new Vector(inchesRight, inchesForward);
         return new AutonDrive(swerveDrive, moveVector.getRotationDegrees(), moveVector.getMagnitude(), speed, frameOfReference);
     }
