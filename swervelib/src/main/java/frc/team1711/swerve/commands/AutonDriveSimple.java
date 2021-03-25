@@ -18,17 +18,18 @@ import frc.team1711.swerve.util.Vector;
  */
 class AutonDriveSimple extends CommandBase {
     
-    private static final double TURN_SPEED = 0.1;
+    private static final double CORRECTION_SCALAR = .007;
     
     private final AutoSwerveDrive swerveDrive;
     
     private boolean finished;
     
     private final double
-            initalGyroAngle,
             direction,
             distance,
             speed;
+
+    private double initialGyroAngle;
     
     /**
      * Constructs an {@code AutonDriveSimple} command.
@@ -46,7 +47,6 @@ class AutonDriveSimple extends CommandBase {
         this.distance = distance;
         this.speed = speed;
         
-        initalGyroAngle = swerveDrive.getGyroAngle();
         finished = false;
         
         addRequirements(swerveDrive);
@@ -56,6 +56,9 @@ class AutonDriveSimple extends CommandBase {
     public void initialize () {
         swerveDrive.stop();
         swerveDrive.setDistanceReference();
+        initialGyroAngle = swerveDrive.getGyroAngle();
+        System.out.println(initialGyroAngle);
+        System.out.println(direction);
     }
     
     @Override
@@ -69,8 +72,8 @@ class AutonDriveSimple extends CommandBase {
     }
     
     private double getCorrectionTurn () {
-        double correctionTurn = Angles.wrapDegreesZeroCenter(initalGyroAngle - swerveDrive.getGyroAngle());
-        return correctionTurn > 0 ? TURN_SPEED : -TURN_SPEED;
+        double correctionTurn = Angles.wrapDegreesZeroCenter(initialGyroAngle - swerveDrive.getGyroAngle());
+        return correctionTurn * CORRECTION_SCALAR;
     }
     
     @Override

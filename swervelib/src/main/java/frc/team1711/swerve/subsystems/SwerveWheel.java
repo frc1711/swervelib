@@ -39,7 +39,7 @@ abstract public class SwerveWheel {
      */
     protected final void steerAndDrive (double targetDirection, double speed) {
         if (speed < 0 || speed > 1) throw new IllegalArgumentException("speed should be within range [0, 1]");
-        
+
         // Finds the number of degrees we need to turn and places on interval [-180, 180)
         double moveDirection = Angles.wrapDegreesZeroCenter(targetDirection - getDirection());
         
@@ -48,12 +48,12 @@ abstract public class SwerveWheel {
         int reverse = 1;
         if (Math.abs(moveDirection) > 90) {
             reverse = -1;
-            if (moveDirection > 0) moveDirection -= 180;
-            else moveDirection += 180;
+            moveDirection += 180;
         }
-        
+        final double setDir = Angles.wrapDegrees(moveDirection + getDirection());
+
         // Sets drive speed and direction
-        setDirection(Angles.wrapDegrees(moveDirection + getDirection()));
+        setDirection(setDir);
         setDriveSpeed(speed * reverse);
     }
     

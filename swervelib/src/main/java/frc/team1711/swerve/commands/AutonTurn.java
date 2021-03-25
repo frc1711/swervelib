@@ -22,9 +22,17 @@ public class AutonTurn extends CommandBase {
     
     private boolean finished;
     
+    private final FrameOfReference frameOfReference;
+
+    // Because directionInput is not based on the gyro, but the absolute relative direction
+    // may be depending on the frame of reference, they must be stored separately b/c
+    // the gyro should not be accessed in the constructor in case the object is initialized
+    // before the command is actually used
     private final double
-            direction,
+            directionInput,
             turnSpeed;
+    
+    private double direction; // Robot relative direction
     
     /**
      * Constructs a new {@code AutonTurn}.
@@ -40,10 +48,10 @@ public class AutonTurn extends CommandBase {
         
         this.swerveDrive = swerveDrive;
         
-        if (frameOfReference == FrameOfReference.ROBOT) direction += swerveDrive.getGyroAngle();
-        this.direction = direction;
+        this.frameOfReference = frameOfReference;
+        this.directionInput = direction;
         this.turnSpeed = turnSpeed;
-        
+
         finished = false;
         
         addRequirements(swerveDrive);
@@ -53,6 +61,7 @@ public class AutonTurn extends CommandBase {
     public void initialize () {
         swerveDrive.stop();
         swerveDrive.setDistanceReference();
+        if (frameOfReference == FrameOfReference.ROBOT) direction = directionInput + swerveDrive.getGyroAngle();
     }
     
     @Override

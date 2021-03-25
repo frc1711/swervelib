@@ -16,7 +16,20 @@ import frc.team1711.swerve.util.Vector;
  * @author Gabriel Seaver
  */
 public class AutonDrive extends SequentialCommandGroup {
-    
+
+    private final AutoSwerveDrive swerveDrive;
+
+    private final FrameOfReference frameOfReference;
+
+    // Because directionInput is not based on the gyro, but the robot relative direction
+    // may be depending on the frame of reference, they must be stored separately b/c
+    // the gyro should not be accessed in the constructor in case the object is initialized
+    // before the command is actually used
+    private final double
+            directionInput,
+            distance,
+            speed;
+
     /**
      * Constructs an {@code AutonDrive} command.
      * @param swerveDrive       The {@link AutoSwerveDrive} drive train.
@@ -29,10 +42,23 @@ public class AutonDrive extends SequentialCommandGroup {
      * @param frameOfReference  The {@link FrameOfReference} for this autonomous command.
      */
     public AutonDrive (AutoSwerveDrive swerveDrive, double direction, double distance, double speed, FrameOfReference frameOfReference) {
+        this.swerveDrive = swerveDrive;
+        this.distance = distance;
+        this.speed = speed;
+        this.frameOfReference = frameOfReference;
+        directionInput = direction;
+    }
+
+    // This code cannot be called in constructor because gyro angle may change
+    // between object initialization and when the command is first called
+    @Override
+    public void initialize () {
+        double direction = directionInput;
         if (frameOfReference == FrameOfReference.FIELD) direction -= swerveDrive.getGyroAngle();
         addCommands(
                 new AutonWheelTurn(swerveDrive, direction),
                 new AutonDriveSimple(swerveDrive, direction, distance, speed));
+        super.initialize();
     }
     
     /**
