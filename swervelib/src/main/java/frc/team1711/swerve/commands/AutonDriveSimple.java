@@ -18,13 +18,12 @@ import frc.team1711.swerve.util.Vector;
  */
 class AutonDriveSimple extends CommandBase {
     
-    private static final double CORRECTION_SCALAR = .007;
-    
     private final AutoSwerveDrive swerveDrive;
     
     private boolean finished;
     
     private final double
+            correctionScalar,
             direction,
             distance,
             speed;
@@ -33,15 +32,20 @@ class AutonDriveSimple extends CommandBase {
     
     /**
      * Constructs an {@code AutonDriveSimple} command.
-     * @param swerveDrive   The {@link AutoSwerveDrive} drive train
-     * @param direction     The direction, in degrees, to travel in. Zero degrees corresponds with
+     * @param swerveDrive       The {@link AutoSwerveDrive} drive train
+     * @param direction         The direction, in degrees, to travel in. Zero degrees corresponds with
      * directly forward relative to the robot, and an increase in {@code direction} corresponds with
      * a direction further clockwise from a top-down view.
-     * @param distance      The distance to travel in the specified direction, in inches. This value
+     * @param distance          The distance to travel in the specified direction, in inches. This value
      * must be on the interval (0, infinity).
-     * @param speed         The speed to travel at. This value must be on the interval (0, 1].
+     * @param speed             The speed to travel at. This value must be on the interval (0, 1].
+     * @param correctionScalar  The speed to turn at per degree offset from the intended direction. For
+     * example, if the robot is going ten degrees to the right of where it wants to, it will make a
+     * correction turn to the left at a speed of {@code 10*correctionScalar}. A recommended starting value
+     * is {@code 0.01}.
      */
-    AutonDriveSimple (AutoSwerveDrive swerveDrive, double direction, double distance, double speed) {
+    AutonDriveSimple (AutoSwerveDrive swerveDrive, double direction, double distance, double speed, double correctionScalar) {
+        this.correctionScalar = correctionScalar;
         this.swerveDrive = swerveDrive;
         this.direction = direction;
         this.distance = distance;
@@ -57,8 +61,6 @@ class AutonDriveSimple extends CommandBase {
         swerveDrive.stop();
         swerveDrive.setDistanceReference();
         initialGyroAngle = swerveDrive.getGyroAngle();
-        System.out.println(initialGyroAngle);
-        System.out.println(direction);
     }
     
     @Override
@@ -73,7 +75,7 @@ class AutonDriveSimple extends CommandBase {
     
     private double getCorrectionTurn () {
         double correctionTurn = Angles.wrapDegreesZeroCenter(initialGyroAngle - swerveDrive.getGyroAngle());
-        return correctionTurn * CORRECTION_SCALAR;
+        return correctionTurn * correctionScalar;
     }
     
     @Override

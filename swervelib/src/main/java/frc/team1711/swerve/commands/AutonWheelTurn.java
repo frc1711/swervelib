@@ -14,7 +14,7 @@ import frc.team1711.swerve.subsystems.AutoSwerveDrive;
  */
 class AutonWheelTurn extends CommandBase {
     
-    private static final double MARGIN_OF_ERROR = 8;
+    private final double marginOfError;
     
     private final AutoSwerveDrive swerveDrive;
     
@@ -28,10 +28,13 @@ class AutonWheelTurn extends CommandBase {
      * @param direction     The direction, in degrees, to steer the wheels in. Zero degrees
      * corresponds with directly forward relative to the robot, and an increase in {@code direction}
      * corresponds with a direction further clockwise from a top-down view.
+     * @param marginOfError The acceptable margin of error for each wheel, in degrees, away from
+     * their target steering directions.
      */
-    AutonWheelTurn (AutoSwerveDrive swerveDrive, double direction) {
+    AutonWheelTurn (AutoSwerveDrive swerveDrive, double direction, double marginOfError) {
         this.swerveDrive = swerveDrive;
         this.direction = direction;
+        this.marginOfError = marginOfError;
         
         finished = false;
         
@@ -45,7 +48,7 @@ class AutonWheelTurn extends CommandBase {
     
     @Override
     public void execute () {
-        if (swerveDrive.steerAllWithinRange(direction, MARGIN_OF_ERROR)) finished = true;
+        if (swerveDrive.steerAllWithinRange(direction, marginOfError)) finished = true;
     }
     
     @Override

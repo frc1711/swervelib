@@ -153,8 +153,8 @@ public class SwerveDrive extends SubsystemBase {
         // Currently, both steeringVectorFR and strafeVector are limited to a magnitude of 1,
         // but we want to apply steering and driving relative speed scalars to make input more
         // customizable
-        strafeVector.scale(driveRelativeSpeed);
-        steeringVectorFR.scale(steerRelativeSpeed);
+        strafeVector = strafeVector.scale(driveRelativeSpeed);
+        steeringVectorFR = steeringVectorFR.scale(steerRelativeSpeed);
         
         /*
         Clockwise steering vector additions:

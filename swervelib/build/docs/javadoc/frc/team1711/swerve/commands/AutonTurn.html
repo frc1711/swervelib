@@ -179,9 +179,10 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,frc.team1711.swerve.commands.FrameOfReference)">AutonTurn</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">AutonTurn</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
          double&nbsp;direction,
          double&nbsp;turnSpeed,
+         double&nbsp;marginOfError,
          <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference)</code></th>
 <td class="colLast">
 <div class="block">Constructs a new <code>AutonTurn</code>.</div>
@@ -270,7 +271,7 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,frc.team1711.swerve.commands.FrameOfReference)">
+<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -279,6 +280,7 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
 <pre>public&nbsp;AutonTurn&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
                  double&nbsp;direction,
                  double&nbsp;turnSpeed,
+                 double&nbsp;marginOfError,
                  <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference)</pre>
 <div class="block">Constructs a new <code>AutonTurn</code>.</div>
 <dl>
@@ -288,6 +290,7 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
  corresponds with directly forward, and an increase in <code>direction</code> corresponds with
  a direction further clockwise from a top-down view.</dd>
 <dd><code>turnSpeed</code> - The turning speed of the robot. This must be on the interval (0, 1].</dd>
+<dd><code>marginOfError</code> - The acceptable margin of error from its target rotation, in degrees.</dd>
 <dd><code>frameOfReference</code> - The <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands"><code>FrameOfReference</code></a> for this autonomous command.</dd>
 </dl>
 </li>
