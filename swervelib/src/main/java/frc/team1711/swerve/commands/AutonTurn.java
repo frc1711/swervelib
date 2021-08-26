@@ -59,6 +59,7 @@ public class AutonTurn extends CommandBase {
     public void initialize () {
         swerveDrive.stop();
         if (frameOfReference == FrameOfReference.ROBOT) direction = directionInput + swerveDrive.getGyroAngle();
+		else direction = directionInput;
     }
     
     @Override
