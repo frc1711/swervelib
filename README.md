@@ -7,8 +7,19 @@ and, in your wpilib project, create a new directory named `libs` and place the `
 Next, navigate to your project's `build.gradle` file and, under the `dependencies` section,
 add the following line:
 ```
-implementation files('libs/BUILDNAME.jar')
+compile name: 'BUILDNAME'
 ```
+
+Above the `dependencies` section, you should also add the following:
+
+```
+repositories {
+	flatDir {
+		dirs 'libs'
+	}
+}
+```
+
 Replace 'BUILDNAME' with the name of the `.jar` release. From here, you should be ready to import
 `frc.team1711.swerve` subpackages in your robot code and use the library. I recommend looking through the
 [documentation](https://raw.githack.com/frc1711/swerve/main/swervelib/build/docs/javadoc/index.html).
