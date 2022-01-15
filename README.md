@@ -1,4 +1,4 @@
-# swerve
+# Implementing Swervelib
 
 This is just a small library in order to help implement swerve drive more easily.
 In order to use it, first download the 
@@ -20,6 +20,11 @@ repositories {
 }
 ```
 
-Replace 'BUILDNAME' with the name of the `.jar` release. From here, you should be ready to import
-`frc.team1711.swerve` subpackages in your robot code and use the library. I recommend looking through the
-[documentation](https://raw.githack.com/frc1711/swerve/main/swervelib/build/docs/javadoc/index.html).
+Replace 'BUILDNAME' with the name of the `.jar` release.
+
+# Documentation
+Documentation can be viewed online [here](https://raw.githack.com/frc1711/swerve/main/swervelib/build/docs/javadoc/index.html).
+
+# Versioning
+With the exception of very early versions of swervelib, versions will be named by v(version)-(wpilib-version).
+For example, v2.0-2022.1.1 would be swervelib v2.0, built for wpilib version 2022.1.1.
