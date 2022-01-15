@@ -146,7 +146,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code>edu.wpi.first.wpilibj.Sendable</code>, <code>edu.wpi.first.wpilibj2.command.Command</code></dd>
+<dd><code>edu.wpi.first.util.sendable.Sendable</code>, <code>edu.wpi.first.wpilibj2.command.Command</code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">AutonDrive</span>
@@ -256,7 +256,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;edu.wpi.first.wpilibj2.command.SequentialCommandGroup</h3>
-<code>addCommands, end, execute, isFinished, runsWhenDisabled</code></li>
+<code>addCommands, andThen, beforeStarting, end, execute, isFinished, runsWhenDisabled</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.CommandGroupBase">
@@ -284,14 +284,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;edu.wpi.first.wpilibj2.command.Command</h3>
-<code>alongWith, andThen, andThen, asProxy, beforeStarting, cancel, deadlineWith, getName, getRequirements, hasRequirement, isScheduled, perpetually, raceWith, schedule, schedule, withInterrupt, withTimeout</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj.Sendable">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;edu.wpi.first.wpilibj.Sendable</h3>
-<code>addChild, setName, setName, setName</code></li>
+<code>alongWith, andThen, asProxy, beforeStarting, cancel, deadlineWith, hasRequirement, isScheduled, perpetually, raceWith, schedule, schedule, withInterrupt, withTimeout</code></li>
 </ul>
 </li>
 </ul>

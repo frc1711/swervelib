@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="swerve.LibraryTest" tests="1" skipped="1" failures="0" errors="0" timestamp="2021-08-26T17:04:10" hostname="GABRIEL-LAPTOP" time="0.0">
+<testsuite name="swerve.LibraryTest" tests="1" skipped="1" failures="0" errors="0" timestamp="2022-01-15T19:02:01" hostname="GABRIEL-LAPTOP" time="0.001">
   <properties/>
-  <testcase name="testSomeLibraryMethod" classname="swerve.LibraryTest" time="0.0">
+  <testcase name="testSomeLibraryMethod" classname="swerve.LibraryTest" time="0.001">
     <skipped/>
   </testcase>
   <system-out><![CDATA[]]></system-out>

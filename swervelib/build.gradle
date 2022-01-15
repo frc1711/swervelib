@@ -30,8 +30,24 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:29.0-jre'
     
-    api 'edu.wpi.first.wpilibj:wpilibj-java:2021.2.2'
-    api 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2021.2.2'
+
+
+
+    /**
+     * ===========================
+     * ====WPILIB DEPENDENCIES====
+     * ===========================
+     */
+    // Go to https://frcmaven.wpi.edu/ui/native/release/edu/wpi/first
+    // to get dependencies for all subpackages of edu.wpi.first
+    // Note that edu.wpi.first.wpilibj2.command corresponds with edu.wpi.first.wpilibNewCommands
+    api 'edu.wpi.first.wpilibj:wpilibj-java:2022.1.1'
+    api 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2022.1.1'
+    api 'edu.wpi.first.wpiutil:wpiutil-java:2022.1.1'
+    
+
+
+
     
 }
 
