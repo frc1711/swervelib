@@ -45,15 +45,11 @@ dependencies {
     api 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2022.1.1'
     api 'edu.wpi.first.wpiutil:wpiutil-java:2022.1.1'
     
-
-
-
-    
 }
+
+version = 'v2.2022.1.1'
+group = 'io.github.frc1711'
 
 java {
     withJavadocJar()
 }
-
-version = '2.0'
-group = 'io.github.frc1711'
