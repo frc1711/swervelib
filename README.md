@@ -7,7 +7,7 @@ and, in your wpilib project, create a new directory named `libs` and place the `
 Next, navigate to your project's `build.gradle` file and, under the `dependencies` section,
 add the following line:
 ```
-compile name: 'BUILDNAME'
+implementation name: 'BUILDNAME'
 ```
 
 Above the `dependencies` section, you should also add the following:
