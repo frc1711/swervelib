@@ -98,7 +98,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveDrive.html#accountForDeadband(double)">accountForDeadband(double)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></dt>
 <dd>
-<div class="block">Places an input value on interval [-1, 1] to either [deadband, 1] or [-1, -deadband]</div>
+<div class="block">Maps an input value to interval [-1, 1], where inputs in interval [-deadband, deadband]
+ are mapped to 0 and other values are mapped linearly (-1 and +1 are mapped onto themselves).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveDrive.html#accountForDeadband(frc.team1711.swerve.util.Vector)">accountForDeadband(Vector)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></dt>
+<dd>
+<div class="block">Maps an input vector according to the basic mechanics of <a href="frc/team1711/swerve/subsystems/SwerveDrive.html#accountForDeadband(double)"><code>SwerveDrive.accountForDeadband(double)</code></a> (based on
+ the magnitude of the vector), limiting the output magnitude to 1.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/Vector.html#add(frc.team1711.swerve.util.Vector)">add(Vector)</a></span> - Method in class frc.team1711.swerve.util.<a href="frc/team1711/swerve/util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a></dt>
 <dd>
@@ -218,7 +224,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html#fieldRelativeInputDrive(double,double,double,boolean)">fieldRelativeInputDrive(double, double, double, boolean)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></dt>
 <dd>
-<div class="block">Drives the <code>AutoSwerveDrive</code> given strafing and steering inputs,
+<div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs,
  all on the interval [-1, 1], where +y is forwards and +x is to the right.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveDrive.html#flWheel">flWheel</a></span> - Variable in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></dt>

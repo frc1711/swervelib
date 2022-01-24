@@ -78,16 +78,18 @@ public abstract class AutoSwerveDrive extends SwerveDrive {
                 Math.abs(((AutoSwerveWheel)rrWheel).getPositionDifference())) / 4;
     }
     
-    /**
-     * Drives the {@code AutoSwerveDrive} given strafing and steering inputs,
+	/**
+     * Drives the {@code SwerveDrive} given strafing and steering inputs,
      * all on the interval [-1, 1], where +y is forwards and +x is to the right.
-     * Strafing is field relative, not robot relative.
-     * @param strafeX   The strafe x input
-     * @param strafeY   The strafe y input
-     * @param steering  The steering input
+	 * Strafing is field relative, not robot relative.
+     * @param strafeX           The strafing speed in the x direction
+     * @param strafeY           The strafing speed in the y direction
+     * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
      * @param useInputDeadbands Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
      * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values). {@code true}
      * means the deadband will be applied.
+     * @see #inputDrive(double, double, double, boolean)
+	 * @see #steerAndDriveAll(double, double)
      */
     public void fieldRelativeInputDrive (double strafeX, double strafeY, double steering, boolean useInputDeadbands) {
         Vector strafeInput = new Vector(strafeX, strafeY);

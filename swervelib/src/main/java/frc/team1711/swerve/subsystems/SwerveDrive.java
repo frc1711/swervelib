@@ -18,10 +18,10 @@ public class SwerveDrive extends SubsystemBase {
      * One of the four {@link SwerveWheel} wheels. FR is front right, RL is rear left.
      */
     protected final SwerveWheel
-            flWheel,
-            frWheel,
-            rlWheel,
-            rrWheel;
+		flWheel,
+		frWheel,
+		rlWheel,
+		rrWheel;
     
     /**
      * The default steering speed input scalar

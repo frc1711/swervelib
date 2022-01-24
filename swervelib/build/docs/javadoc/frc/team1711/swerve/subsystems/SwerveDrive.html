@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -308,10 +308,19 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <td class="colFirst"><code>protected double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#accountForDeadband(double)">accountForDeadband</a></span>&#8203;(double&nbsp;value)</code></th>
 <td class="colLast">
-<div class="block">Places an input value on interval [-1, 1] to either [deadband, 1] or [-1, -deadband]</div>
+<div class="block">Maps an input value to interval [-1, 1], where inputs in interval [-deadband, deadband]
+ are mapped to 0 and other values are mapped linearly (-1 and +1 are mapped onto themselves).</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>protected <a href="../util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#accountForDeadband(frc.team1711.swerve.util.Vector)">accountForDeadband</a></span>&#8203;(<a href="../util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a>&nbsp;value)</code></th>
+<td class="colLast">
+<div class="block">Maps an input vector according to the basic mechanics of <a href="#accountForDeadband(double)"><code>accountForDeadband(double)</code></a> (based on
+ the magnitude of the vector), limiting the output magnitude to 1.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#inputDrive(double,double,double,boolean)">inputDrive</a></span>&#8203;(double&nbsp;strafeX,
           double&nbsp;strafeY,
@@ -322,14 +331,14 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
  all on the interval [-1, 1], where +y is forwards and +x is to the right.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeadband(double)">setDeadband</a></span>&#8203;(double&nbsp;deadband)</code></th>
 <td class="colLast">
 <div class="block">Sets the input deadband for <a href="#inputDrive(double,double,double,boolean)"><code>inputDrive(double, double, double, boolean)</code></a> (i.e.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDriveRelativeSpeed(double)">setDriveRelativeSpeed</a></span>&#8203;(double&nbsp;_driveRelativeSpeed)</code></th>
 <td class="colLast">
@@ -337,14 +346,14 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
  driving inputs.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMaxOutput(double)">setMaxOutput</a></span>&#8203;(double&nbsp;_maxOutput)</code></th>
 <td class="colLast">
 <div class="block">Sets the maximum possible drive speed of a swerve wheel.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSteerRelativeSpeed(double)">setSteerRelativeSpeed</a></span>&#8203;(double&nbsp;steerRelativeSpeed)</code></th>
 <td class="colLast">
@@ -352,7 +361,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
  steering inputs.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#steerAllWithinRange(double,double)">steerAllWithinRange</a></span>&#8203;(double&nbsp;direction,
                    double&nbsp;marginOfError)</code></th>
@@ -360,7 +369,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <div class="block">Steers all wheels to a direction within a certain range.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#steerAndDriveAll(double,double)">steerAndDriveAll</a></span>&#8203;(double&nbsp;direction,
                 double&nbsp;speed)</code></th>
@@ -368,7 +377,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <div class="block">Steers and drives all wheels in the same direction and with the same speed.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop()">stop</a></span>()</code></th>
 <td class="colLast">
@@ -780,16 +789,34 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <a id="accountForDeadband(double)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>accountForDeadband</h4>
 <pre class="methodSignature">protected&nbsp;double&nbsp;accountForDeadband&#8203;(double&nbsp;value)</pre>
-<div class="block">Places an input value on interval [-1, 1] to either [deadband, 1] or [-1, -deadband]</div>
+<div class="block">Maps an input value to interval [-1, 1], where inputs in interval [-deadband, deadband]
+ are mapped to 0 and other values are mapped linearly (-1 and +1 are mapped onto themselves).</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>value</code> - The value to place within the deadband</dd>
+<dd><code>value</code> - The input value to modify</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The value, after accounting for the input deadband</dd>
+<dd>The input value after accounting for the deadband</dd>
+</dl>
+</li>
+</ul>
+<a id="accountForDeadband(frc.team1711.swerve.util.Vector)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>accountForDeadband</h4>
+<pre class="methodSignature">protected&nbsp;<a href="../util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a>&nbsp;accountForDeadband&#8203;(<a href="../util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a>&nbsp;value)</pre>
+<div class="block">Maps an input vector according to the basic mechanics of <a href="#accountForDeadband(double)"><code>accountForDeadband(double)</code></a> (based on
+ the magnitude of the vector), limiting the output magnitude to 1.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>value</code> - The input vector to modify</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The input vector after accounting for the deadband</dd>
 </dl>
 </li>
 </ul>
