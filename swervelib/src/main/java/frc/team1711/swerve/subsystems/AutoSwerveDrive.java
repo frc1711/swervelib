@@ -84,22 +84,28 @@ public abstract class AutoSwerveDrive extends SwerveDrive {
      * Strafing is field relative, not robot relative.
      * @param strafeX   The strafe x input
      * @param strafeY   The strafe y input
-     * @param steer     The steering input
+     * @param steering  The steering input
      * @param useInputDeadbands Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
      * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values). {@code true}
      * means the deadband will be applied.
      */
-    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steer, boolean useInputDeadbands) {
-        final Vector strafeInput = new Vector(strafeX, strafeY);
+    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steering, boolean useInputDeadbands) {
+        Vector strafeInput = new Vector(strafeX, strafeY);
+		
+		// strafeInput deadband
+		if (useInputDeadbands) {
+			strafeInput = accountForDeadband(strafeInput);
+			steering = accountForDeadband(steering);
+		}
         
         // Turns the strafeInput vector into a new vector with same magnitude but rotation adjusted for field relative
         final Vector fieldStrafeInput = strafeInput.toRotationDegrees(fieldRelToRobotRel(strafeInput.getRotationDegrees()));
         
         super.inputDrive(
-                fieldStrafeInput.getX(),
-                fieldStrafeInput.getY(),
-                steer,
-                useInputDeadbands);
+			fieldStrafeInput.getX(),
+			fieldStrafeInput.getY(),
+			steering,
+			false);
     }
     
     /**

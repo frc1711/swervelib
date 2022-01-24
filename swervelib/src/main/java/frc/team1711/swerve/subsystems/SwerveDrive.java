@@ -141,7 +141,7 @@ public class SwerveDrive extends SubsystemBase {
         if (strafeVector.getMagnitude() > 1) strafeVector = strafeVector.scale(1 / strafeVector.getMagnitude());
         
         // Accounts for deadband, but only if we need to
-        if (useInputDeadbands && accountForDeadband(strafeVector.getMagnitude()) == 0) strafeVector = new Vector(0, 0);
+        if (useInputDeadbands) strafeVector = accountForDeadband(strafeVector);
         
         // Steering vector FR is the steering vector that will be added to the FR wheel
         if (useInputDeadbands) steering = accountForDeadband(steering);
@@ -181,10 +181,10 @@ public class SwerveDrive extends SubsystemBase {
         
         // Set wheel speeds
         double
-                flSpeed = flVector.getMagnitude(),
-                frSpeed = frVector.getMagnitude(),
-                rlSpeed = rlVector.getMagnitude(),
-                rrSpeed = rrVector.getMagnitude();
+			flSpeed = flVector.getMagnitude(),
+			frSpeed = frVector.getMagnitude(),
+			rlSpeed = rlVector.getMagnitude(),
+			rrSpeed = rrVector.getMagnitude();
         
         
         // Because wheel speeds must be in correct proportions in order for swerve
@@ -304,16 +304,40 @@ public class SwerveDrive extends SubsystemBase {
     }
     
     /**
-     * Places an input value on interval [-1, 1] to either [deadband, 1] or [-1, -deadband]
-     * @param value The value to place within the deadband
-     * @return      The value, after accounting for the input deadband
+     * Maps an input value to interval [-1, 1], where inputs in interval [-deadband, deadband]
+	 * are mapped to 0 and other values are mapped linearly (-1 and +1 are mapped onto themselves).
+     * @param value The input value to modify
+     * @return      The input value after accounting for the deadband
      */
     protected double accountForDeadband (double value) {
+		// Returns 0 if value is within deadband
         if (Math.abs(value) < deadband) return 0;
-        // Puts value in [0, 1] or [-1, 0] into range [deadband, infinity] or [-infinity, -deadband]
+		
+        // Puts value in [deadband, infinity] or [-infinity, -deadband] into [-infinity, infinity]
         double deadbandValue = (value + (value > 0 ? -deadband : deadband)) / (1 - deadband);
-        // Returns a new value no greater than 1 and no less than -1
+		
+        // Puts value in [-infinity, infinity] into [-1, 1]
         return Math.max(Math.min(deadbandValue, 1), -1);
     }
+	
+	/**
+	 * Maps an input vector according to the basic mechanics of {@link #accountForDeadband(double)} (based on
+	 * the magnitude of the vector), limiting the output magnitude to 1.
+	 * @param value	The input vector to modify
+	 * @return		The input vector after accounting for the deadband
+	 */
+	protected Vector accountForDeadband (Vector value) {
+		// Returns a zero vector if necessary (prevents dividing by 0 later)
+		if (value.getMagnitude() == 0) return new Vector(0, 0);
+		
+		// Puts magnitude of value within [-1, 1]
+		if (value.getMagnitude() > 1) value.scale(1 / value.getMagnitude());
+		
+		// Gets new magnitude of vector based on accountForDeadband
+		double newMag = accountForDeadband(value.getMagnitude());
+		
+		// Scales vector to new magnitude
+		return value.scale(newMag / value.getMagnitude());
+	}
     
 }
