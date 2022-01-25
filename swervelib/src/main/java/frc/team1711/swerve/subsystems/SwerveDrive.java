@@ -77,31 +77,12 @@ public class SwerveDrive extends SubsystemBase {
     
     /**
      * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
-     * <b>Note: {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double)}
-     * should be used instead if the wheelbase and track are not equal.</b>
-     * @param flWheel              The front left {@code SwerveWheel}
-     * @param frWheel              The front right {@code SwerveWheel}
-     * @param rlWheel              The rear left {@code SwerveWheel}
-     * @param rrWheel              The rear right {@code SwerveWheel}
-     */
-    public SwerveDrive (
-        SwerveWheel flWheel,
-        SwerveWheel frWheel,
-        SwerveWheel rlWheel,
-        SwerveWheel rrWheel) {
-        
-        this(flWheel, frWheel, rlWheel, rrWheel, 1);
-    }
-    
-    /**
-     * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
      * @param flWheel              The front left {@code SwerveWheel}
      * @param frWheel              The front right {@code SwerveWheel}
      * @param rlWheel              The rear left {@code SwerveWheel}
      * @param rrWheel              The rear right {@code SwerveWheel}
      * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
-     * {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel)} is recommended if this ratio is 1:1.
      */
     public SwerveDrive (
         SwerveWheel flWheel,

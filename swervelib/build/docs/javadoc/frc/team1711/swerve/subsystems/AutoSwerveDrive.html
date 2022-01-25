@@ -185,15 +185,6 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel)">AutoSwerveDrive</a></span>&#8203;(<a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;flWheel,
-               <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;frWheel,
-               <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rlWheel,
-               <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rrWheel)</code></th>
-<td class="colLast">
-<div class="block">Creates a new <code>AutoSwerveDrive</code> given <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> wheels.</div>
-</td>
-</tr>
-<tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double)">AutoSwerveDrive</a></span>&#8203;(<a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;flWheel,
                <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;frWheel,
                <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rlWheel,
@@ -306,28 +297,6 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>AutoSwerveDrive</h4>
-<pre>public&nbsp;AutoSwerveDrive&#8203;(<a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;flWheel,
-                       <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;frWheel,
-                       <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rlWheel,
-                       <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rrWheel)</pre>
-<div class="block">Creates a new <code>AutoSwerveDrive</code> given <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> wheels.
- <b>Note: <a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double)"><code>AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, double)</code></a>
- should be used instead if the wheelbase and track are not equal.</b></div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>flWheel</code> - The front left <code>SwerveWheel</code></dd>
-<dd><code>frWheel</code> - The front right <code>SwerveWheel</code></dd>
-<dd><code>rlWheel</code> - The rear left <code>SwerveWheel</code></dd>
-<dd><code>rrWheel</code> - The rear right <code>SwerveWheel</code></dd>
-</dl>
-</li>
-</ul>
 <a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double)">
 <!--   -->
 </a>
@@ -347,8 +316,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <dd><code>rlWheel</code> - The rear left <code>SwerveWheel</code></dd>
 <dd><code>rrWheel</code> - The rear right <code>SwerveWheel</code></dd>
 <dd><code>widthToHeightRatio</code> - The ratio from the track to the wheelbase (the distance between the centers
- of the front or back wheels divided by the distance between the centers of the left or right wheels).
- <a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel)"><code>AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel)</code></a> is recommended if this ratio is 1:1.</dd>
+ of the front or back wheels divided by the distance between the centers of the left or right wheels).</dd>
 </dl>
 </li>
 </ul>
