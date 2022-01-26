@@ -10,6 +10,12 @@ package frc.team1711.swerve.subsystems;
  */
 public abstract class AutoSwerveDrive extends GyroSwerveDrive {
 	
+	private final AutoSwerveWheel
+		flWheel,
+		frWheel,
+		rlWheel,
+		rrWheel;
+	
 	/**
      * Creates a new {@code AutoSwerveDrive} given {@link AutoSwerveWheel} wheels.
      * @param flWheel              The front left {@code AutoSwerveWheel}
@@ -20,13 +26,18 @@ public abstract class AutoSwerveDrive extends GyroSwerveDrive {
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
      */
     public AutoSwerveDrive (
-        AutoSwerveWheel flWheel,
-        AutoSwerveWheel frWheel,
-        AutoSwerveWheel rlWheel,
-        AutoSwerveWheel rrWheel,
-        double widthToHeightRatio) {
+			AutoSwerveWheel flWheel,
+			AutoSwerveWheel frWheel,
+			AutoSwerveWheel rlWheel,
+			AutoSwerveWheel rrWheel,
+			double widthToHeightRatio) {
         
-        super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio);
+		super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio);
+		
+		this.flWheel = flWheel;
+		this.frWheel = frWheel;
+		this.rlWheel = rlWheel;
+		this.rrWheel = rrWheel;
     }
 	
 	/**
@@ -34,10 +45,10 @@ public abstract class AutoSwerveDrive extends GyroSwerveDrive {
      * {@link #getDistanceTraveled()} will be based on the distance from this reference.
      */
     public void setDistanceReference () {
-        ((AutoSwerveWheel)flWheel).resetDriveEncoder();
-        ((AutoSwerveWheel)frWheel).resetDriveEncoder();
-        ((AutoSwerveWheel)rlWheel).resetDriveEncoder();
-        ((AutoSwerveWheel)rrWheel).resetDriveEncoder();
+        flWheel.resetDriveEncoder();
+        frWheel.resetDriveEncoder();
+        rlWheel.resetDriveEncoder();
+        rrWheel.resetDriveEncoder();
     }
     
     /**
@@ -49,10 +60,10 @@ public abstract class AutoSwerveDrive extends GyroSwerveDrive {
      * @see #setDistanceReference()
      */
     public double getDistanceTraveled () {
-        return (Math.abs(((AutoSwerveWheel)flWheel).getPositionDifference()) +
-                Math.abs(((AutoSwerveWheel)frWheel).getPositionDifference()) +
-                Math.abs(((AutoSwerveWheel)rlWheel).getPositionDifference()) +
-                Math.abs(((AutoSwerveWheel)rrWheel).getPositionDifference())) / 4;
+        return (Math.abs(flWheel.getPositionDifference()) +
+                Math.abs(frWheel.getPositionDifference()) +
+                Math.abs(rlWheel.getPositionDifference()) +
+                Math.abs(rrWheel.getPositionDifference())) / 4;
     }
 	
 }

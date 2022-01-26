@@ -13,10 +13,7 @@ import frc.team1711.swerve.util.Vector;
  */
 public class SwerveDrive extends SubsystemBase {
     
-    /**
-     * One of the four {@link SwerveWheel} wheels. FR is front right, RL is rear left.
-     */
-    protected final SwerveWheel
+    private final SwerveWheel
 		flWheel,
 		frWheel,
 		rlWheel,
