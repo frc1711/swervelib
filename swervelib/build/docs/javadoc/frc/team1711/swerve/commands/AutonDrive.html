@@ -151,11 +151,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">AutonDrive</span>
 extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
-<div class="block">A command which drives a given <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> in any
+<div class="block">A command which drives a given <a href="../subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>GyroSwerveDrive</code></a> in any
  direction, without turning.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)"><code>fromMovement(AutoSwerveDrive, double, double, double, double, double, FrameOfReference)</code></a></dd>
+<dd><a href="#fromMovement(frc.team1711.swerve.subsystems.GyroSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)"><code>fromMovement(GyroSwerveDrive, double, double, double, double, double, FrameOfReference)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -194,7 +194,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">AutonDrive</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.GyroSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">AutonDrive</a></span>&#8203;(<a href="../subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a>&nbsp;swerveDrive,
           double&nbsp;direction,
           double&nbsp;distance,
           double&nbsp;speed,
@@ -225,7 +225,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static <a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">fromMovement</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromMovement(frc.team1711.swerve.subsystems.GyroSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">fromMovement</a></span>&#8203;(<a href="../subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a>&nbsp;swerveDrive,
             double&nbsp;inchesRight,
             double&nbsp;inchesForward,
             double&nbsp;speed,
@@ -302,13 +302,13 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">
+<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.GyroSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AutonDrive</h4>
-<pre>public&nbsp;AutonDrive&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+<pre>public&nbsp;AutonDrive&#8203;(<a href="../subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a>&nbsp;swerveDrive,
                   double&nbsp;direction,
                   double&nbsp;distance,
                   double&nbsp;speed,
@@ -318,7 +318,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <div class="block">Constructs an <code>AutonDrive</code> command.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>swerveDrive</code> - The <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> drive train.</dd>
+<dd><code>swerveDrive</code> - The <a href="../subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>GyroSwerveDrive</code></a> drive train.</dd>
 <dd><code>direction</code> - The direction, in degrees, to travel in. Zero degrees corresponds with
  directly forward, and an increase in <code>direction</code> corresponds with a direction further
  clockwise from a top-down view. This value must be on the interval [0, 360).</dd>
@@ -378,13 +378,13 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 </dl>
 </li>
 </ul>
-<a id="fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">
+<a id="fromMovement(frc.team1711.swerve.subsystems.GyroSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>fromMovement</h4>
-<pre class="methodSignature">public static&nbsp;<a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a>&nbsp;fromMovement&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+<pre class="methodSignature">public static&nbsp;<a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a>&nbsp;fromMovement&#8203;(<a href="../subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a>&nbsp;swerveDrive,
                                       double&nbsp;inchesRight,
                                       double&nbsp;inchesForward,
                                       double&nbsp;speed,
@@ -394,7 +394,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <div class="block">Constructs an <code>AutonDrive</code> command from a desired distance to the right and forwards.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>swerveDrive</code> - The <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> drive train.</dd>
+<dd><code>swerveDrive</code> - The <a href="../subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>GyroSwerveDrive</code></a> drive train.</dd>
 <dd><code>inchesRight</code> - The number of inches to move to the right, where a negative value denotes
  movement to the left.</dd>
 <dd><code>inchesForward</code> - The number of inches to move forwards, where a negative value denotes
