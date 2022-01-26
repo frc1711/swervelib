@@ -1,3 +1,6 @@
+// SwerveLib - Written and maintained by First Robotics Competition team 1711 The RAPTORS.
+// https://github.com/frc1711/swervelib
+
 package frc.team1711.swerve.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;

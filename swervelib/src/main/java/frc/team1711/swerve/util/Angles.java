@@ -1,6 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// SwerveLib - Written and maintained by First Robotics Competition team 1711 The RAPTORS.
+// https://github.com/frc1711/swervelib
 
 package frc.team1711.swerve.util;
 

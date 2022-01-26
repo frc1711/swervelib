@@ -105,26 +105,33 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></th>
+<th class="colFirst" scope="row"><a href="AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></th>
 <td class="colLast">
-<div class="block">Expands on the <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> for autonomous control.</div>
+<div class="block">Expands on the <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>GyroSwerveDrive</code></a> for autonomous control, requiring
+ the use of <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> rather than <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a>.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <th class="colFirst" scope="row"><a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a></th>
 <td class="colLast">
-<div class="block">Used by <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>GyroSwerveDrive</code></a> to represent a module with encoders on the drive motors,
- in addition to the encoders on the steering motors which are necessary for basic swerve
- functionality.</div>
+<div class="block">Used by <a href="AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> to represent a module with encoders on the drive motors
+ (in addition to the encoders on the steering motors which are necessary for basic swerve
+ functionality).</div>
 </td>
 </tr>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></th>
+<td class="colLast">
+<div class="block">Expands on the <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> for field relative control, using a gyro.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></th>
 <td class="colLast">
 <div class="block">Utilizes <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a> subsystems to create a singular, easy-to-use swerve drive.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a></th>
 <td class="colLast">
 <div class="block">An abstract class used by <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> to represent a
