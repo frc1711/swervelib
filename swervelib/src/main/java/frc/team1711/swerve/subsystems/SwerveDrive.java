@@ -305,15 +305,12 @@ public class SwerveDrive extends SubsystemBase {
 	
 	/**
 	 * Defines the input curve used by {@link #applyInputCurves(double)}. Can be overridden in order
-	 * to redefine this input curve. Unless overridden, this default input curve will be an x^2 curve.
+	 * to redefine this input curve. Unless overridden, this default input curve will be an x^1.5 curve.
 	 * @param value	The input value to apply the curve to, on the interval [-1, 1]
 	 * @return		The input value after applying the curve, which should be on the interval [-1, 1]
 	 */
 	protected double getInputCurve (double value) {
-		// value * value is an x^2 curve, but it always maps to a positive number
-		// In order to make negative input values map to negative output values,
-		// multiplying by the absolute value is necessary
-		return value * Math.abs(value);
+		return Math.pow(Math.abs(value), 0.5) * value;
 	}
 	
 	/**
