@@ -1,66 +1,54 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// SwerveLib - Written and maintained by First Robotics Competition team 1711 The RAPTORS.
+// https://github.com/frc1711/swervelib
 
 package frc.team1711.swerve.subsystems;
 
-import frc.team1711.swerve.util.Angles;
-import frc.team1711.swerve.util.Vector;
-
 /**
- * Expands on the {@link SwerveDrive} for autonomous control. Uses swerve wheels with
- * drive encoders, in the form of {@link AutoSwerveWheel}. Includes gyros.
+ * Expands on the {@link GyroSwerveDrive} for autonomous control, requiring
+ * the use of {@link AutoSwerveWheel} rather than {@link SwerveWheel}.
  * @author Gabriel Seaver
  */
-public abstract class AutoSwerveDrive extends SwerveDrive {
-    
-    /**
+public abstract class AutoSwerveDrive extends GyroSwerveDrive {
+	
+	private final AutoSwerveWheel
+		flWheel,
+		frWheel,
+		rlWheel,
+		rrWheel;
+	
+	/**
      * Creates a new {@code AutoSwerveDrive} given {@link AutoSwerveWheel} wheels.
-     * <b>Note: {@link #AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, double)}
-     * should be used instead if the wheelbase and track are not equal.</b>
-     * @param flWheel              The front left {@code SwerveWheel}
-     * @param frWheel              The front right {@code SwerveWheel}
-     * @param rlWheel              The rear left {@code SwerveWheel}
-     * @param rrWheel              The rear right {@code SwerveWheel}
-     */
-    public AutoSwerveDrive (
-        AutoSwerveWheel flWheel,
-        AutoSwerveWheel frWheel,
-        AutoSwerveWheel rlWheel,
-        AutoSwerveWheel rrWheel) {
-        
-        this(flWheel, frWheel, rlWheel, rrWheel, 1);
-    }
-    
-    /**
-     * Creates a new {@code AutoSwerveDrive} given {@link AutoSwerveWheel} wheels.
-     * @param flWheel              The front left {@code SwerveWheel}
-     * @param frWheel              The front right {@code SwerveWheel}
-     * @param rlWheel              The rear left {@code SwerveWheel}
-     * @param rrWheel              The rear right {@code SwerveWheel}
+     * @param flWheel              The front left {@code AutoSwerveWheel}
+     * @param frWheel              The front right {@code AutoSwerveWheel}
+     * @param rlWheel              The rear left {@code AutoSwerveWheel}
+     * @param rrWheel              The rear right {@code AutoSwerveWheel}
      * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
-     * {@link #AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel)} is recommended if this ratio is 1:1.
      */
     public AutoSwerveDrive (
-        AutoSwerveWheel flWheel,
-        AutoSwerveWheel frWheel,
-        AutoSwerveWheel rlWheel,
-        AutoSwerveWheel rrWheel,
-        double widthToHeightRatio) {
+			AutoSwerveWheel flWheel,
+			AutoSwerveWheel frWheel,
+			AutoSwerveWheel rlWheel,
+			AutoSwerveWheel rrWheel,
+			double widthToHeightRatio) {
         
-        super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio);
+		super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio);
+		
+		this.flWheel = flWheel;
+		this.frWheel = frWheel;
+		this.rlWheel = rlWheel;
+		this.rrWheel = rrWheel;
     }
-    
-    /**
+	
+	/**
      * Sets a distance reference on the encoders, such that the output of
      * {@link #getDistanceTraveled()} will be based on the distance from this reference.
      */
     public void setDistanceReference () {
-        ((AutoSwerveWheel)flWheel).resetDriveEncoder();
-        ((AutoSwerveWheel)frWheel).resetDriveEncoder();
-        ((AutoSwerveWheel)rlWheel).resetDriveEncoder();
-        ((AutoSwerveWheel)rrWheel).resetDriveEncoder();
+        flWheel.resetDriveEncoder();
+        frWheel.resetDriveEncoder();
+        rlWheel.resetDriveEncoder();
+        rrWheel.resetDriveEncoder();
     }
     
     /**
@@ -72,53 +60,10 @@ public abstract class AutoSwerveDrive extends SwerveDrive {
      * @see #setDistanceReference()
      */
     public double getDistanceTraveled () {
-        return (Math.abs(((AutoSwerveWheel)flWheel).getPositionDifference()) +
-                Math.abs(((AutoSwerveWheel)frWheel).getPositionDifference()) +
-                Math.abs(((AutoSwerveWheel)rlWheel).getPositionDifference()) +
-                Math.abs(((AutoSwerveWheel)rrWheel).getPositionDifference())) / 4;
+        return (Math.abs(flWheel.getPositionDifference()) +
+                Math.abs(frWheel.getPositionDifference()) +
+                Math.abs(rlWheel.getPositionDifference()) +
+                Math.abs(rrWheel.getPositionDifference())) / 4;
     }
-    
-    /**
-     * Drives the {@code AutoSwerveDrive} given strafing and steering inputs,
-     * all on the interval [-1, 1], where +y is forwards and +x is to the right.
-     * Strafing is field relative, not robot relative.
-     * @param strafeX   The strafe x input
-     * @param strafeY   The strafe y input
-     * @param steer     The steering input
-     * @param useInputDeadbands Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
-     * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values). {@code true}
-     * means the deadband will be applied.
-     */
-    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steer, boolean useInputDeadbands) {
-        final Vector strafeInput = new Vector(strafeX, strafeY);
-        
-        // Turns the strafeInput vector into a new vector with same magnitude but rotation adjusted for field relative
-        final Vector fieldStrafeInput = strafeInput.toRotationDegrees(fieldRelToRobotRel(strafeInput.getRotationDegrees()));
-        
-        super.inputDrive(
-                fieldStrafeInput.getX(),
-                fieldStrafeInput.getY(),
-                steer,
-                useInputDeadbands);
-    }
-    
-    /**
-     * Gets the gyro yaw angle on the range [0, 360) degrees.
-     * @return The gyro yaw angle.
-     */
-    public abstract double getGyroAngle ();
-    
-    /**
-     * Resets the gyro to a yaw angle of 0. It is recommended that this
-     * be called when this {@code AutoSwerveDrive} object is first
-     * instantiated, so the robot should be facing in the (field relative)
-     * forward direction when this class is instantiated in order to have an
-     * accurate {@link #fieldRelativeInputDrive(double, double, double, boolean)}.
-     */
-    public abstract void resetGyro ();
-    
-    private double fieldRelToRobotRel (double rotation) {
-        return Angles.wrapDegrees(rotation - getGyroAngle());
-    }
-    
+	
 }

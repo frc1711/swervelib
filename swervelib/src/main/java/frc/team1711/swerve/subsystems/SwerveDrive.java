@@ -1,6 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// SwerveLib - Written and maintained by First Robotics Competition team 1711 The RAPTORS.
+// https://github.com/frc1711/swervelib
 
 package frc.team1711.swerve.subsystems;
 
@@ -14,14 +13,11 @@ import frc.team1711.swerve.util.Vector;
  */
 public class SwerveDrive extends SubsystemBase {
     
-    /**
-     * One of the four {@link SwerveWheel} wheels. FR is front right, RL is rear left.
-     */
-    protected final SwerveWheel
-            flWheel,
-            frWheel,
-            rlWheel,
-            rrWheel;
+    private final SwerveWheel
+		flWheel,
+		frWheel,
+		rlWheel,
+		rrWheel;
     
     /**
      * The default steering speed input scalar
@@ -53,45 +49,27 @@ public class SwerveDrive extends SubsystemBase {
      * The relative steering speed (compared to {@link #driveRelativeSpeed})
      * @see #steerRelativeSpeedDefault
      */
-    protected double steerRelativeSpeed = steerRelativeSpeedDefault;
+    private double steerRelativeSpeed = steerRelativeSpeedDefault;
     
     /**
      * The relative driving speed (compared to {@link #steerRelativeSpeed})
      * @see #driveRelativeSpeedDefault
      */
-    protected double driveRelativeSpeed = driveRelativeSpeedDefault;
+    private double driveRelativeSpeed = driveRelativeSpeedDefault;
     
     /**
      * The maximum wheel speed after all calculations
      * @see #maxOutputDefault
      */
-    protected double maxOutput = maxOutputDefault;
+    private double maxOutput = maxOutputDefault;
     
     /**
      * The input deadband for {@link #inputDrive(double, double, double, boolean)}
      * @see #deadbandDefault
      */
-    protected double deadband = deadbandDefault;
+    private double deadband = deadbandDefault;
     
     private final double widthToHeightRatio;
-    
-    /**
-     * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
-     * <b>Note: {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double)}
-     * should be used instead if the wheelbase and track are not equal.</b>
-     * @param flWheel              The front left {@code SwerveWheel}
-     * @param frWheel              The front right {@code SwerveWheel}
-     * @param rlWheel              The rear left {@code SwerveWheel}
-     * @param rrWheel              The rear right {@code SwerveWheel}
-     */
-    public SwerveDrive (
-        SwerveWheel flWheel,
-        SwerveWheel frWheel,
-        SwerveWheel rlWheel,
-        SwerveWheel rrWheel) {
-        
-        this(flWheel, frWheel, rlWheel, rrWheel, 1);
-    }
     
     /**
      * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
@@ -101,7 +79,6 @@ public class SwerveDrive extends SubsystemBase {
      * @param rrWheel              The rear right {@code SwerveWheel}
      * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
-     * {@link #SwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel)} is recommended if this ratio is 1:1.
      */
     public SwerveDrive (
         SwerveWheel flWheel,
@@ -127,12 +104,13 @@ public class SwerveDrive extends SubsystemBase {
      * @param strafeX           The strafing speed in the x direction
      * @param strafeY           The strafing speed in the y direction
      * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
-     * @param useInputDeadbands Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
-     * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values). {@code true}
-     * means the deadband will be applied.
+     * @param useInputCurves 	Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
+     * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values, and whether
+	 * or not to apply other input curves). {@code true} means the deadband and curves will be applied.
      * @see #steerAndDriveAll(double, double)
+	 * @see #applyInputCurves(double)
      */
-    public void inputDrive (double strafeX, double strafeY, double steering, boolean useInputDeadbands) {
+    public final void inputDrive (double strafeX, double strafeY, double steering, boolean useInputCurves) {
         
         // Calculating strafe vector, the vector all the wheels would move at if swerve were to only strafe
         Vector strafeVector = new Vector(strafeX, strafeY);
@@ -141,10 +119,10 @@ public class SwerveDrive extends SubsystemBase {
         if (strafeVector.getMagnitude() > 1) strafeVector = strafeVector.scale(1 / strafeVector.getMagnitude());
         
         // Accounts for deadband, but only if we need to
-        if (useInputDeadbands && accountForDeadband(strafeVector.getMagnitude()) == 0) strafeVector = new Vector(0, 0);
+        if (useInputCurves) strafeVector = applyInputCurves(strafeVector);
         
         // Steering vector FR is the steering vector that will be added to the FR wheel
-        if (useInputDeadbands) steering = accountForDeadband(steering);
+        if (useInputCurves) steering = applyInputCurves(steering);
         Vector steeringVectorFR = new Vector(steering * widthToHeightRatio, -steering);
         
         // Limit steering vector magnitude to 1
@@ -181,10 +159,10 @@ public class SwerveDrive extends SubsystemBase {
         
         // Set wheel speeds
         double
-                flSpeed = flVector.getMagnitude(),
-                frSpeed = frVector.getMagnitude(),
-                rlSpeed = rlVector.getMagnitude(),
-                rrSpeed = rrVector.getMagnitude();
+			flSpeed = flVector.getMagnitude(),
+			frSpeed = frVector.getMagnitude(),
+			rlSpeed = rlVector.getMagnitude(),
+			rrSpeed = rrVector.getMagnitude();
         
         
         // Because wheel speeds must be in correct proportions in order for swerve
@@ -229,7 +207,7 @@ public class SwerveDrive extends SubsystemBase {
      * @param speed             The speed to drive at
      * @see #inputDrive(double, double, double, boolean)
      */
-    public void steerAndDriveAll (double direction, double speed) {
+    public final void steerAndDriveAll (double direction, double speed) {
         flWheel.steerAndDrive(direction, speed);
         frWheel.steerAndDrive(direction, speed);
         rlWheel.steerAndDrive(direction, speed);
@@ -246,7 +224,7 @@ public class SwerveDrive extends SubsystemBase {
      * @return A {@code boolean}, which is {@code true} when all wheels are within the range, and
      * {@code false} otherwise.
      */
-    public boolean steerAllWithinRange (double direction, double marginOfError) {
+    public final boolean steerAllWithinRange (double direction, double marginOfError) {
         steerAndDriveAll(direction, 0);
         
         return  flWheel.checkWithin180Range(direction, marginOfError) &&
@@ -258,7 +236,7 @@ public class SwerveDrive extends SubsystemBase {
     /**
      * Stops all modules immediately.
      */
-    public void stop () {
+    public final void stop () {
         flWheel.stop();
         frWheel.stop();
         rlWheel.stop();
@@ -269,7 +247,7 @@ public class SwerveDrive extends SubsystemBase {
      * Sets the maximum possible drive speed of a swerve wheel.
      * @param _maxOutput    The maximum possible drive speed.
      */
-    public void setMaxOutput (double _maxOutput) {
+    public final void setMaxOutput (double _maxOutput) {
         maxOutput = _maxOutput;
     }
     
@@ -279,7 +257,7 @@ public class SwerveDrive extends SubsystemBase {
      * @param deadband The new input deadband
      * @see #deadbandDefault
      */
-    public void setDeadband (double deadband) {
+    public final void setDeadband (double deadband) {
         this.deadband = deadband;
     }
     
@@ -289,7 +267,7 @@ public class SwerveDrive extends SubsystemBase {
      * @param steerRelativeSpeed The new sensitivity
      * @see #steerRelativeSpeedDefault
      */
-    public void setSteerRelativeSpeed (double steerRelativeSpeed) {
+    public final void setSteerRelativeSpeed (double steerRelativeSpeed) {
         this.steerRelativeSpeed = steerRelativeSpeed;
     }
     
@@ -299,21 +277,60 @@ public class SwerveDrive extends SubsystemBase {
      * @param _driveRelativeSpeed The new sensitivity
      * @see #driveRelativeSpeedDefault
      */
-    public void setDriveRelativeSpeed (double _driveRelativeSpeed) {
+    public final void setDriveRelativeSpeed (double _driveRelativeSpeed) {
         driveRelativeSpeed = _driveRelativeSpeed;
     }
     
     /**
-     * Places an input value on interval [-1, 1] to either [deadband, 1] or [-1, -deadband]
-     * @param value The value to place within the deadband
-     * @return      The value, after accounting for the input deadband
+     * Applies the deadband set by {@link #setDeadband(double)} to an input value on the interval [-1, 1] and
+	 * then applies whatever input curve is defined by {@link #getInputCurve(double)} to this value.
+     * @param value The input value to modify
+     * @return      The input value after accounting for the deadband
+	 * @see #inputDrive(double, double, double, boolean)
+	 * @see #applyInputCurves(Vector)
      */
-    protected double accountForDeadband (double value) {
+    protected final double applyInputCurves (double value) {
+		// Returns 0 if value is within deadband
         if (Math.abs(value) < deadband) return 0;
-        // Puts value in [0, 1] or [-1, 0] into range [deadband, infinity] or [-infinity, -deadband]
+		
+        // Puts value in [deadband, infinity] or [-infinity, -deadband] into [-infinity, infinity]
         double deadbandValue = (value + (value > 0 ? -deadband : deadband)) / (1 - deadband);
-        // Returns a new value no greater than 1 and no less than -1
-        return Math.max(Math.min(deadbandValue, 1), -1);
+		
+        // Puts value in [-infinity, infinity] into [-1, 1]
+        double inputAfterDeadband = Math.max(Math.min(deadbandValue, 1), -1);
+		
+		// Applies the input curve to the value
+		return Math.max(Math.min(getInputCurve(inputAfterDeadband), 1), -1);
     }
+	
+	/**
+	 * Defines the input curve used by {@link #applyInputCurves(double)}. Can be overridden in order
+	 * to redefine this input curve. Unless overridden, this default input curve will be an x^1.5 curve.
+	 * @param value	The input value to apply the curve to, on the interval [-1, 1]
+	 * @return		The input value after applying the curve, which should be on the interval [-1, 1]
+	 */
+	protected double getInputCurve (double value) {
+		return Math.pow(Math.abs(value), 0.5) * value;
+	}
+	
+	/**
+	 * Maps an input vector according to the basic mechanics of {@link #applyInputCurves(double)} (based on
+	 * the magnitude of the vector), limiting the output vector's magnitude to 1.
+	 * @param value	The input vector to apply the curves and deadband to
+	 * @return		The input vector after applying the curves and deadband
+	 */
+	protected final Vector applyInputCurves (Vector value) {
+		// Returns a zero vector if necessary (prevents dividing by 0 later)
+		if (value.getMagnitude() == 0) return new Vector(0, 0);
+		
+		// Puts magnitude of value within [-1, 1]
+		if (value.getMagnitude() > 1) value.scale(1 / value.getMagnitude());
+		
+		// Gets new magnitude of vector
+		double newMag = applyInputCurves(value.getMagnitude());
+		
+		// Scales vector to new magnitude
+		return value.scale(newMag / value.getMagnitude());
+	}
     
 }

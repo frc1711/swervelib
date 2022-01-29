@@ -1,13 +1,12 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// SwerveLib - Written and maintained by First Robotics Competition team 1711 The RAPTORS.
+// https://github.com/frc1711/swervelib
 
 package frc.team1711.swerve.subsystems;
 
 /**
- * Used by {@link AutoSwerveDrive} to represent a module with encoders on the drive motors,
- * in addition to the encoders on the steering motors which are necessary for basic swerve
- * functionality.
+ * Used by {@link AutoSwerveDrive} to represent a module with encoders on the drive motors
+ * (in addition to the encoders on the steering motors which are necessary for basic swerve
+ * functionality).
  * @author Gabriel Seaver
  */
 abstract public class AutoSwerveWheel extends SwerveWheel {
