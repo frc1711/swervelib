@@ -38,19 +38,20 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
      * @param strafeX           The strafing speed in the x direction
      * @param strafeY           The strafing speed in the y direction
      * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
-     * @param useInputDeadbands Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
-     * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values). {@code true}
-     * means the deadband will be applied.
+     * @param useInputCurves 	Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
+     * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values, and whether
+	 * or not to apply other input curves). {@code true} means the deadband and curves will be applied.
      * @see #inputDrive(double, double, double, boolean)
 	 * @see #steerAndDriveAll(double, double)
+	 * @see #applyInputCurves(double)
      */
-    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steering, boolean useInputDeadbands) {
+    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steering, boolean useInputCurves) {
         Vector strafeInput = new Vector(strafeX, strafeY);
 		
 		// strafeInput deadband
-		if (useInputDeadbands) {
-			strafeInput = accountForDeadband(strafeInput);
-			steering = accountForDeadband(steering);
+		if (useInputCurves) {
+			strafeInput = applyInputCurves(strafeInput);
+			steering = applyInputCurves(steering);
 		}
         
         // Turns the strafeInput vector into a new vector with same magnitude but rotation adjusted for field relative

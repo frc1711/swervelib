@@ -169,7 +169,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></h3>
-<code><a href="SwerveDrive.html#deadband">deadband</a>, <a href="SwerveDrive.html#deadbandDefault">deadbandDefault</a>, <a href="SwerveDrive.html#driveRelativeSpeed">driveRelativeSpeed</a>, <a href="SwerveDrive.html#driveRelativeSpeedDefault">driveRelativeSpeedDefault</a>, <a href="SwerveDrive.html#maxOutput">maxOutput</a>, <a href="SwerveDrive.html#maxOutputDefault">maxOutputDefault</a>, <a href="SwerveDrive.html#steerRelativeSpeed">steerRelativeSpeed</a>, <a href="SwerveDrive.html#steerRelativeSpeedDefault">steerRelativeSpeedDefault</a></code></li>
+<code><a href="SwerveDrive.html#deadbandDefault">deadbandDefault</a>, <a href="SwerveDrive.html#driveRelativeSpeedDefault">driveRelativeSpeedDefault</a>, <a href="SwerveDrive.html#maxOutputDefault">maxOutputDefault</a>, <a href="SwerveDrive.html#steerRelativeSpeedDefault">steerRelativeSpeedDefault</a></code></li>
 </ul>
 </li>
 </ul>
@@ -220,7 +220,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fieldRelativeInputDrive(double,double,double,boolean)">fieldRelativeInputDrive</a></span>&#8203;(double&nbsp;strafeX,
                        double&nbsp;strafeY,
                        double&nbsp;steering,
-                       boolean&nbsp;useInputDeadbands)</code></th>
+                       boolean&nbsp;useInputCurves)</code></th>
 <td class="colLast">
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs,
  all on the interval [-1, 1], where +y is forwards and +x is to the right.</div>
@@ -246,7 +246,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></h3>
-<code><a href="SwerveDrive.html#accountForDeadband(double)">accountForDeadband</a>, <a href="SwerveDrive.html#accountForDeadband(frc.team1711.swerve.util.Vector)">accountForDeadband</a>, <a href="SwerveDrive.html#inputDrive(double,double,double,boolean)">inputDrive</a>, <a href="SwerveDrive.html#setDeadband(double)">setDeadband</a>, <a href="SwerveDrive.html#setDriveRelativeSpeed(double)">setDriveRelativeSpeed</a>, <a href="SwerveDrive.html#setMaxOutput(double)">setMaxOutput</a>, <a href="SwerveDrive.html#setSteerRelativeSpeed(double)">setSteerRelativeSpeed</a>, <a href="SwerveDrive.html#steerAllWithinRange(double,double)">steerAllWithinRange</a>, <a href="SwerveDrive.html#steerAndDriveAll(double,double)">steerAndDriveAll</a>, <a href="SwerveDrive.html#stop()">stop</a></code></li>
+<code><a href="SwerveDrive.html#applyInputCurves(double)">applyInputCurves</a>, <a href="SwerveDrive.html#applyInputCurves(frc.team1711.swerve.util.Vector)">applyInputCurves</a>, <a href="SwerveDrive.html#getInputCurve(double)">getInputCurve</a>, <a href="SwerveDrive.html#inputDrive(double,double,double,boolean)">inputDrive</a>, <a href="SwerveDrive.html#setDeadband(double)">setDeadband</a>, <a href="SwerveDrive.html#setDriveRelativeSpeed(double)">setDriveRelativeSpeed</a>, <a href="SwerveDrive.html#setMaxOutput(double)">setMaxOutput</a>, <a href="SwerveDrive.html#setSteerRelativeSpeed(double)">setSteerRelativeSpeed</a>, <a href="SwerveDrive.html#steerAllWithinRange(double,double)">steerAllWithinRange</a>, <a href="SwerveDrive.html#steerAndDriveAll(double,double)">steerAndDriveAll</a>, <a href="SwerveDrive.html#stop()">stop</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.SubsystemBase">
@@ -327,7 +327,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <pre class="methodSignature">public&nbsp;void&nbsp;fieldRelativeInputDrive&#8203;(double&nbsp;strafeX,
                                     double&nbsp;strafeY,
                                     double&nbsp;steering,
-                                    boolean&nbsp;useInputDeadbands)</pre>
+                                    boolean&nbsp;useInputCurves)</pre>
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs,
  all on the interval [-1, 1], where +y is forwards and +x is to the right.
  Strafing is field relative, not robot relative.</div>
@@ -336,12 +336,13 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <dd><code>strafeX</code> - The strafing speed in the x direction</dd>
 <dd><code>strafeY</code> - The strafing speed in the y direction</dd>
 <dd><code>steering</code> - The steering speed, where a positive value steers clockwise from a top-down point of view</dd>
-<dd><code>useInputDeadbands</code> - Whether or not to treat <code>strafeX</code>, <code>strafeY</code>, and <code>steering</code> as UI
- inputs (i.e. whether or not to apply the deadband set by <a href="SwerveDrive.html#setDeadband(double)"><code>SwerveDrive.setDeadband(double)</code></a> to these values). <code>true</code>
- means the deadband will be applied.</dd>
+<dd><code>useInputCurves</code> - Whether or not to treat <code>strafeX</code>, <code>strafeY</code>, and <code>steering</code> as UI
+ inputs (i.e. whether or not to apply the deadband set by <a href="SwerveDrive.html#setDeadband(double)"><code>SwerveDrive.setDeadband(double)</code></a> to these values, and whether
+ or not to apply other input curves). <code>true</code> means the deadband and curves will be applied.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="SwerveDrive.html#inputDrive(double,double,double,boolean)"><code>SwerveDrive.inputDrive(double, double, double, boolean)</code></a>, 
-<a href="SwerveDrive.html#steerAndDriveAll(double,double)"><code>SwerveDrive.steerAndDriveAll(double, double)</code></a></dd>
+<a href="SwerveDrive.html#steerAndDriveAll(double,double)"><code>SwerveDrive.steerAndDriveAll(double, double)</code></a>, 
+<a href="SwerveDrive.html#applyInputCurves(double)"><code>SwerveDrive.applyInputCurves(double)</code></a></dd>
 </dl>
 </li>
 </ul>
