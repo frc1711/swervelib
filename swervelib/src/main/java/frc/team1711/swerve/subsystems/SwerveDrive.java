@@ -21,36 +21,12 @@ public class SwerveDrive extends SubsystemBase {
 		rrWheel;
     
     /**
-     * The default steering speed input scalar
-     * @see #setSteerRelativeSpeed(double)
-     * @see #driveRelativeSpeedDefault
-     */
-    public static double steerRelativeSpeedDefault = 0.3;
-    
-    /**
-     * The default driving speed input scalar
-     * @see #setDriveRelativeSpeed(double)
-     * @see #steerRelativeSpeedDefault
-     */
-    public static double driveRelativeSpeedDefault = 0.5;
-    
-    /**
      * The default maximum wheel speed after all calculations
      * @see #setMaxOutput(double)
      */
     public static double maxOutputDefault = 1.0;
     
-    /**
-     * The relative steering speed (compared to {@link #driveRelativeSpeed})
-     * @see #steerRelativeSpeedDefault
-     */
-    private double steerRelativeSpeed = steerRelativeSpeedDefault;
-    
-    /**
-     * The relative driving speed (compared to {@link #steerRelativeSpeed})
-     * @see #driveRelativeSpeedDefault
-     */
-    private double driveRelativeSpeed = driveRelativeSpeedDefault;
+    private SwerveDrivingSpeeds swerveDrivingSpeeds;
     
     /**
      * The maximum wheel speed after all calculations
@@ -61,31 +37,66 @@ public class SwerveDrive extends SubsystemBase {
     private final double widthToHeightRatio;
     
     /**
-     * Creates a new {@code SwerveDrive} given {@link SwerveWheel} wheels.
+     * Creates a new {@code SwerveDrive}.
      * @param flWheel              The front left {@code SwerveWheel}
      * @param frWheel              The front right {@code SwerveWheel}
      * @param rlWheel              The rear left {@code SwerveWheel}
      * @param rrWheel              The rear right {@code SwerveWheel}
      * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
+	 * @param swerveDrivingSpeeds  The {@link SwerveDrivingSpeeds} configuration
      */
     public SwerveDrive (
         SwerveWheel flWheel,
         SwerveWheel frWheel,
         SwerveWheel rlWheel,
         SwerveWheel rrWheel,
-        double widthToHeightRatio) {
+        double widthToHeightRatio,
+		SwerveDrivingSpeeds swerveDrivingSpeeds) {
         
         this.flWheel = flWheel;
         this.frWheel = frWheel;
         this.rlWheel = rlWheel;
         this.rrWheel = rrWheel;
-        
-        driveRelativeSpeed = driveRelativeSpeedDefault;
-        steerRelativeSpeed = steerRelativeSpeedDefault;
-        
         this.widthToHeightRatio = widthToHeightRatio;
+        this.swerveDrivingSpeeds = swerveDrivingSpeeds;
     }
+	
+	/**
+	 * A class representing the configuration of relative speeds for {@link SwerveDrive} in
+	 * {@link SwerveDrive#inputDrive(double, double, double, InputHandler)}.
+	 * @see SwerveDrive#setSwerveDrivingSpeeds(SwerveDrivingSpeeds)
+	 */
+	public static class SwerveDrivingSpeeds {
+		
+		private double strafeSpeed, steerSpeed;
+		
+		/**
+		 * Creates a new {@code SwerveDrivingSpeeds} configuration. Note: If {@code strafeSpeed} and {@code steerSpeed} sum to greater
+		 * than 1, {@link SwerveDrive#inputDrive(double, double, double, InputHandler)} will ensure the relative speeds of the modules
+		 * are still in proportion to each other, so the kinematics of swerve will not be affected (though in some situations where the
+		 * inputs are very high, the robot may move slower than desired).
+		 * @param strafeSpeed	The scalar on the strafe inputs for
+		 * {@code SwerveDrive.inputDrive()}. For example, if {@code strafeSpeed} were
+		 * 0.8, then any {@link SwerveWheel} would only ever be commanded to a maximum speed of 0.8
+		 * using {@code SwerveWheel.setDriveSpeed()}, assuming there is zero steering input passed into {@code SwerveDrive.inputDrive()}.
+		 * @param steerSpeed	The scalar on the steering inputs for {@link SwerveDrive#inputDrive(double, double, double, InputHandler)},
+		 * working in the same way as {@code strafeSpeed}.
+		 */
+		public SwerveDrivingSpeeds (double strafeSpeed, double steerSpeed) {
+			this.strafeSpeed = strafeSpeed;
+			this.steerSpeed = steerSpeed;
+		}
+		
+	}
+	
+	/**
+	 * Used to set a new {@link SwerveDrivingSpeeds} configuration.
+	 * @param swerveDrivingSpeeds The new {@code SwerveDrivingSpeeds} configuration
+	 */
+	public void setSwerveDrivingSpeeds (SwerveDrivingSpeeds swerveDrivingSpeeds) {
+		this.swerveDrivingSpeeds = swerveDrivingSpeeds;
+	}
     
     /**
      * Drives the {@code SwerveDrive} given strafing and steering inputs,
@@ -120,8 +131,8 @@ public class SwerveDrive extends SubsystemBase {
         // Currently, both steeringVectorFR and strafeVector are limited to a magnitude of 1,
         // but we want to apply steering and driving relative speed scalars to make input more
         // customizable
-        strafeVector = strafeVector.scale(driveRelativeSpeed);
-        steeringVectorFR = steeringVectorFR.scale(steerRelativeSpeed);
+        strafeVector = strafeVector.scale(swerveDrivingSpeeds.strafeSpeed);
+        steeringVectorFR = steeringVectorFR.scale(swerveDrivingSpeeds.steerSpeed);
         
         /*
         Clockwise steering vector additions:
@@ -238,26 +249,6 @@ public class SwerveDrive extends SubsystemBase {
      */
     public final void setMaxOutput (double _maxOutput) {
         maxOutput = _maxOutput;
-    }
-    
-    /**
-     * Sets the sensitivity of {@link #inputDrive(double, double, double, boolean)} towards
-     * steering inputs.
-     * @param steerRelativeSpeed The new sensitivity
-     * @see #steerRelativeSpeedDefault
-     */
-    public final void setSteerRelativeSpeed (double steerRelativeSpeed) {
-        this.steerRelativeSpeed = steerRelativeSpeed;
-    }
-    
-    /**
-     * Sets the sensitivity of {@link #inputDrive(double, double, double, boolean)} towards
-     * driving inputs.
-     * @param _driveRelativeSpeed The new sensitivity
-     * @see #driveRelativeSpeedDefault
-     */
-    public final void setDriveRelativeSpeed (double _driveRelativeSpeed) {
-        driveRelativeSpeed = _driveRelativeSpeed;
     }
     
 }

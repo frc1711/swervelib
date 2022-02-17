@@ -21,15 +21,17 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
      * @param rrWheel              The rear right {@code SwerveWheel}
      * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
+	 * @param swerveDrivingSpeeds  The {@link SwerveDrivingSpeeds} configuration
      */
     public GyroSwerveDrive (
         SwerveWheel flWheel,
         SwerveWheel frWheel,
         SwerveWheel rlWheel,
         SwerveWheel rrWheel,
-        double widthToHeightRatio) {
+        double widthToHeightRatio,
+		SwerveDrivingSpeeds swerveDrivingSpeeds) {
         
-        super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio);
+        super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio, swerveDrivingSpeeds);
     }
     
 	/**

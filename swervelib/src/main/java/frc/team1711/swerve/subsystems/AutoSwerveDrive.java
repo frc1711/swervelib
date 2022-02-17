@@ -24,15 +24,17 @@ public abstract class AutoSwerveDrive extends GyroSwerveDrive {
      * @param rrWheel              The rear right {@code AutoSwerveWheel}
      * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
      * of the front or back wheels divided by the distance between the centers of the left or right wheels).
+	 * @param swerveDrivingSpeeds  The {@link SwerveDrivingSpeeds} configuration
      */
     public AutoSwerveDrive (
 			AutoSwerveWheel flWheel,
 			AutoSwerveWheel frWheel,
 			AutoSwerveWheel rlWheel,
 			AutoSwerveWheel rrWheel,
-			double widthToHeightRatio) {
+			double widthToHeightRatio,
+			SwerveDrivingSpeeds swerveDrivingSpeeds) {
         
-		super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio);
+		super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio, swerveDrivingSpeeds);
 		
 		this.flWheel = flWheel;
 		this.frWheel = frWheel;
