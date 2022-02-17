@@ -22,31 +22,31 @@ public class SwerveDrive extends SubsystemBase {
     
     protected SwerveDrivingSpeeds swerveDrivingSpeeds;
     
-    private final double widthToHeightRatio;
+    private final double wheelbaseToTrackRatio;
     
     /**
      * Creates a new {@code SwerveDrive}.
-     * @param flWheel              The front left {@code SwerveWheel}
-     * @param frWheel              The front right {@code SwerveWheel}
-     * @param rlWheel              The rear left {@code SwerveWheel}
-     * @param rrWheel              The rear right {@code SwerveWheel}
-     * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
-	 * of the left or right wheels divided by the distance between the centers of the front or back wheels).
-	 * @param swerveDrivingSpeeds  The {@link SwerveDrivingSpeeds} configuration
+     * @param flWheel					The front left {@code SwerveWheel}
+     * @param frWheel					The front right {@code SwerveWheel}
+     * @param rlWheel					The rear left {@code SwerveWheel}
+     * @param rrWheel					The rear right {@code SwerveWheel}
+     * @param wheelbaseToTrackRatio		The distance between the centers of the left and right wheels divided
+	 * by the distance between the centers of the front and back wheels
+	 * @param swerveDrivingSpeeds		The {@link SwerveDrivingSpeeds} configuration
      */
     public SwerveDrive (
         SwerveWheel flWheel,
         SwerveWheel frWheel,
         SwerveWheel rlWheel,
         SwerveWheel rrWheel,
-        double widthToHeightRatio,
+        double wheelbaseToTrackRatio,
 		SwerveDrivingSpeeds swerveDrivingSpeeds) {
         
         this.flWheel = flWheel;
         this.frWheel = frWheel;
         this.rlWheel = rlWheel;
         this.rrWheel = rrWheel;
-        this.widthToHeightRatio = widthToHeightRatio;
+        this.wheelbaseToTrackRatio = wheelbaseToTrackRatio;
         this.swerveDrivingSpeeds = swerveDrivingSpeeds;
     }
 	
@@ -125,7 +125,7 @@ public class SwerveDrive extends SubsystemBase {
         
         // Steering vector FR is the steering vector that will be added to the front right wheel, and is used
 		// to calculate the steering vectors for all the other wheels
-		Vector steeringVectorFR = new Vector(widthToHeightRatio, -1); // Puts steeringVectorFR in the correct DIRECTION for rotation (wrong magnitude)
+		Vector steeringVectorFR = new Vector(wheelbaseToTrackRatio, -1); // Puts steeringVectorFR in the correct DIRECTION for rotation (wrong magnitude)
 		steeringVectorFR = steeringVectorFR.scale(steering/steeringVectorFR.getMagnitude()); // Scales steeringVectorFR to the magnitude of the steering variable
 		
         /*

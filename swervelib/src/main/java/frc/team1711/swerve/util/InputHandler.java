@@ -73,9 +73,6 @@ public class InputHandler {
 		// Returns a zero output vector if the input magnitude is zero (prevents dividing by zero later)
 		if (input.getMagnitude() == 0) return new Vector(0, 0);
 		
-		// Puts magnitude of input vector within [-1, 1] if it's outside the range
-		if (input.getMagnitude() > 1) input = input.scale(1 / input.getMagnitude());
-		
 		// Gets the new magnitude of the vector based on the deadband and input curve
 		double newMag = apply(input.getMagnitude());
 		
