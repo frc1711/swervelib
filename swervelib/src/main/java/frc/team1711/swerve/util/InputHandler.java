@@ -69,7 +69,7 @@ public class InputHandler {
 	 * @param input The input vector, with a magnitude on the interval [-1, 1]
 	 * @return The corresponding output vector, with a magnitude on the interval [-1, 1]
 	 */
-	protected final Vector getOutput (Vector input) {
+	public final Vector getOutput (Vector input) {
 		// Returns a zero output vector if the input magnitude is zero (prevents dividing by zero later)
 		if (input.getMagnitude() == 0) return new Vector(0, 0);
 		
