@@ -108,10 +108,10 @@ public class SwerveDrive extends SubsystemBase {
         if (strafeVector.getMagnitude() > 1) strafeVector = strafeVector.scale(1 / strafeVector.getMagnitude());
         
         // Applies input handler, but only if necessary
-        if (inputHandler != null) strafeVector = inputHandler.getOutput(strafeVector);
+        if (inputHandler != null) strafeVector = inputHandler.apply(strafeVector);
         
         // Steering vector FR is the steering vector that will be added to the front right wheel
-        if (inputHandler != null) steering = inputHandler.getOutput(steering);
+        if (inputHandler != null) steering = inputHandler.apply(steering);
         Vector steeringVectorFR = new Vector(steering * widthToHeightRatio, -steering);
         
         // Limit steering vector magnitude to 1

@@ -51,8 +51,8 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
 		
 		// strafeInput deadband
 		if (inputHandler != null) {
-			strafeInput = inputHandler.getOutput(strafeInput);
-			steering = inputHandler.getOutput(steering);
+			strafeInput = inputHandler.apply(strafeInput);
+			steering = inputHandler.apply(steering);
 		}
         
         // Turns the strafeInput vector into a new vector with same magnitude but rotation adjusted for field relative

@@ -43,9 +43,9 @@ public class InputHandler {
 	 * @param input The input value, on the interval [-1, 1]
 	 * @return The corresponding output value, on the interval [-1, 1]
 	 * 
-	 * @see #getOutput(Vector)
+	 * @see #apply(Vector)
 	 */
-	public final double getOutput (double input) {
+	public final double apply (double input) {
 		// Makes the input positive, and keeps track of whether it was originally negative
 		// because the input curves only accept positive values
 		boolean isNegative = input < 0;
@@ -64,12 +64,12 @@ public class InputHandler {
 	}
 	
 	/**
-	 * Maps an input vector according to the mechanics of {@link #getOutput(double)}, based on
+	 * Maps an input vector according to the mechanics of {@link #apply(double)}, based on
 	 * the magnitude of the vector.
 	 * @param input The input vector, with a magnitude on the interval [-1, 1]
 	 * @return The corresponding output vector, with a magnitude on the interval [-1, 1]
 	 */
-	public final Vector getOutput (Vector input) {
+	public final Vector apply (Vector input) {
 		// Returns a zero output vector if the input magnitude is zero (prevents dividing by zero later)
 		if (input.getMagnitude() == 0) return new Vector(0, 0);
 		
@@ -77,7 +77,7 @@ public class InputHandler {
 		if (input.getMagnitude() > 1) input = input.scale(1 / input.getMagnitude());
 		
 		// Gets the new magnitude of the vector based on the deadband and input curve
-		double newMag = getOutput(input.getMagnitude());
+		double newMag = apply(input.getMagnitude());
 		
 		// Scales the vector to the new magnitude
 		// Could divide by zero if the input magnitude is zero, but prevented by an earlier check
