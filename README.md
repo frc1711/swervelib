@@ -1,8 +1,7 @@
 # Implementing Swervelib
 
 This is just a small library in order to help implement swerve drive more easily.
-In order to use it, first download the 
-[latest release](https://github.com/frc1711/swerve/tree/main/swervelib/build/libs)
+In order to use it, first download the latest release from this release's assets
 and, in your wpilib project, create a new directory named `libs` and place the `jar` inside.
 Next, navigate to your project's `build.gradle` file and, under the `dependencies` section,
 add the following line:

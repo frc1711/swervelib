@@ -4,6 +4,7 @@
 package frc.team1711.swerve.subsystems;
 
 import frc.team1711.swerve.util.Angles;
+import frc.team1711.swerve.util.InputHandler;
 import frc.team1711.swerve.util.Vector;
 
 /**
@@ -18,50 +19,47 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
      * @param frWheel              The front right {@code SwerveWheel}
      * @param rlWheel              The rear left {@code SwerveWheel}
      * @param rrWheel              The rear right {@code SwerveWheel}
-     * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
-     * of the front or back wheels divided by the distance between the centers of the left or right wheels).
+     * @param wheelbaseToTrackRatio		The distance between the centers of the left and right wheels divided
+	 * by the distance between the centers of the front and back wheels
+	 * @param swerveDrivingSpeeds  The {@link SwerveDrivingSpeeds} configuration
      */
     public GyroSwerveDrive (
         SwerveWheel flWheel,
         SwerveWheel frWheel,
         SwerveWheel rlWheel,
         SwerveWheel rrWheel,
-        double widthToHeightRatio) {
+        double wheelbaseToTrackRatio,
+		SwerveDrivingSpeeds swerveDrivingSpeeds) {
         
-        super(flWheel, frWheel, rlWheel, rrWheel, widthToHeightRatio);
+        super(flWheel, frWheel, rlWheel, rrWheel, wheelbaseToTrackRatio, swerveDrivingSpeeds);
     }
     
 	/**
-     * Drives the {@code SwerveDrive} given strafing and steering inputs,
-     * all on the interval [-1, 1], where +y is forwards and +x is to the right.
-	 * Strafing is field relative, not robot relative.
+     * Drives the {@code SwerveDrive} given strafing and steering inputs, all on the interval [-1, 1],
+	 * where +{@code strafeY} is forwards and +{@code strafeX} is to the right. Inputs are assumed to be from a user-controlled
+	 * device, so {@link SwerveDrivingSpeeds} are applied, along with an {@link InputHandler}. Strafing is
+	 * field relative, not robot relative.
      * @param strafeX           The strafing speed in the x direction
      * @param strafeY           The strafing speed in the y direction
      * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
-     * @param useInputCurves 	Whether or not to treat {@code strafeX}, {@code strafeY}, and {@code steering} as UI
-     * inputs (i.e. whether or not to apply the deadband set by {@link #setDeadband(double)} to these values, and whether
-	 * or not to apply other input curves). {@code true} means the deadband and curves will be applied.
-     * @see #inputDrive(double, double, double, boolean)
-	 * @see #steerAndDriveAll(double, double)
-	 * @see #applyInputCurves(double)
+     * @param inputHandler		The {@code InputHandler} to be used for converting user inputs into usable outputs.
+	 * @see #userInputDrive(double, double, double, InputHandler)
+     * @see #steerAndDriveAll(double, double)
      */
-    public void fieldRelativeInputDrive (double strafeX, double strafeY, double steering, boolean useInputCurves) {
+    public void fieldRelativeUserInputDrive (double strafeX, double strafeY, double steering, InputHandler inputHandler) {
         Vector strafeInput = new Vector(strafeX, strafeY);
 		
-		// strafeInput deadband
-		if (useInputCurves) {
-			strafeInput = applyInputCurves(strafeInput);
-			steering = applyInputCurves(steering);
-		}
+		// strafe and steering inputs processing
+		strafeInput = inputHandler.apply(strafeInput);
+		steering = inputHandler.apply(steering);
         
         // Turns the strafeInput vector into a new vector with same magnitude but rotation adjusted for field relative
         final Vector fieldStrafeInput = strafeInput.toRotationDegrees(fieldRelToRobotRel(strafeInput.getRotationDegrees()));
         
-        super.inputDrive(
-			fieldStrafeInput.getX(),
-			fieldStrafeInput.getY(),
-			steering,
-			false);
+        super.autoDrive(
+			fieldStrafeInput.getX() * swerveDrivingSpeeds.strafeSpeed,
+			fieldStrafeInput.getY() * swerveDrivingSpeeds.strafeSpeed,
+			steering * swerveDrivingSpeeds.steerSpeed);
     }
     
     /**
@@ -75,7 +73,7 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
      * be called when this {@code GyroSwerveDrive} object is first
      * instantiated, so the robot should be facing in the (field relative)
      * forward direction when this class is instantiated in order to have an
-     * accurate {@link #fieldRelativeInputDrive(double, double, double, boolean)}.
+     * accurate {@link #fieldRelativeUserInputDrive(double, double, double, InputHandler)}.
      */
     public abstract void resetGyro ();
     
