@@ -72,7 +72,7 @@ public class AutonTurn extends CommandBase {
         double turningChange = Angles.wrapDegreesZeroCenter(direction - swerveDrive.getGyroAngle());
         double currentTurnSpeed = turningChange > 0 ? turnSpeed : -turnSpeed;
         
-        swerveDrive.inputDrive(0, 0, currentTurnSpeed, null);
+        swerveDrive.autoDrive(0, 0, currentTurnSpeed);
     }
     
     private boolean withinMargins () {

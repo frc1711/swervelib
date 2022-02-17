@@ -23,7 +23,7 @@ public abstract class AutoSwerveDrive extends GyroSwerveDrive {
      * @param rlWheel              The rear left {@code AutoSwerveWheel}
      * @param rrWheel              The rear right {@code AutoSwerveWheel}
      * @param widthToHeightRatio   The ratio from the track to the wheelbase (the distance between the centers
-     * of the front or back wheels divided by the distance between the centers of the left or right wheels).
+	 * of the left or right wheels divided by the distance between the centers of the front or back wheels).
 	 * @param swerveDrivingSpeeds  The {@link SwerveDrivingSpeeds} configuration
      */
     public AutoSwerveDrive (

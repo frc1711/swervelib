@@ -66,7 +66,7 @@ class AutonDriveSimple extends CommandBase {
     public void execute () {
         if (swerveDrive.getDistanceTraveled() < distance) {
             final Vector driveVector = Vector.fromPolarDegrees(direction, speed);
-            swerveDrive.inputDrive(driveVector.getX(), driveVector.getY(), getCorrectionTurn(), null);
+            swerveDrive.autoDrive(driveVector.getX(), driveVector.getY(), getCorrectionTurn());
         } else {
             finished = true;
         }
