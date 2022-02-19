@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -255,12 +255,17 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable</a></span>&#8203;(edu.wpi.first.util.sendable.SendableBuilder&nbsp;builder)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSwerveDrivingSpeeds(frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">setSwerveDrivingSpeeds</a></span>&#8203;(<a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a>&nbsp;swerveDrivingSpeeds)</code></th>
 <td class="colLast">
 <div class="block">Used to set a new <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.SwerveDrivingSpeeds</code></a> configuration.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#steerAllWithinRange(double,double)">steerAllWithinRange</a></span>&#8203;(double&nbsp;direction,
                    double&nbsp;marginOfError)</code></th>
@@ -268,7 +273,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <div class="block">Steers all wheels to a direction within a certain range.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#steerAndDriveAll(double,double)">steerAndDriveAll</a></span>&#8203;(double&nbsp;direction,
                 double&nbsp;speed)</code></th>
@@ -276,14 +281,14 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <div class="block">Steers and drives all wheels in the same direction and with the same speed.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop()">stop</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Stops all modules immediately.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">userInputDrive</a></span>&#8203;(double&nbsp;strafeX,
               double&nbsp;strafeY,
@@ -300,7 +305,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;edu.wpi.first.wpilibj2.command.SubsystemBase</h3>
-<code>addChild, getName, getSubsystem, initSendable, setName, setSubsystem</code></li>
+<code>addChild, getName, getSubsystem, setName, setSubsystem</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -386,6 +391,21 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="initSendable(edu.wpi.first.util.sendable.SendableBuilder)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>initSendable</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;initSendable&#8203;(edu.wpi.first.util.sendable.SendableBuilder&nbsp;builder)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code>initSendable</code>&nbsp;in interface&nbsp;<code>edu.wpi.first.util.sendable.Sendable</code></dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>initSendable</code>&nbsp;in class&nbsp;<code>edu.wpi.first.wpilibj2.command.SubsystemBase</code></dd>
+</dl>
+</li>
+</ul>
 <a id="setSwerveDrivingSpeeds(frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">
 <!--   -->
 </a>

@@ -3,6 +3,7 @@
 
 package frc.team1711.swerve.subsystems;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
 import frc.team1711.swerve.util.Angles;
 import frc.team1711.swerve.util.InputHandler;
 import frc.team1711.swerve.util.Vector;
@@ -61,6 +62,12 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
 			fieldStrafeInput.getY() * swerveDrivingSpeeds.strafeSpeed,
 			steering * swerveDrivingSpeeds.steerSpeed);
     }
+	
+	@Override
+	public void initSendable (SendableBuilder builder) {
+		super.initSendable(builder);
+		builder.addDoubleProperty("Gyro Angle", () -> getGyroAngle(), (x) -> {});
+	}
     
     /**
      * Gets the gyro yaw angle on the range [0, 360) degrees.

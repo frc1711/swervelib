@@ -3,6 +3,7 @@
 
 package frc.team1711.swerve.subsystems;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.team1711.swerve.util.InputHandler;
@@ -76,6 +77,20 @@ public class SwerveDrive extends SubsystemBase {
 			this.steerSpeed = steerSpeed;
 		}
 		
+	}
+	
+	@Override
+	public void initSendable (SendableBuilder builder) {
+		builder.setSmartDashboardType("Swerve Drive");
+		builder.addDoubleProperty("Front Left Module", () -> getSendableDir(flWheel), (x) -> {});
+		builder.addDoubleProperty("Front Right Module", () -> getSendableDir(frWheel), (x) -> {});
+		builder.addDoubleProperty("Rear Left Module", () -> getSendableDir(rlWheel), (x) -> {});
+		builder.addDoubleProperty("Rear Right Module", () -> getSendableDir(rrWheel), (x) -> {});
+	}
+	
+	// Gets the direction to send to the dashboard for a given SwerveWheel
+	private double getSendableDir (SwerveWheel wheel) {
+		return (wheel.getDirection() + 90) % 180 - 90;
 	}
 	
 	/**
