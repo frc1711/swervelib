@@ -3,7 +3,8 @@
 
 package frc.team1711.swerve.subsystems;
 
-import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+
 import frc.team1711.swerve.util.Angles;
 import frc.team1711.swerve.util.InputHandler;
 import frc.team1711.swerve.util.Vector;
@@ -14,17 +15,21 @@ import frc.team1711.swerve.util.Vector;
  */
 public abstract class GyroSwerveDrive extends SwerveDrive {
     
+	private final Gyro gyro;
+	
     /**
      * Creates a new {@code GyroSwerveDrive} given {@link SwerveWheel} wheels.
-     * @param flWheel              The front left {@code SwerveWheel}
-     * @param frWheel              The front right {@code SwerveWheel}
-     * @param rlWheel              The rear left {@code SwerveWheel}
-     * @param rrWheel              The rear right {@code SwerveWheel}
-     * @param wheelbaseToTrackRatio		The distance between the centers of the left and right wheels divided
+	 * @param gyro					The {@link Gyro} to be used for field-relative control
+     * @param flWheel				The front left {@code SwerveWheel}
+     * @param frWheel				The front right {@code SwerveWheel}
+     * @param rlWheel				The rear left {@code SwerveWheel}
+     * @param rrWheel				The rear right {@code SwerveWheel}
+     * @param wheelbaseToTrackRatio	The distance between the centers of the left and right wheels divided
 	 * by the distance between the centers of the front and back wheels
-	 * @param swerveDrivingSpeeds  The {@link SwerveDrivingSpeeds} configuration
+	 * @param swerveDrivingSpeeds	The {@link SwerveDrivingSpeeds} configuration
      */
     public GyroSwerveDrive (
+		Gyro gyro,
         SwerveWheel flWheel,
         SwerveWheel frWheel,
         SwerveWheel rlWheel,
@@ -33,6 +38,7 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
 		SwerveDrivingSpeeds swerveDrivingSpeeds) {
         
         super(flWheel, frWheel, rlWheel, rrWheel, wheelbaseToTrackRatio, swerveDrivingSpeeds);
+		this.gyro = gyro;
     }
     
 	/**
@@ -62,27 +68,28 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
 			fieldStrafeInput.getY() * swerveDrivingSpeeds.strafeSpeed,
 			steering * swerveDrivingSpeeds.steerSpeed);
     }
-	
-	@Override
-	public void initSendable (SendableBuilder builder) {
-		super.initSendable(builder);
-		builder.addDoubleProperty("Gyro Angle", () -> getGyroAngle(), (x) -> {});
-	}
     
     /**
      * Gets the gyro yaw angle on the range [0, 360) degrees.
      * @return The gyro yaw angle.
      */
-    public abstract double getGyroAngle ();
+    public double getGyroAngle () {
+		return Angles.wrapDegrees(gyro.getAngle());
+	}
     
     /**
-     * Resets the gyro to a yaw angle of 0. It is recommended that this
-     * be called when this {@code GyroSwerveDrive} object is first
-     * instantiated, so the robot should be facing in the (field relative)
-     * forward direction when this class is instantiated in order to have an
-     * accurate {@link #fieldRelativeUserInputDrive(double, double, double, InputHandler)}.
+     * Calls {@link Gyro#reset()} on the gyro.
      */
-    public abstract void resetGyro ();
+    public void resetGyro () {
+		gyro.reset();
+	}
+	
+	/**
+     * Calls {@link Gyro#calibrate()} on the gyro.
+     */
+    public void calibrateGyro () {
+		gyro.calibrate();
+	}
     
     private double fieldRelToRobotRel (double rotation) {
         return Angles.wrapDegrees(rotation - getGyroAngle());

@@ -144,7 +144,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Expands on the <a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>GyroSwerveDrive</code></a> for autonomous control, requiring
  the use of <a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> rather than <a href="frc/team1711/swerve/subsystems/SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">AutoSwerveDrive(AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, double, SwerveDrive.SwerveDrivingSpeeds)</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html#%3Cinit%3E(edu.wpi.first.wpilibj.interfaces.Gyro,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">AutoSwerveDrive(Gyro, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, AutoSwerveWheel, double, SwerveDrive.SwerveDrivingSpeeds)</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></dt>
 <dd>
 <div class="block">Creates a new <code>AutoSwerveDrive</code> given <a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> wheels.</div>
 </dd>
@@ -162,6 +162,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">C</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html#calibrateGyro()">calibrateGyro()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></dt>
+<dd>
+<div class="block">Calls <code>Gyro.calibrate()</code> on the gyro.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveWheel.html#checkWithin180Range(double,double)">checkWithin180Range(double, double)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a></dt>
 <dd>
 <div class="block">Does the same check as <a href="frc/team1711/swerve/subsystems/SwerveWheel.html#checkWithinRange(double,double)"><code>SwerveWheel.checkWithinRange(double, double)</code></a>, except it will also
@@ -275,7 +279,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Expands on the <a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> for field relative control, using a gyro.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">GyroSwerveDrive(SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double, SwerveDrive.SwerveDrivingSpeeds)</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html#%3Cinit%3E(edu.wpi.first.wpilibj.interfaces.Gyro,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">GyroSwerveDrive(Gyro, SwerveWheel, SwerveWheel, SwerveWheel, SwerveWheel, double, SwerveDrive.SwerveDrivingSpeeds)</a></span> - Constructor for class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></dt>
 <dd>
 <div class="block">Creates a new <code>GyroSwerveDrive</code> given <a href="frc/team1711/swerve/subsystems/SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a> wheels.</div>
 </dd>
@@ -288,8 +292,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonDrive.html#initialize()">initialize()</a></span> - Method in class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonTurn.html#initialize()">initialize()</a></span> - Method in class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonTurn.html" title="class in frc.team1711.swerve.commands">AutonTurn</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable(SendableBuilder)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable(SendableBuilder)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></dt>
 <dd>&nbsp;</dd>
@@ -360,7 +362,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html#resetGyro()">resetGyro()</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></dt>
 <dd>
-<div class="block">Resets the gyro to a yaw angle of 0.</div>
+<div class="block">Calls <code>Gyro.reset()</code> on the gyro.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/FrameOfReference.html#ROBOT">ROBOT</a></span> - frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a></dt>
 <dd>

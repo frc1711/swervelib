@@ -207,7 +207,8 @@ extends <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsy
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">AutoSwerveDrive</a></span>&#8203;(<a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;flWheel,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(edu.wpi.first.wpilibj.interfaces.Gyro,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">AutoSwerveDrive</a></span>&#8203;(edu.wpi.first.wpilibj.interfaces.Gyro&nbsp;gyro,
+               <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;flWheel,
                <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;frWheel,
                <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rlWheel,
                <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rrWheel,
@@ -256,14 +257,14 @@ extends <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsy
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></h3>
-<code><a href="GyroSwerveDrive.html#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">fieldRelativeUserInputDrive</a>, <a href="GyroSwerveDrive.html#getGyroAngle()">getGyroAngle</a>, <a href="GyroSwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable</a>, <a href="GyroSwerveDrive.html#resetGyro()">resetGyro</a></code></li>
+<code><a href="GyroSwerveDrive.html#calibrateGyro()">calibrateGyro</a>, <a href="GyroSwerveDrive.html#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">fieldRelativeUserInputDrive</a>, <a href="GyroSwerveDrive.html#getGyroAngle()">getGyroAngle</a>, <a href="GyroSwerveDrive.html#resetGyro()">resetGyro</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.frc.team1711.swerve.subsystems.SwerveDrive">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></h3>
-<code><a href="SwerveDrive.html#autoDrive(double,double,double)">autoDrive</a>, <a href="SwerveDrive.html#setSwerveDrivingSpeeds(frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">setSwerveDrivingSpeeds</a>, <a href="SwerveDrive.html#steerAllWithinRange(double,double)">steerAllWithinRange</a>, <a href="SwerveDrive.html#steerAndDriveAll(double,double)">steerAndDriveAll</a>, <a href="SwerveDrive.html#stop()">stop</a>, <a href="SwerveDrive.html#userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">userInputDrive</a></code></li>
+<code><a href="SwerveDrive.html#autoDrive(double,double,double)">autoDrive</a>, <a href="SwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable</a>, <a href="SwerveDrive.html#setSwerveDrivingSpeeds(frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">setSwerveDrivingSpeeds</a>, <a href="SwerveDrive.html#steerAllWithinRange(double,double)">steerAllWithinRange</a>, <a href="SwerveDrive.html#steerAndDriveAll(double,double)">steerAndDriveAll</a>, <a href="SwerveDrive.html#stop()">stop</a>, <a href="SwerveDrive.html#userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">userInputDrive</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.SubsystemBase">
@@ -302,13 +303,14 @@ extends <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsy
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">
+<a id="&lt;init&gt;(edu.wpi.first.wpilibj.interfaces.Gyro,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,frc.team1711.swerve.subsystems.AutoSwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AutoSwerveDrive</h4>
-<pre>public&nbsp;AutoSwerveDrive&#8203;(<a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;flWheel,
+<pre>public&nbsp;AutoSwerveDrive&#8203;(edu.wpi.first.wpilibj.interfaces.Gyro&nbsp;gyro,
+                       <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;flWheel,
                        <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;frWheel,
                        <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rlWheel,
                        <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a>&nbsp;rrWheel,
@@ -317,6 +319,7 @@ extends <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsy
 <div class="block">Creates a new <code>AutoSwerveDrive</code> given <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> wheels.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>gyro</code> - The <code>Gyro</code> to be used for field-relative control</dd>
 <dd><code>flWheel</code> - The front left <code>AutoSwerveWheel</code></dd>
 <dd><code>frWheel</code> - The front right <code>AutoSwerveWheel</code></dd>
 <dd><code>rlWheel</code> - The rear left <code>AutoSwerveWheel</code></dd>
