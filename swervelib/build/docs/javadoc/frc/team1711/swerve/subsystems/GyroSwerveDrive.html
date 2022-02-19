@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
@@ -169,24 +169,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Nested classes/interfaces inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></h3>
-<code><a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a></code></li>
-</ul>
-</li>
-</ul>
-</section>
-<!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<ul class="blockList">
-<li class="blockList"><a id="fields.inherited.from.class.frc.team1711.swerve.subsystems.SwerveDrive">
-<!--   -->
-</a>
-<h3>Fields inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></h3>
-<code><a href="SwerveDrive.html#swerveDrivingSpeeds">swerveDrivingSpeeds</a></code></li>
+<code><a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a></code></li>
 </ul>
 </li>
 </ul>
@@ -205,13 +188,12 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(edu.wpi.first.wpilibj.interfaces.Gyro,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">GyroSwerveDrive</a></span>&#8203;(edu.wpi.first.wpilibj.interfaces.Gyro&nbsp;gyro,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(edu.wpi.first.wpilibj.interfaces.Gyro,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double)">GyroSwerveDrive</a></span>&#8203;(edu.wpi.first.wpilibj.interfaces.Gyro&nbsp;gyro,
                <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;flWheel,
                <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;frWheel,
                <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;rlWheel,
                <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;rrWheel,
-               double&nbsp;wheelbaseToTrackRatio,
-               <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a>&nbsp;swerveDrivingSpeeds)</code></th>
+               double&nbsp;wheelbaseToTrackRatio)</code></th>
 <td class="colLast">
 <div class="block">Creates a new <code>GyroSwerveDrive</code> given <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a> wheels.</div>
 </td>
@@ -243,10 +225,10 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">fieldRelativeUserInputDrive</a></span>&#8203;(double&nbsp;strafeX,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">fieldRelativeUserInputDrive</a></span>&#8203;(double&nbsp;strafeX,
                            double&nbsp;strafeY,
                            double&nbsp;steering,
-                           <a href="../util/InputHandler.html" title="class in frc.team1711.swerve.util">InputHandler</a>&nbsp;inputHandler)</code></th>
+                           <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a>&nbsp;controlsConfig)</code></th>
 <td class="colLast">
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs, all on the interval [-1, 1],
  where +<code>strafeY</code> is forwards and +<code>strafeX</code> is to the right.</div>
@@ -272,7 +254,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></h3>
-<code><a href="SwerveDrive.html#autoDrive(double,double,double)">autoDrive</a>, <a href="SwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable</a>, <a href="SwerveDrive.html#setSwerveDrivingSpeeds(frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">setSwerveDrivingSpeeds</a>, <a href="SwerveDrive.html#steerAllWithinRange(double,double)">steerAllWithinRange</a>, <a href="SwerveDrive.html#steerAndDriveAll(double,double)">steerAndDriveAll</a>, <a href="SwerveDrive.html#stop()">stop</a>, <a href="SwerveDrive.html#userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">userInputDrive</a></code></li>
+<code><a href="SwerveDrive.html#autoDrive(double,double,double)">autoDrive</a>, <a href="SwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable</a>, <a href="SwerveDrive.html#steerAllWithinRange(double,double)">steerAllWithinRange</a>, <a href="SwerveDrive.html#steerAndDriveAll(double,double)">steerAndDriveAll</a>, <a href="SwerveDrive.html#stop()">stop</a>, <a href="SwerveDrive.html#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">userInputDrive</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.SubsystemBase">
@@ -311,7 +293,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(edu.wpi.first.wpilibj.interfaces.Gyro,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">
+<a id="&lt;init&gt;(edu.wpi.first.wpilibj.interfaces.Gyro,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -322,8 +304,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
                        <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;frWheel,
                        <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;rlWheel,
                        <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;rrWheel,
-                       double&nbsp;wheelbaseToTrackRatio,
-                       <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a>&nbsp;swerveDrivingSpeeds)</pre>
+                       double&nbsp;wheelbaseToTrackRatio)</pre>
 <div class="block">Creates a new <code>GyroSwerveDrive</code> given <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a> wheels.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -334,7 +315,6 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <dd><code>rrWheel</code> - The rear right <code>SwerveWheel</code></dd>
 <dd><code>wheelbaseToTrackRatio</code> - The distance between the centers of the left and right wheels divided
  by the distance between the centers of the front and back wheels</dd>
-<dd><code>swerveDrivingSpeeds</code> - The <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.SwerveDrivingSpeeds</code></a> configuration</dd>
 </dl>
 </li>
 </ul>
@@ -348,7 +328,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">
+<a id="fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -357,19 +337,18 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <pre class="methodSignature">public&nbsp;void&nbsp;fieldRelativeUserInputDrive&#8203;(double&nbsp;strafeX,
                                         double&nbsp;strafeY,
                                         double&nbsp;steering,
-                                        <a href="../util/InputHandler.html" title="class in frc.team1711.swerve.util">InputHandler</a>&nbsp;inputHandler)</pre>
+                                        <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a>&nbsp;controlsConfig)</pre>
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs, all on the interval [-1, 1],
  where +<code>strafeY</code> is forwards and +<code>strafeX</code> is to the right. Inputs are assumed to be from a user-controlled
- device, so <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.SwerveDrivingSpeeds</code></a> are applied, along with an <a href="../util/InputHandler.html" title="class in frc.team1711.swerve.util"><code>InputHandler</code></a>. Strafing is
- field relative, not robot relative.</div>
+ device, so <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.ControlsConfig</code></a> is applied. Strafing is field relative, not robot relative.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>strafeX</code> - The strafing speed in the x direction</dd>
 <dd><code>strafeY</code> - The strafing speed in the y direction</dd>
 <dd><code>steering</code> - The steering speed, where a positive value steers clockwise from a top-down point of view</dd>
-<dd><code>inputHandler</code> - The <code>InputHandler</code> to be used for converting user inputs into usable outputs.</dd>
+<dd><code>controlsConfig</code> - The <code>ControlsConfig</code> to be used for relative driving speeds and processing of user inputs</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="SwerveDrive.html#userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)"><code>SwerveDrive.userInputDrive(double, double, double, InputHandler)</code></a>, 
+<dd><a href="SwerveDrive.html#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)"><code>SwerveDrive.userInputDrive(double, double, double, ControlsConfig)</code></a>, 
 <a href="SwerveDrive.html#steerAndDriveAll(double,double)"><code>SwerveDrive.steerAndDriveAll(double, double)</code></a></dd>
 </dl>
 </li>
@@ -460,7 +439,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>

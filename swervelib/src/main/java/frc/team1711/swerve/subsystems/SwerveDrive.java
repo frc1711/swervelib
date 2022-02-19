@@ -21,8 +21,6 @@ public class SwerveDrive extends SubsystemBase {
 		rlWheel,
 		rrWheel;
     
-    protected SwerveDrivingSpeeds swerveDrivingSpeeds;
-    
     private final double wheelbaseToTrackRatio;
     
     /**
@@ -33,36 +31,34 @@ public class SwerveDrive extends SubsystemBase {
      * @param rrWheel					The rear right {@code SwerveWheel}
      * @param wheelbaseToTrackRatio		The distance between the centers of the left and right wheels divided
 	 * by the distance between the centers of the front and back wheels
-	 * @param swerveDrivingSpeeds		The {@link SwerveDrivingSpeeds} configuration
      */
     public SwerveDrive (
         SwerveWheel flWheel,
         SwerveWheel frWheel,
         SwerveWheel rlWheel,
         SwerveWheel rrWheel,
-        double wheelbaseToTrackRatio,
-		SwerveDrivingSpeeds swerveDrivingSpeeds) {
+        double wheelbaseToTrackRatio) {
         
         this.flWheel = flWheel;
         this.frWheel = frWheel;
         this.rlWheel = rlWheel;
         this.rrWheel = rrWheel;
         this.wheelbaseToTrackRatio = wheelbaseToTrackRatio;
-        this.swerveDrivingSpeeds = swerveDrivingSpeeds;
     }
 	
 	/**
 	 * A class representing the configuration of relative speeds for {@link SwerveDrive} in
-	 * {@link SwerveDrive#userInputDrive(double, double, double, InputHandler)}.
-	 * @see SwerveDrive#setSwerveDrivingSpeeds(SwerveDrivingSpeeds)
+	 * {@link SwerveDrive#userInputDrive(double, double, double, ControlsConfig)}, along with
+	 * an {@link InputHandler} which handles user-generated input.
 	 */
-	public static class SwerveDrivingSpeeds {
+	public static class ControlsConfig {
 		
 		public final double strafeSpeed, steerSpeed;
+		public final InputHandler inputHandler;
 		
 		/**
-		 * Creates a new {@code SwerveDrivingSpeeds} configuration. Note: If {@code strafeSpeed} and {@code steerSpeed} sum to greater
-		 * than 1, {@link SwerveDrive#userInputDrive(double, double, double, InputHandler)} will ensure the relative speeds of the modules
+		 * Creates a new {@code ControlsConfig}. Note: If {@code strafeSpeed} and {@code steerSpeed} sum to greater
+		 * than 1, {@link SwerveDrive#userInputDrive(double, double, double, ControlsConfig)} will ensure the relative speeds of the modules
 		 * are still in proportion to each other, so the kinematics of swerve will not be affected (though in some situations where the
 		 * inputs are very high, the robot may move slower than desired).
 		 * @param strafeSpeed	The scalar on the strafe inputs for
@@ -71,10 +67,12 @@ public class SwerveDrive extends SubsystemBase {
 		 * using {@code SwerveWheel.setDriveSpeed()}, assuming there is zero steering input passed into {@code SwerveDrive.userInputDrive()}.
 		 * @param steerSpeed	The scalar on the steering inputs for {@code SwerveDrive.userInputDrive()},
 		 * working in the same way as {@code strafeSpeed}.
+		 * @param inputHandler	The {@link InputHandler} associated with this {@code ControlsConfig}
 		 */
-		public SwerveDrivingSpeeds (double strafeSpeed, double steerSpeed) {
+		public ControlsConfig (double strafeSpeed, double steerSpeed, InputHandler inputHandler) {
 			this.strafeSpeed = strafeSpeed;
 			this.steerSpeed = steerSpeed;
+			this.inputHandler = inputHandler;
 		}
 		
 	}
@@ -93,42 +91,34 @@ public class SwerveDrive extends SubsystemBase {
 		return (wheel.getDirection() + 90) % 180 - 90;
 	}
 	
-	/**
-	 * Used to set a new {@link SwerveDrivingSpeeds} configuration.
-	 * @param swerveDrivingSpeeds The new {@code SwerveDrivingSpeeds} configuration
-	 */
-	public void setSwerveDrivingSpeeds (SwerveDrivingSpeeds swerveDrivingSpeeds) {
-		this.swerveDrivingSpeeds = swerveDrivingSpeeds;
-	}
-	
     /**
      * Drives the {@code SwerveDrive} given strafing and steering inputs, all on the interval [-1, 1],
 	 * where +{@code strafeY} is forwards and +{@code strafeX} is to the right. Inputs are assumed to be from a user-controlled
-	 * device, so {@link SwerveDrivingSpeeds} are applied, along with an {@link InputHandler}.
+	 * device, so {@link ControlsConfig} is applied.
      * @param strafeX           The strafing speed in the x direction
      * @param strafeY           The strafing speed in the y direction
      * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
-     * @param inputHandler		The {@code InputHandler} to be used for converting user inputs into usable outputs.
+     * @param controlsConfig	The {@code ControlsConfig} to be used for relative driving speeds and processing of user inputs
      * @see #steerAndDriveAll(double, double)
      */
-    public final void userInputDrive (double strafeX, double strafeY, double steering, InputHandler inputHandler) {
+    public final void userInputDrive (double strafeX, double strafeY, double steering, ControlsConfig controlsConfig) {
 		
 		// Applies inputHandler to all inputs
         Vector strafeVector = new Vector(strafeX, strafeY);
-        strafeVector = inputHandler.apply(strafeVector);
-        steering = inputHandler.apply(steering);
+        strafeVector = controlsConfig.inputHandler.apply(strafeVector);
+        steering = controlsConfig.inputHandler.apply(steering);
 		
 		// Passes new inputs to autoDrive
 		autoDrive(
-			strafeVector.getX() * swerveDrivingSpeeds.strafeSpeed,
-			strafeVector.getY() * swerveDrivingSpeeds.strafeSpeed,
-			steering * swerveDrivingSpeeds.steerSpeed);
+			strafeVector.getX() * controlsConfig.strafeSpeed,
+			strafeVector.getY() * controlsConfig.strafeSpeed,
+			steering * controlsConfig.steerSpeed);
     }
 	
 	/**
 	 * Drives the {@code SwerveDrive} given strafing and steering inputs, all on the interval [-1, 1],
 	 * where +{@code strafeY} is forwards and +{@code strafeX} is to the right. Inputs are assumed to be generated from
-	 * a command, so no {@link InputHandler}s or {@link SwerveDrivingSpeeds} are applied to the inputs.
+	 * a command, so no {@link ControlsConfig} is applied to the inputs.
      * @param strafeX           The strafing speed in the x direction
      * @param strafeY           The strafing speed in the y direction
      * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
@@ -210,7 +200,7 @@ public class SwerveDrive extends SubsystemBase {
      * forwards.
      * @param direction         The target steering direction
      * @param speed             The speed to drive at
-     * @see #userInputDrive(double, double, double, InputHandler)
+     * @see #userInputDrive(double, double, double, ControlsConfig)
      */
     public final void steerAndDriveAll (double direction, double speed) {
         flWheel.steerAndDrive(direction, speed);

@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -88,13 +88,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -168,34 +168,12 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a></span></code></th>
 <td class="colLast">
 <div class="block">A class representing the configuration of relative speeds for <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> in
- <a href="#userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)"><code>userInputDrive(double, double, double, InputHandler)</code></a>.</div>
+ <a href="#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)"><code>userInputDrive(double, double, double, ControlsConfig)</code></a>, along with
+ an <a href="../util/InputHandler.html" title="class in frc.team1711.swerve.util"><code>InputHandler</code></a> which handles user-generated input.</div>
 </td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
-<!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>protected <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#swerveDrivingSpeeds">swerveDrivingSpeeds</a></span></code></th>
-<td class="colLast">&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -215,12 +193,11 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">SwerveDrive</a></span>&#8203;(<a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;flWheel,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double)">SwerveDrive</a></span>&#8203;(<a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;flWheel,
            <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;frWheel,
            <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;rlWheel,
            <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;rrWheel,
-           double&nbsp;wheelbaseToTrackRatio,
-           <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a>&nbsp;swerveDrivingSpeeds)</code></th>
+           double&nbsp;wheelbaseToTrackRatio)</code></th>
 <td class="colLast">
 <div class="block">Creates a new <code>SwerveDrive</code>.</div>
 </td>
@@ -259,13 +236,6 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSwerveDrivingSpeeds(frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">setSwerveDrivingSpeeds</a></span>&#8203;(<a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a>&nbsp;swerveDrivingSpeeds)</code></th>
-<td class="colLast">
-<div class="block">Used to set a new <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.SwerveDrivingSpeeds</code></a> configuration.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#steerAllWithinRange(double,double)">steerAllWithinRange</a></span>&#8203;(double&nbsp;direction,
                    double&nbsp;marginOfError)</code></th>
@@ -273,7 +243,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <div class="block">Steers all wheels to a direction within a certain range.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#steerAndDriveAll(double,double)">steerAndDriveAll</a></span>&#8203;(double&nbsp;direction,
                 double&nbsp;speed)</code></th>
@@ -281,19 +251,19 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <div class="block">Steers and drives all wheels in the same direction and with the same speed.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop()">stop</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Stops all modules immediately.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">userInputDrive</a></span>&#8203;(double&nbsp;strafeX,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">userInputDrive</a></span>&#8203;(double&nbsp;strafeX,
               double&nbsp;strafeY,
               double&nbsp;steering,
-              <a href="../util/InputHandler.html" title="class in frc.team1711.swerve.util">InputHandler</a>&nbsp;inputHandler)</code></th>
+              <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a>&nbsp;controlsConfig)</code></th>
 <td class="colLast">
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs, all on the interval [-1, 1],
  where +<code>strafeY</code> is forwards and +<code>strafeX</code> is to the right.</div>
@@ -330,25 +300,6 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="swerveDrivingSpeeds">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>swerveDrivingSpeeds</h4>
-<pre>protected&nbsp;<a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a> swerveDrivingSpeeds</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section role="region">
 <ul class="blockList">
@@ -356,7 +307,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double,frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">
+<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,frc.team1711.swerve.subsystems.SwerveWheel,double)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -366,8 +317,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
                    <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;frWheel,
                    <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;rlWheel,
                    <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a>&nbsp;rrWheel,
-                   double&nbsp;wheelbaseToTrackRatio,
-                   <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a>&nbsp;swerveDrivingSpeeds)</pre>
+                   double&nbsp;wheelbaseToTrackRatio)</pre>
 <div class="block">Creates a new <code>SwerveDrive</code>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -377,7 +327,6 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <dd><code>rrWheel</code> - The rear right <code>SwerveWheel</code></dd>
 <dd><code>wheelbaseToTrackRatio</code> - The distance between the centers of the left and right wheels divided
  by the distance between the centers of the front and back wheels</dd>
-<dd><code>swerveDrivingSpeeds</code> - The <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.SwerveDrivingSpeeds</code></a> configuration</dd>
 </dl>
 </li>
 </ul>
@@ -406,21 +355,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </dl>
 </li>
 </ul>
-<a id="setSwerveDrivingSpeeds(frc.team1711.swerve.subsystems.SwerveDrive.SwerveDrivingSpeeds)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setSwerveDrivingSpeeds</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setSwerveDrivingSpeeds&#8203;(<a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.SwerveDrivingSpeeds</a>&nbsp;swerveDrivingSpeeds)</pre>
-<div class="block">Used to set a new <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.SwerveDrivingSpeeds</code></a> configuration.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>swerveDrivingSpeeds</code> - The new <code>SwerveDrivingSpeeds</code> configuration</dd>
-</dl>
-</li>
-</ul>
-<a id="userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)">
+<a id="userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -429,16 +364,16 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <pre class="methodSignature">public final&nbsp;void&nbsp;userInputDrive&#8203;(double&nbsp;strafeX,
                                  double&nbsp;strafeY,
                                  double&nbsp;steering,
-                                 <a href="../util/InputHandler.html" title="class in frc.team1711.swerve.util">InputHandler</a>&nbsp;inputHandler)</pre>
+                                 <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a>&nbsp;controlsConfig)</pre>
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs, all on the interval [-1, 1],
  where +<code>strafeY</code> is forwards and +<code>strafeX</code> is to the right. Inputs are assumed to be from a user-controlled
- device, so <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.SwerveDrivingSpeeds</code></a> are applied, along with an <a href="../util/InputHandler.html" title="class in frc.team1711.swerve.util"><code>InputHandler</code></a>.</div>
+ device, so <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.ControlsConfig</code></a> is applied.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>strafeX</code> - The strafing speed in the x direction</dd>
 <dd><code>strafeY</code> - The strafing speed in the y direction</dd>
 <dd><code>steering</code> - The steering speed, where a positive value steers clockwise from a top-down point of view</dd>
-<dd><code>inputHandler</code> - The <code>InputHandler</code> to be used for converting user inputs into usable outputs.</dd>
+<dd><code>controlsConfig</code> - The <code>ControlsConfig</code> to be used for relative driving speeds and processing of user inputs</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="#steerAndDriveAll(double,double)"><code>steerAndDriveAll(double, double)</code></a></dd>
 </dl>
@@ -455,7 +390,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
                             double&nbsp;steering)</pre>
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs, all on the interval [-1, 1],
  where +<code>strafeY</code> is forwards and +<code>strafeX</code> is to the right. Inputs are assumed to be generated from
- a command, so no <a href="../util/InputHandler.html" title="class in frc.team1711.swerve.util"><code>InputHandler</code></a>s or <a href="SwerveDrive.SwerveDrivingSpeeds.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.SwerveDrivingSpeeds</code></a> are applied to the inputs.</div>
+ a command, so no <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.ControlsConfig</code></a> is applied to the inputs.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>strafeX</code> - The strafing speed in the x direction</dd>
@@ -484,7 +419,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <dd><code>direction</code> - The target steering direction</dd>
 <dd><code>speed</code> - The speed to drive at</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#userInputDrive(double,double,double,frc.team1711.swerve.util.InputHandler)"><code>userInputDrive(double, double, double, InputHandler)</code></a></dd>
+<dd><a href="#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)"><code>userInputDrive(double, double, double, ControlsConfig)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -572,13 +507,13 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
