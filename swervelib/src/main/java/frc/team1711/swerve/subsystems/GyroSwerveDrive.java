@@ -6,7 +6,6 @@ package frc.team1711.swerve.subsystems;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 import frc.team1711.swerve.util.Angles;
-import frc.team1711.swerve.util.InputHandler;
 import frc.team1711.swerve.util.Vector;
 
 /**
