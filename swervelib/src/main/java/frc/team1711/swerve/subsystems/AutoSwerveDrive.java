@@ -3,6 +3,8 @@
 
 package frc.team1711.swerve.subsystems;
 
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+
 /**
  * Expands on the {@link GyroSwerveDrive} for autonomous control, requiring
  * the use of {@link AutoSwerveWheel} rather than {@link SwerveWheel}.
@@ -18,23 +20,23 @@ public abstract class AutoSwerveDrive extends GyroSwerveDrive {
 	
 	/**
      * Creates a new {@code AutoSwerveDrive} given {@link AutoSwerveWheel} wheels.
-     * @param flWheel              The front left {@code AutoSwerveWheel}
-     * @param frWheel              The front right {@code AutoSwerveWheel}
-     * @param rlWheel              The rear left {@code AutoSwerveWheel}
-     * @param rrWheel              The rear right {@code AutoSwerveWheel}
-     * @param wheelbaseToTrackRatio		The distance between the centers of the left and right wheels divided
+	 * @param gyro					The {@link Gyro} to be used for field-relative control
+     * @param flWheel				The front left {@code AutoSwerveWheel}
+     * @param frWheel				The front right {@code AutoSwerveWheel}
+     * @param rlWheel				The rear left {@code AutoSwerveWheel}
+     * @param rrWheel				The rear right {@code AutoSwerveWheel}
+     * @param wheelbaseToTrackRatio	The distance between the centers of the left and right wheels divided
 	 * by the distance between the centers of the front and back wheels
-	 * @param swerveDrivingSpeeds  The {@link SwerveDrivingSpeeds} configuration
      */
     public AutoSwerveDrive (
+			Gyro gyro,
 			AutoSwerveWheel flWheel,
 			AutoSwerveWheel frWheel,
 			AutoSwerveWheel rlWheel,
 			AutoSwerveWheel rrWheel,
-			double wheelbaseToTrackRatio,
-			SwerveDrivingSpeeds swerveDrivingSpeeds) {
+			double wheelbaseToTrackRatio) {
         
-		super(flWheel, frWheel, rlWheel, rrWheel, wheelbaseToTrackRatio, swerveDrivingSpeeds);
+		super(gyro, flWheel, frWheel, rlWheel, rrWheel, wheelbaseToTrackRatio);
 		
 		this.flWheel = flWheel;
 		this.frWheel = frWheel;
