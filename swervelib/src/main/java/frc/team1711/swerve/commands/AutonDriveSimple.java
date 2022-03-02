@@ -3,9 +3,6 @@
 
 package frc.team1711.swerve.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.team1711.swerve.subsystems.AutoSwerveDrive;
