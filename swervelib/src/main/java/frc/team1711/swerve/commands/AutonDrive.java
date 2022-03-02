@@ -27,7 +27,7 @@ public class AutonDrive extends SequentialCommandGroup {
     private final double
             wheelMarginOfError,
             correctionScalar,
-            directionInput,
+            direction,
             distance,
             speed;
     
@@ -62,34 +62,30 @@ public class AutonDrive extends SequentialCommandGroup {
             double correctionScalar,
             FrameOfReference frameOfReference) {
         this.swerveDrive = swerveDrive;
+        this.direction = direction;
         this.distance = distance;
         this.speed = speed;
         this.wheelMarginOfError = wheelMarginOfError;
         this.correctionScalar = correctionScalar;
         this.frameOfReference = frameOfReference;
-        directionInput = direction;
     }
 
     // This code cannot be called in constructor because gyro angle may change
     // between object initialization and when the command is first called
     @Override
     public void initialize () {
-        double direction = directionInput;
-        if (frameOfReference == FrameOfReference.FIELD) direction -= swerveDrive.getGyroAngle();
-
         if (easeOutDistance != 0) {
             // Ease-out mode is set
             addCommands(
                     new AutonWheelTurn(swerveDrive, direction, wheelMarginOfError),
-                    new AutonDriveSimple(swerveDrive, direction, distance-easeOutDistance, speed, correctionScalar),
-                    new AutonDriveSimple(swerveDrive, direction, easeOutDistance, easeOutSpeed, correctionScalar));
+                    new AutonDriveSimple(swerveDrive, direction, distance-easeOutDistance, speed, correctionScalar, frameOfReference),
+                    new AutonDriveSimple(swerveDrive, direction, easeOutDistance, easeOutSpeed, correctionScalar, frameOfReference));
         } else {
             // No ease-out mode set
             addCommands(
                     new AutonWheelTurn(swerveDrive, direction, wheelMarginOfError),
-                    new AutonDriveSimple(swerveDrive, direction, distance, speed, correctionScalar));
-        }
-        super.initialize();
+                    new AutonDriveSimple(swerveDrive, direction, distance, speed, correctionScalar, frameOfReference));
+        } super.initialize();
     }
 
     /**
