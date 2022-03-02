@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":10,"i2":10};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":9,"i1":9};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -205,6 +205,20 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <div class="block">Constructs an <code>AutonDrive</code> command.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">AutonDrive</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+          double&nbsp;direction,
+          double&nbsp;distance,
+          double&nbsp;speed,
+          double&nbsp;wheelMarginOfError,
+          double&nbsp;correctionScalar,
+          <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference,
+          double&nbsp;easeOutSpeed,
+          double&nbsp;easeOutDistance)</code></th>
+<td class="colLast">
+<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase.</div>
+</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -217,7 +231,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -237,17 +251,18 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initialize()">initialize</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEaseOut(double,double)">setEaseOut</a></span>&#8203;(double&nbsp;distanceUntilFinish,
-          double&nbsp;easeOutSpeed)</code></th>
+<td class="colFirst"><code>static <a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">fromMovement</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+            double&nbsp;inchesRight,
+            double&nbsp;inchesForward,
+            double&nbsp;speed,
+            double&nbsp;wheelMarginOfError,
+            double&nbsp;correctionScalar,
+            <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference,
+            double&nbsp;easeOutSpeed,
+            double&nbsp;easeOutDistance)</code></th>
 <td class="colLast">
-<div class="block">Adds an ease-out phase during which there will be a change in speed a certain
- distance before the destination.</div>
+<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase from a desired distance to the right and forwards.</div>
 </td>
 </tr>
 </table>
@@ -256,7 +271,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;edu.wpi.first.wpilibj2.command.SequentialCommandGroup</h3>
-<code>addCommands, andThen, beforeStarting, end, execute, isFinished, runsWhenDisabled</code></li>
+<code>addCommands, andThen, beforeStarting, end, execute, initialize, isFinished, runsWhenDisabled</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.CommandGroupBase">
@@ -302,6 +317,43 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
+<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>AutonDrive</h4>
+<pre>public&nbsp;AutonDrive&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+                  double&nbsp;direction,
+                  double&nbsp;distance,
+                  double&nbsp;speed,
+                  double&nbsp;wheelMarginOfError,
+                  double&nbsp;correctionScalar,
+                  <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference,
+                  double&nbsp;easeOutSpeed,
+                  double&nbsp;easeOutDistance)</pre>
+<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>swerveDrive</code> - The <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> drive train.</dd>
+<dd><code>direction</code> - The direction, in degrees, to travel in. Zero degrees corresponds with
+ directly forward, and an increase in <code>direction</code> corresponds with a direction further
+ clockwise from a top-down view. This value must be on the interval [0, 360).</dd>
+<dd><code>distance</code> - The distance to travel in the specified direction, in inches. This value
+ must be on the interval (0, infinity).</dd>
+<dd><code>speed</code> - The speed to travel at. This value must be on the interval (0, 1].</dd>
+<dd><code>wheelMarginOfError</code> - The acceptable margin of error for each wheel, in degrees, away from
+ their target steering directions before the robot starts actually moving.</dd>
+<dd><code>correctionScalar</code> - The speed to turn at per degree offset from the intended direction. For
+ example, if the robot is going ten degrees to the right of where it wants to, it will make a
+ correction turn to the left at a speed of <code>10*correctionScalar</code>. A recommended starting value
+ is <code>0.01</code>.</dd>
+<dd><code>frameOfReference</code> - The <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands"><code>FrameOfReference</code></a> for this autonomous command.</dd>
+<dd><code>easeOutDistance</code> - The distance before the destination at which to enter the ease-out phase.</dd>
+<dd><code>easeOutSpeed</code> - The reduced speed during the ease-out phase.</dd>
+</dl>
+</li>
+</ul>
 <a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">
 <!--   -->
 </a>
@@ -345,36 +397,44 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="initialize()">
+<a id="fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>initialize</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;initialize()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>initialize</code>&nbsp;in interface&nbsp;<code>edu.wpi.first.wpilibj2.command.Command</code></dd>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>initialize</code>&nbsp;in class&nbsp;<code>edu.wpi.first.wpilibj2.command.SequentialCommandGroup</code></dd>
-</dl>
-</li>
-</ul>
-<a id="setEaseOut(double,double)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setEaseOut</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setEaseOut&#8203;(double&nbsp;distanceUntilFinish,
-                       double&nbsp;easeOutSpeed)</pre>
-<div class="block">Adds an ease-out phase during which there will be a change in speed a certain
- distance before the destination.</div>
+<h4>fromMovement</h4>
+<pre class="methodSignature">public static&nbsp;<a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a>&nbsp;fromMovement&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+                                      double&nbsp;inchesRight,
+                                      double&nbsp;inchesForward,
+                                      double&nbsp;speed,
+                                      double&nbsp;wheelMarginOfError,
+                                      double&nbsp;correctionScalar,
+                                      <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference,
+                                      double&nbsp;easeOutSpeed,
+                                      double&nbsp;easeOutDistance)</pre>
+<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase from a desired distance to the right and forwards.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>distanceUntilFinish</code> - The distance, in inches, before the target destination, when
- ease-out mode begins.</dd>
-<dd><code>easeOutSpeed</code> - The speed during the ease-out phase.</dd>
+<dd><code>swerveDrive</code> - The <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> drive train.</dd>
+<dd><code>inchesRight</code> - The number of inches to move to the right, where a negative value denotes
+ movement to the left.</dd>
+<dd><code>inchesForward</code> - The number of inches to move forwards, where a negative value denotes
+ movement backwards.</dd>
+<dd><code>speed</code> - The speed to travel at. This value must be on the interval (0, 1].</dd>
+<dd><code>wheelMarginOfError</code> - The acceptable margin of error for each wheel, in degrees, away from
+ their target steering directions before the robot starts actually moving.</dd>
+<dd><code>correctionScalar</code> - The speed to turn at per degree offset from the intended direction. For
+ example, if the robot is going ten degrees to the right of where it wants to, it will make a
+ correction turn to the left at a speed of <code>10*correctionScalar</code>. A recommended starting value
+ is <code>0.01</code>.</dd>
+<dd><code>frameOfReference</code> - The <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands"><code>FrameOfReference</code></a> for this autonomous command. Note that a
+ frame of reference relative to the field does not mean that <code>inchesRight</code> and
+ <code>inchesForward</code> are relative to the initial position of the gyro: only steering is relative
+ to the gyro's initial orientation.</dd>
+<dd><code>easeOutDistance</code> - The distance before the destination at which to enter the ease-out phase.</dd>
+<dd><code>easeOutSpeed</code> - The reduced speed during the ease-out phase.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The <code>AutonDrive</code></dd>
 </dl>
 </li>
 </ul>

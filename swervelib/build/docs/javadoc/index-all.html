@@ -131,6 +131,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs an <code>AutonDrive</code> command.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonDrive.html#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">AutonDrive(AutoSwerveDrive, double, double, double, double, double, FrameOfReference, double, double)</a></span> - Constructor for class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></dt>
+<dd>
+<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase.</div>
+</dd>
 <dt><a href="frc/team1711/swerve/commands/AutonTurn.html" title="class in frc.team1711.swerve.commands"><span class="typeNameLink">AutonTurn</span></a> - Class in <a href="frc/team1711/swerve/commands/package-summary.html">frc.team1711.swerve.commands</a></dt>
 <dd>
 <div class="block">Turns the entire <a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> body in a certain direction.</div>
@@ -234,6 +238,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs an <code>AutonDrive</code> command from a desired distance to the right and forwards.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonDrive.html#fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">fromMovement(AutoSwerveDrive, double, double, double, double, double, FrameOfReference, double, double)</a></span> - Static method in class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></dt>
+<dd>
+<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase from a desired distance to the right and forwards.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/Vector.html#fromPolarDegrees(double,double)">fromPolarDegrees(double, double)</a></span> - Static method in class frc.team1711.swerve.util.<a href="frc/team1711/swerve/util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a></dt>
 <dd>
 <div class="block">Creates a new vector with the specified <code>direction</code> and <code>magnitude</code>.</div>
@@ -293,8 +301,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">I</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonDrive.html#initialize()">initialize()</a></span> - Method in class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonTurn.html#initialize()">initialize()</a></span> - Method in class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonTurn.html" title="class in frc.team1711.swerve.commands">AutonTurn</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable(SendableBuilder)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></dt>
@@ -398,11 +404,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveWheel.html#setDriveSpeed(double)">setDriveSpeed(double)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a></dt>
 <dd>
 <div class="block">Sets the drive speed of the wheel on the interval [-1, 1].</div>
-</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/commands/AutonDrive.html#setEaseOut(double,double)">setEaseOut(double, double)</a></span> - Method in class frc.team1711.swerve.commands.<a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></dt>
-<dd>
-<div class="block">Adds an ease-out phase during which there will be a change in speed a certain
- distance before the destination.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/InputHandler.Curve.html#squareCurve">squareCurve</a></span> - Static variable in interface frc.team1711.swerve.util.<a href="frc/team1711/swerve/util/InputHandler.Curve.html" title="interface in frc.team1711.swerve.util">InputHandler.Curve</a></dt>
 <dd>
