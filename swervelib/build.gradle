@@ -24,15 +24,9 @@ dependencies {
     // Use JUnit test framework.
     testImplementation 'junit:junit:4.13'
 
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:29.0-jre'
-    
-
-
-
+	
     /**
      * ===========================
      * ====WPILIB DEPENDENCIES====
@@ -41,9 +35,9 @@ dependencies {
     // Go to https://frcmaven.wpi.edu/ui/native/release/edu/wpi/first
     // to get dependencies for all subpackages of edu.wpi.first
     // Note that edu.wpi.first.wpilibj2.command corresponds with edu.wpi.first.wpilibNewCommands
-    api 'edu.wpi.first.wpilibj:wpilibj-java:2022.3.1'
-    api 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2022.3.1'
-    api 'edu.wpi.first.wpiutil:wpiutil-java:2022.3.1'
+    api 'edu.wpi.first.wpilibj:wpilibj-java:2022.4.1'
+    api 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2022.4.1'
+    api 'edu.wpi.first.wpiutil:wpiutil-java:2022.4.1'
     
 }
 
