@@ -125,6 +125,8 @@ public class SwerveDrive extends SubsystemBase {
      * @see #steerAndDriveAll(double, double)
 	 */
 	public final void autoDrive (double strafeX, double strafeY, double steering) {
+		updateOdometry();
+		
 		// Calculating strafe vector, the vector all the wheels would move at if swerve were to only strafe
         Vector strafeVector = new Vector(strafeX, strafeY);
         
@@ -203,6 +205,7 @@ public class SwerveDrive extends SubsystemBase {
      * @see #userInputDrive(double, double, double, ControlsConfig)
      */
     public final void steerAndDriveAll (double direction, double speed) {
+		updateOdometry();
         flWheel.steerAndDrive(direction, speed);
         frWheel.steerAndDrive(direction, speed);
         rlWheel.steerAndDrive(direction, speed);
@@ -232,10 +235,17 @@ public class SwerveDrive extends SubsystemBase {
      * Stops all modules immediately.
      */
     public final void stop () {
+		updateOdometry();
         flWheel.stop();
         frWheel.stop();
         rlWheel.stop();
         rrWheel.stop();
     }
+	
+	/**
+	 * A method overridden in {@link AutoSwerveDrive} which is called to update the odometry systems
+	 * whenever new inputs are passed to the wheels.
+	 */
+	protected void updateOdometry () { }
     
 }

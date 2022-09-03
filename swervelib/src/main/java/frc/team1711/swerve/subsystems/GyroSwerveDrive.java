@@ -15,6 +15,7 @@ import frc.team1711.swerve.util.Vector;
 public abstract class GyroSwerveDrive extends SwerveDrive {
     
 	private final Gyro gyro;
+	private double gyroResetAngle;
 	
     /**
      * Creates a new {@code GyroSwerveDrive} given {@link SwerveWheel} wheels.
@@ -36,6 +37,7 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
         
         super(flWheel, frWheel, rlWheel, rrWheel, wheelbaseToTrackRatio);
 		this.gyro = gyro;
+		gyroResetAngle = gyro.getAngle();
     }
     
 	/**
@@ -59,7 +61,7 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
         // Turns the strafeInput vector into a new vector with same magnitude but rotation adjusted for field relative
         final Vector fieldStrafeInput = strafeInput.toRotationDegrees(fieldRelToRobotRel(strafeInput.getRotationDegrees()));
         
-        super.autoDrive(
+        autoDrive(
 			fieldStrafeInput.getX() * controlsConfig.strafeSpeed,
 			fieldStrafeInput.getY() * controlsConfig.strafeSpeed,
 			steering * controlsConfig.steerSpeed);
@@ -68,23 +70,45 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
     /**
      * Gets the gyro yaw angle on the range [0, 360) degrees.
      * @return The gyro yaw angle.
+	 * 
+	 * @see #getAbsoluteGyroAngle()
+	 * @see #resetGyro()
      */
     public double getGyroAngle () {
-		return Angles.wrapDegrees(gyro.getAngle());
-	}
-    
-    /**
-     * Calls {@link Gyro#reset()} on the gyro.
-     */
-    public void resetGyro () {
-		gyro.reset();
+		return Angles.wrapDegrees(getAbsoluteGyroAngle() - gyroResetAngle);
 	}
 	
 	/**
-     * Calls {@link Gyro#calibrate()} on the gyro.
+	 * Gets the absolute gyro angle, unaffected by {@link #resetGyro()}. The angle is not
+	 * constricted to being between 0 and 360 degrees, and will continuously increase or
+	 * decrease as the robot turns past full rotations.
+	 * @return The gyro yaw angle.
+	 * 
+	 * @see #getGyroAngle()
+	 */
+	public double getAbsoluteGyroAngle () {
+		return gyro.getAngle();
+	}
+    
+    /**
+     * Resets the gyro heading to {@code toAngle} for {@link #getGyroAngle()} but does not affect
+	 * {@link #getAbsoluteGyroAngle()}.
+	 * @param toAngle The angle to reset the gyro heading to.
+	 * 
+	 * @see #resetGyro()
      */
-    public void calibrateGyro () {
-		gyro.calibrate();
+    public void resetGyro (double toAngle) {
+		gyroResetAngle = getAbsoluteGyroAngle() - toAngle;
+	}
+	
+	/**
+	 * Resets the gyro heading to zero for {@link #getGyroAngle()} but does not affect
+	 * {@link #getAbsoluteGyroAngle()}.
+	 * 
+	 * @see #resetGyro(double)
+	 */
+	public void resetGyro () {
+		resetGyro(0);
 	}
     
     private double fieldRelToRobotRel (double rotation) {
