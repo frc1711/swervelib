@@ -6,6 +6,7 @@ package frc.team1711.swerve.subsystems;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 import frc.team1711.swerve.util.odometry.Odometry;
+import frc.team1711.swerve.util.odometry.Odometry.Position;
 
 /**
  * Expands on the {@link GyroSwerveDrive} for autonomous control, requiring
@@ -39,6 +40,22 @@ public abstract class AutoSwerveDrive extends GyroSwerveDrive {
 		
 		odometry = new Odometry(this, flWheel, frWheel, rlWheel, rrWheel);
     }
+	
+	/**
+	 * Resets the robot's odometry to a given {@link Position}.
+	 * @param newPosition The new {@code Position} for the robot's odometry
+	 */
+	public void resetPosition (Position newPosition) {
+		odometry.resetPosition(newPosition);
+	}
+	
+	/**
+	 * Gets the current {@link Position} of the robot on the field.
+	 * @return The robot's {@code Position}
+	 */
+	public Position getPosition () {
+		return odometry.getPosition();
+	}
 	
 	@Override
 	protected void updateOdometry () {

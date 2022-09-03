@@ -22,10 +22,10 @@ class AutonDriveSimple extends CommandBase {
     private boolean finished;
     
     private final double
-            correctionScalar,
-            direction,
-            distance,
-            speed;
+		correctionScalar,
+		direction,
+		distance,
+		speed;
 	
 	private FrameOfReference frameOfReference;
 	private double directionRobotRelative;
