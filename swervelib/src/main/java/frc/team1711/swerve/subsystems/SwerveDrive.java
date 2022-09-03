@@ -16,21 +16,21 @@ import frc.team1711.swerve.util.Vector;
 public class SwerveDrive extends SubsystemBase {
     
     private final SwerveWheel
-		flWheel,
-		frWheel,
-		rlWheel,
-		rrWheel;
+        flWheel,
+        frWheel,
+        rlWheel,
+        rrWheel;
     
     private final double wheelbaseToTrackRatio;
     
     /**
      * Creates a new {@code SwerveDrive}.
-     * @param flWheel					The front left {@code SwerveWheel}
-     * @param frWheel					The front right {@code SwerveWheel}
-     * @param rlWheel					The rear left {@code SwerveWheel}
-     * @param rrWheel					The rear right {@code SwerveWheel}
-     * @param wheelbaseToTrackRatio		The distance between the centers of the left and right wheels divided
-	 * by the distance between the centers of the front and back wheels
+     * @param flWheel                   The front left {@code SwerveWheel}
+     * @param frWheel                   The front right {@code SwerveWheel}
+     * @param rlWheel                   The rear left {@code SwerveWheel}
+     * @param rrWheel                   The rear right {@code SwerveWheel}
+     * @param wheelbaseToTrackRatio     The distance between the centers of the left and right wheels divided
+     * by the distance between the centers of the front and back wheels
      */
     public SwerveDrive (
         SwerveWheel flWheel,
@@ -45,96 +45,96 @@ public class SwerveDrive extends SubsystemBase {
         this.rrWheel = rrWheel;
         this.wheelbaseToTrackRatio = wheelbaseToTrackRatio;
     }
-	
-	/**
-	 * A class representing the configuration of relative speeds for {@link SwerveDrive} in
-	 * {@link SwerveDrive#userInputDrive(double, double, double, ControlsConfig)}, along with
-	 * an {@link InputHandler} which handles user-generated input.
-	 */
-	public static class ControlsConfig {
-		
-		public final double strafeSpeed, steerSpeed;
-		public final InputHandler inputHandler;
-		
-		/**
-		 * Creates a new {@code ControlsConfig}. Note: If {@code strafeSpeed} and {@code steerSpeed} sum to greater
-		 * than 1, {@link SwerveDrive#userInputDrive(double, double, double, ControlsConfig)} will ensure the relative speeds of the modules
-		 * are still in proportion to each other, so the kinematics of swerve will not be affected (though in some situations where the
-		 * inputs are very high, the robot may move slower than desired).
-		 * @param strafeSpeed	The scalar on the strafe inputs for
-		 * {@code SwerveDrive.userInputDrive()}. For example, if {@code strafeSpeed} were
-		 * 0.8, then any {@link SwerveWheel} would only ever be commanded to a maximum speed of 0.8
-		 * using {@code SwerveWheel.setDriveSpeed()}, assuming there is zero steering input passed into {@code SwerveDrive.userInputDrive()}.
-		 * @param steerSpeed	The scalar on the steering inputs for {@code SwerveDrive.userInputDrive()},
-		 * working in the same way as {@code strafeSpeed}.
-		 * @param inputHandler	The {@link InputHandler} associated with this {@code ControlsConfig}
-		 */
-		public ControlsConfig (double strafeSpeed, double steerSpeed, InputHandler inputHandler) {
-			this.strafeSpeed = strafeSpeed;
-			this.steerSpeed = steerSpeed;
-			this.inputHandler = inputHandler;
-		}
-		
-	}
-	
-	@Override
-	public void initSendable (SendableBuilder builder) {
-		builder.setSmartDashboardType("Swerve Drive");
-		builder.addDoubleProperty("Front Left Module", () -> getSendableDir(flWheel), (x) -> {});
-		builder.addDoubleProperty("Front Right Module", () -> getSendableDir(frWheel), (x) -> {});
-		builder.addDoubleProperty("Rear Left Module", () -> getSendableDir(rlWheel), (x) -> {});
-		builder.addDoubleProperty("Rear Right Module", () -> getSendableDir(rrWheel), (x) -> {});
-	}
-	
-	// Gets the direction to send to the dashboard for a given SwerveWheel
-	private double getSendableDir (SwerveWheel wheel) {
-		return (wheel.getDirection() + 90) % 180 - 90;
-	}
-	
+    
+    /**
+     * A class representing the configuration of relative speeds for {@link SwerveDrive} in
+     * {@link SwerveDrive#userInputDrive(double, double, double, ControlsConfig)}, along with
+     * an {@link InputHandler} which handles user-generated input.
+     */
+    public static class ControlsConfig {
+        
+        public final double strafeSpeed, steerSpeed;
+        public final InputHandler inputHandler;
+        
+        /**
+         * Creates a new {@code ControlsConfig}. Note: If {@code strafeSpeed} and {@code steerSpeed} sum to greater
+         * than 1, {@link SwerveDrive#userInputDrive(double, double, double, ControlsConfig)} will ensure the relative speeds of the modules
+         * are still in proportion to each other, so the kinematics of swerve will not be affected (though in some situations where the
+         * inputs are very high, the robot may move slower than desired).
+         * @param strafeSpeed   The scalar on the strafe inputs for
+         * {@code SwerveDrive.userInputDrive()}. For example, if {@code strafeSpeed} were
+         * 0.8, then any {@link SwerveWheel} would only ever be commanded to a maximum speed of 0.8
+         * using {@code SwerveWheel.setDriveSpeed()}, assuming there is zero steering input passed into {@code SwerveDrive.userInputDrive()}.
+         * @param steerSpeed    The scalar on the steering inputs for {@code SwerveDrive.userInputDrive()},
+         * working in the same way as {@code strafeSpeed}.
+         * @param inputHandler  The {@link InputHandler} associated with this {@code ControlsConfig}
+         */
+        public ControlsConfig (double strafeSpeed, double steerSpeed, InputHandler inputHandler) {
+            this.strafeSpeed = strafeSpeed;
+            this.steerSpeed = steerSpeed;
+            this.inputHandler = inputHandler;
+        }
+        
+    }
+    
+    @Override
+    public void initSendable (SendableBuilder builder) {
+        builder.setSmartDashboardType("Swerve Drive");
+        builder.addDoubleProperty("Front Left Module", () -> getSendableDir(flWheel), (x) -> {});
+        builder.addDoubleProperty("Front Right Module", () -> getSendableDir(frWheel), (x) -> {});
+        builder.addDoubleProperty("Rear Left Module", () -> getSendableDir(rlWheel), (x) -> {});
+        builder.addDoubleProperty("Rear Right Module", () -> getSendableDir(rrWheel), (x) -> {});
+    }
+    
+    // Gets the direction to send to the dashboard for a given SwerveWheel
+    private double getSendableDir (SwerveWheel wheel) {
+        return (wheel.getDirection() + 90) % 180 - 90;
+    }
+    
     /**
      * Drives the {@code SwerveDrive} given strafing and steering inputs, all on the interval [-1, 1],
-	 * where +{@code strafeY} is forwards and +{@code strafeX} is to the right. Inputs are assumed to be from a user-controlled
-	 * device, so {@link ControlsConfig} is applied.
+     * where +{@code strafeY} is forwards and +{@code strafeX} is to the right. Inputs are assumed to be from a user-controlled
+     * device, so {@link ControlsConfig} is applied.
      * @param strafeX           The strafing speed in the x direction
      * @param strafeY           The strafing speed in the y direction
      * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
-     * @param controlsConfig	The {@code ControlsConfig} to be used for relative driving speeds and processing of user inputs
+     * @param controlsConfig    The {@code ControlsConfig} to be used for relative driving speeds and processing of user inputs
      * @see #steerAndDriveAll(double, double)
      */
     public final void userInputDrive (double strafeX, double strafeY, double steering, ControlsConfig controlsConfig) {
-		
-		// Applies inputHandler to all inputs
+        
+        // Applies inputHandler to all inputs
         Vector strafeVector = new Vector(strafeX, strafeY);
         strafeVector = controlsConfig.inputHandler.apply(strafeVector);
         steering = controlsConfig.inputHandler.apply(steering);
-		
-		// Passes new inputs to autoDrive
-		autoDrive(
-			strafeVector.getX() * controlsConfig.strafeSpeed,
-			strafeVector.getY() * controlsConfig.strafeSpeed,
-			steering * controlsConfig.steerSpeed);
+        
+        // Passes new inputs to autoDrive
+        autoDrive(
+            strafeVector.getX() * controlsConfig.strafeSpeed,
+            strafeVector.getY() * controlsConfig.strafeSpeed,
+            steering * controlsConfig.steerSpeed);
     }
-	
-	/**
-	 * Drives the {@code SwerveDrive} given strafing and steering inputs, all on the interval [-1, 1],
-	 * where +{@code strafeY} is forwards and +{@code strafeX} is to the right. Inputs are assumed to be generated from
-	 * a command, so no {@link ControlsConfig} is applied to the inputs.
+    
+    /**
+     * Drives the {@code SwerveDrive} given strafing and steering inputs, all on the interval [-1, 1],
+     * where +{@code strafeY} is forwards and +{@code strafeX} is to the right. Inputs are assumed to be generated from
+     * a command, so no {@link ControlsConfig} is applied to the inputs.
      * @param strafeX           The strafing speed in the x direction
      * @param strafeY           The strafing speed in the y direction
      * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
      * @see #steerAndDriveAll(double, double)
-	 */
-	public final void autoDrive (double strafeX, double strafeY, double steering) {
-		updateOdometry();
-		
-		// Calculating strafe vector, the vector all the wheels would move at if swerve were to only strafe
+     */
+    public final void autoDrive (double strafeX, double strafeY, double steering) {
+        updateOdometry();
+        
+        // Calculating strafe vector, the vector all the wheels would move at if swerve were to only strafe
         Vector strafeVector = new Vector(strafeX, strafeY);
         
         // Steering vector FR is the steering vector that will be added to the front right wheel, and is used
-		// to calculate the steering vectors for all the other wheels
-		Vector steeringVectorFR = new Vector(wheelbaseToTrackRatio, -1); // Puts steeringVectorFR in the correct DIRECTION for rotation (wrong magnitude)
-		steeringVectorFR = steeringVectorFR.scale(steering/steeringVectorFR.getMagnitude()); // Scales steeringVectorFR to the magnitude of the steering variable
-		
+        // to calculate the steering vectors for all the other wheels
+        Vector steeringVectorFR = new Vector(wheelbaseToTrackRatio, -1); // Puts steeringVectorFR in the correct DIRECTION for rotation (wrong magnitude)
+        steeringVectorFR = steeringVectorFR.scale(steering/steeringVectorFR.getMagnitude()); // Scales steeringVectorFR to the magnitude of the steering variable
+        
         /*
         Clockwise steering vector additions:
         (top-down view of robot with --+ representing vector arrows for clockwise turning)
@@ -153,9 +153,9 @@ public class SwerveDrive extends SubsystemBase {
         // which is how wheels would move if they were to only strafe, and steeringVectorFR
         // which is how the front right wheel were to move if it were to only use the
         // steering input
-		// Movement Vector = Strafe Vector + Module's Steering Vector
-		// Module's steering vector can be put in terms of a transformation
-		// on the front right module's steering vector
+        // Movement Vector = Strafe Vector + Module's Steering Vector
+        // Module's steering vector can be put in terms of a transformation
+        // on the front right module's steering vector
         final Vector frVector = strafeVector.add(steeringVectorFR);
         final Vector rrVector = strafeVector.add(steeringVectorFR.reflectAcrossY());
         final Vector rlVector = strafeVector.add(steeringVectorFR.scale(-1));
@@ -163,10 +163,10 @@ public class SwerveDrive extends SubsystemBase {
         
         // Get wheel speeds
         double
-			flSpeed = flVector.getMagnitude(),
-			frSpeed = frVector.getMagnitude(),
-			rlSpeed = rlVector.getMagnitude(),
-			rrSpeed = rrVector.getMagnitude();
+            flSpeed = flVector.getMagnitude(),
+            frSpeed = frVector.getMagnitude(),
+            rlSpeed = rlVector.getMagnitude(),
+            rrSpeed = rrVector.getMagnitude();
         
         
         // Because wheel speeds must be in correct proportions in order for swerve
@@ -192,7 +192,7 @@ public class SwerveDrive extends SubsystemBase {
         frWheel.steerAndDrive(frDirection, frSpeed);
         rlWheel.steerAndDrive(rlDirection, rlSpeed);
         rrWheel.steerAndDrive(rrDirection, rrSpeed);
-	}
+    }
     
     /**
      * Steers and drives all wheels in the same direction and with the same speed.
@@ -205,7 +205,7 @@ public class SwerveDrive extends SubsystemBase {
      * @see #userInputDrive(double, double, double, ControlsConfig)
      */
     public final void steerAndDriveAll (double direction, double speed) {
-		updateOdometry();
+        updateOdometry();
         flWheel.steerAndDrive(direction, speed);
         frWheel.steerAndDrive(direction, speed);
         rlWheel.steerAndDrive(direction, speed);
@@ -235,17 +235,17 @@ public class SwerveDrive extends SubsystemBase {
      * Stops all modules immediately.
      */
     public final void stop () {
-		updateOdometry();
+        updateOdometry();
         flWheel.stop();
         frWheel.stop();
         rlWheel.stop();
         rrWheel.stop();
     }
-	
-	/**
-	 * A method overridden in {@link AutoSwerveDrive} which is called to update the odometry systems
-	 * whenever new inputs are passed to the wheels.
-	 */
-	protected void updateOdometry () { }
+    
+    /**
+     * A method overridden in {@link AutoSwerveDrive} which is called to update the odometry systems
+     * whenever new inputs are passed to the wheels.
+     */
+    protected void updateOdometry () { }
     
 }

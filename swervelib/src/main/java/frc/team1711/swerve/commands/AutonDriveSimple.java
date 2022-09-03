@@ -16,51 +16,51 @@ import frc.team1711.swerve.util.Vector;
  * @author Gabriel Seaver
  */
 class AutonDriveSimple extends CommandBase {
-	
+    
     private final AutoSwerveDrive swerveDrive;
     
     private boolean finished;
     
     private final double
-		correctionScalar,
-		direction,
-		distance,
-		speed;
-	
-	private FrameOfReference frameOfReference;
-	private double directionRobotRelative;
-	
+        correctionScalar,
+        direction,
+        distance,
+        speed;
+    
+    private FrameOfReference frameOfReference;
+    private double directionRobotRelative;
+    
     private double initialGyroAngle;
     
     /**
      * Constructs an {@code AutonDriveSimple} command.
-     * @param swerveDrive		The {@link AutoSwerveDrive} drive train
-     * @param direction			The direction, in degrees, to travel in. Zero degrees corresponds with
+     * @param swerveDrive       The {@link AutoSwerveDrive} drive train
+     * @param direction         The direction, in degrees, to travel in. Zero degrees corresponds with
      * directly forward, and an increase in {@code direction} corresponds with a direction further
-	 * clockwise from a top-down view.
-     * @param distance			The distance to travel in the specified direction, in inches. This value
+     * clockwise from a top-down view.
+     * @param distance          The distance to travel in the specified direction, in inches. This value
      * must be on the interval (0, infinity).
-     * @param speed				The speed to travel at. This value must be on the interval (0, 1].
-     * @param correctionScalar	The speed to turn at per degree offset from the intended direction. For
+     * @param speed             The speed to travel at. This value must be on the interval (0, 1].
+     * @param correctionScalar  The speed to turn at per degree offset from the intended direction. For
      * example, if the robot is going ten degrees to the right of where it wants to, it will make a
      * correction turn to the left at a speed of {@code 10*correctionScalar}. A recommended starting value
      * is {@code 0.01}.
-	 * @param frameOfReference	The {@link FrameOfReference} for the {@code direction}
+     * @param frameOfReference  The {@link FrameOfReference} for the {@code direction}
      */
     AutonDriveSimple (
-			AutoSwerveDrive swerveDrive,
-			double direction,
-			double distance,
-			double speed,
-			double correctionScalar,
-			FrameOfReference frameOfReference) {
+            AutoSwerveDrive swerveDrive,
+            double direction,
+            double distance,
+            double speed,
+            double correctionScalar,
+            FrameOfReference frameOfReference) {
         this.correctionScalar = correctionScalar;
         this.swerveDrive = swerveDrive;
         this.direction = direction;
         this.distance = distance;
         this.speed = speed;
         this.frameOfReference = frameOfReference;
-		
+        
         finished = false;
         
         addRequirements(swerveDrive);
@@ -71,14 +71,14 @@ class AutonDriveSimple extends CommandBase {
         swerveDrive.stop();
         swerveDrive.setDistanceReference();
         initialGyroAngle = swerveDrive.getGyroAngle();
-		
-		directionRobotRelative = getRobotRelativeDirection();
+        
+        directionRobotRelative = getRobotRelativeDirection();
     }
-	
-	private double getRobotRelativeDirection () {
-		if (frameOfReference == FrameOfReference.ROBOT) return direction;
-		return direction - swerveDrive.getGyroAngle();
-	}
+    
+    private double getRobotRelativeDirection () {
+        if (frameOfReference == FrameOfReference.ROBOT) return direction;
+        return direction - swerveDrive.getGyroAngle();
+    }
     
     @Override
     public void execute () {

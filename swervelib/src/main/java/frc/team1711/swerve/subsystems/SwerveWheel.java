@@ -90,9 +90,9 @@ abstract public class SwerveWheel {
      */
     protected boolean checkWithinRange (double direction, double marginOfError) {
         // Gets absolute difference in directions
-		double directionalDifference = Math.abs(Angles.wrapDegreesZeroCenter(direction - getDirection()));
+        double directionalDifference = Math.abs(Angles.wrapDegreesZeroCenter(direction - getDirection()));
         return directionalDifference <= marginOfError;
-	}
+    }
     
     /**
      * Does the same check as {@link #checkWithinRange(double, double)}, except it will also

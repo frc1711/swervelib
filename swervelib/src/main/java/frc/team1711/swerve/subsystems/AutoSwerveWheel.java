@@ -13,11 +13,11 @@ abstract public class AutoSwerveWheel extends SwerveWheel {
     
     /**
      * Gets the number of inches traveled along the ground, according to the drive encoder.
-	 * Driving the wheel in reverse should decrease this value, and driving forwards should
-	 * increase it.
+     * Driving the wheel in reverse should decrease this value, and driving forwards should
+     * increase it.
      * @return The inches this wheel has driven since the robot was enabled, with driving forwards
-	 * increasing the measure and driving backwards decreasing it.
+     * increasing the measure and driving backwards decreasing it.
      */
     abstract public double getEncoderDistance ();
-	
+    
 }
