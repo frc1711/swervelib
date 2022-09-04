@@ -5,6 +5,7 @@ package frc.team1711.swerve.util.odometry;
 
 import frc.team1711.swerve.subsystems.AutoSwerveDrive;
 import frc.team1711.swerve.subsystems.AutoSwerveWheel;
+import frc.team1711.swerve.subsystems.GyroSwerveDrive;
 import frc.team1711.swerve.util.Angles;
 import frc.team1711.swerve.util.Vector;
 
@@ -32,7 +33,7 @@ public class Odometry {
     private Position position = new Position(new Vector(0, 0), 0);
     
     /**
-     * Creates a new {@code Odometry} object which tracks the position of an {@link AutoSwerveDrive} on the field.
+     * Creates a new {@link Odometry} object which tracks the position of an {@link AutoSwerveDrive} on the field.
      * This constructor method should not be called outside of the {@code AutoSwerveDrive} class. Use methods on the
      * {@code AutoSwerveDrive} class in order to access odometry functionality.
      * @param swerveDrive
@@ -67,7 +68,7 @@ public class Odometry {
             rearRightMovement = getWheelMovement(rearRightWheel, rearRightDistance),
             movement = frontLeftMovement.add(frontRightMovement).add(rearLeftMovement).add(rearRightMovement).scale(0.25);
         
-        position = position.getPositionFromMovement(movement, swerveDrive.getAbsoluteGyroAngle() - gyroYawOffset);
+        position = position.addMovementVector(movement).withDirection(swerveDrive.getAbsoluteGyroAngle() - gyroYawOffset);
     }
     
     /**
@@ -79,8 +80,8 @@ public class Odometry {
         position = newPosition;
         
         // Sets the gyro yaw offset such that as we make new positions when the odometry is updated
-        // the new position yaws will match
-        gyroYawOffset = swerveDrive.getAbsoluteGyroAngle() - position.getYaw();
+        // the new position directions will match
+        gyroYawOffset = swerveDrive.getAbsoluteGyroAngle() - position.getDirection();
     }
     
     /**
@@ -99,37 +100,66 @@ public class Odometry {
     }
     
     /**
-     * Represents position of the robot on the field, with location and yaw components. Used with the
+     * Represents position of the robot on the field, with location and direction components. Used with the
      * {@link AutoSwerveDrive} subsystem.
      */
     public static class Position {
         
         private final Vector location;
-        private final double yaw;
+        private final double direction;
         
-        public Position (Vector location, double yaw) {
+        /**
+         * Creates a new robot {@code Position}
+         * @param location A {@code Vector} representing the robot's location on the field, measured in inches.
+         * @param direction A {@code double} representing the direction angle of the robot, measured in degrees.
+         * 
+         * @implNote The {@code direction} of the robot position is not the same measure as
+         * {@link GyroSwerveDrive#getGyroAngle()}. {@code getGyroAngle()} is only used for
+         * {@code GyroSwerveDrive.fieldRelativeUserInputDrive()} (that is, field relative teleop),
+         * whereas {@code Position.direction} is used for autonomous functionality.
+         */
+        public Position (Vector location, double direction) {
             this.location = location;
-            this.yaw = yaw;
-        }
-        
-        private Position getPositionFromMovement (Vector movement, double newYaw) {
-            return new Position(location.add(movement), Angles.wrapDegrees(newYaw));
+            this.direction = Angles.wrapDegrees(direction);
         }
         
         /**
-         * Gets the location of the robot on the field as a vector, with units measured in inches.
-         * @return The location of the robot on the field
+         * Adds a movement {@link Vector} to this {@link Position} to return a new {@code Position}.
+         * @param movement The movement vector to add, measured in inches.
+         * @return This same {@code Position}, with a movement {@code Vector} added to the location.
+         */
+        public Position addMovementVector (Vector movement) {
+            return new Position(location.add(movement), direction);
+        }
+        
+        /**
+         * Returns a new {@link Position} with the same location but a different direction.
+         * @param newDir The direction for the new position, measured in degrees.
+         * @return The new {@code Position}.
+         */
+        public Position withDirection (double newDir) {
+            return new Position(location, newDir);
+        }
+        
+        /**
+         * Gets the location of the robot on the field as a vector, measured in inches.
+         * @return The location of the robot on the field.
          */
         public Vector getLocation () {
             return location;
         }
         
         /**
-         * Gets the robot's yaw on the field, in degrees. A turn to the right represents an increase in yaw.
-         * @return The robot's yaw angle
+         * Gets the robot's direction relative to the field, in degrees. A turn to the right will increase this measure.
+         * @return The robot's direction
+         * 
+         * @implNote The {@code direction} of the robot position is not the same measure as
+         * {@link GyroSwerveDrive#getGyroAngle()}. {@code getGyroAngle()} is only used for
+         * {@code GyroSwerveDrive.fieldRelativeUserInputDrive()} (that is, field relative teleop),
+         * whereas {@code Position.direction} is used for autonomous functionality.
          */
-        public double getYaw () {
-            return yaw;
+        public double getDirection () {
+            return direction;
         }
         
         /**
