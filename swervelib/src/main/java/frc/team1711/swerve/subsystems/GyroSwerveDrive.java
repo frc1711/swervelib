@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 import frc.team1711.swerve.util.Angles;
 import frc.team1711.swerve.util.Vector;
-import frc.team1711.swerve.util.odometry.Odometry.Position;
+import frc.team1711.swerve.util.odometry.Position;
 
 /**
  * Expands on the {@link SwerveDrive} for field relative control, using a gyro.

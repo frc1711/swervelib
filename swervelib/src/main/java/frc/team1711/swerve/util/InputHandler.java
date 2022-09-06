@@ -71,7 +71,7 @@ public class InputHandler {
      */
     public final Vector apply (Vector input) {
         // Returns a zero output vector if the input magnitude is zero (prevents dividing by zero later)
-        if (input.getMagnitude() == 0) return new Vector(0, 0);
+        if (input.getMagnitude() == 0) return Vector.ZERO;
         
         // Gets the new magnitude of the vector based on the deadband and input curve
         double newMag = apply(input.getMagnitude());

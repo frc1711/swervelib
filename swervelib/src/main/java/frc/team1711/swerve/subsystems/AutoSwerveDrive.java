@@ -4,9 +4,8 @@
 package frc.team1711.swerve.subsystems;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-
 import frc.team1711.swerve.util.odometry.Odometry;
-import frc.team1711.swerve.util.odometry.Odometry.Position;
+import frc.team1711.swerve.util.odometry.Position;
 
 /**
  * Expands on the {@link GyroSwerveDrive} for autonomous control, requiring

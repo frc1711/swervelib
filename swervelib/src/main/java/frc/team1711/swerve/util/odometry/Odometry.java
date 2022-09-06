@@ -5,8 +5,6 @@ package frc.team1711.swerve.util.odometry;
 
 import frc.team1711.swerve.subsystems.AutoSwerveDrive;
 import frc.team1711.swerve.subsystems.AutoSwerveWheel;
-import frc.team1711.swerve.subsystems.GyroSwerveDrive;
-import frc.team1711.swerve.util.Angles;
 import frc.team1711.swerve.util.Vector;
 
 /**
@@ -30,7 +28,7 @@ public class Odometry {
     private final AutoSwerveDrive swerveDrive;
     
     private double gyroYawOffset;
-    private Position position = new Position(new Vector(0, 0), 0);
+    private Position position = new Position(Vector.ZERO, 0);
     
     /**
      * Creates a new {@link Odometry} object which tracks the position of an {@link AutoSwerveDrive} on the field.
@@ -97,90 +95,6 @@ public class Odometry {
         final double direction = swerveDrive.getAbsoluteGyroAngle() + wheel.getDirection();
         final double magnitude = wheel.getEncoderDistance() - prevDistance;
         return Vector.fromPolarDegrees(direction, magnitude);
-    }
-    
-    /**
-     * Represents position of the robot on the field, with location and direction components. Used with the
-     * {@link AutoSwerveDrive} subsystem.
-     */
-    public static class Position {
-        
-        private final Vector location;
-        private final double direction;
-        
-        /**
-         * Creates a new robot {@code Position}
-         * @param location A {@code Vector} representing the robot's location on the field, measured in inches.
-         * @param direction A {@code double} representing the direction angle of the robot, measured in degrees.
-         * 
-         * @implNote The {@code direction} of the robot position is not the same measure as
-         * {@link GyroSwerveDrive#getGyroAngle()}. {@code getGyroAngle()} is only used for
-         * {@code GyroSwerveDrive.fieldRelativeUserInputDrive()} (that is, field relative teleop),
-         * whereas {@code Position.direction} is used for autonomous functionality.
-         */
-        public Position (Vector location, double direction) {
-            this.location = location;
-            this.direction = Angles.wrapDegrees(direction);
-        }
-        
-        /**
-         * Adds a movement {@link Vector} to this {@link Position} to return a new {@code Position}.
-         * @param movement The movement vector to add, measured in inches.
-         * @return This same {@code Position}, with a movement {@code Vector} added to the location.
-         */
-        public Position addMovementVector (Vector movement) {
-            return new Position(location.add(movement), direction);
-        }
-        
-        /**
-         * Returns a new {@link Position} with the same location but a different direction.
-         * @param newDir The direction for the new position, measured in degrees.
-         * @return The new {@code Position}.
-         */
-        public Position withDirection (double newDir) {
-            return new Position(location, newDir);
-        }
-        
-        /**
-         * Gets the location of the robot on the field as a vector, measured in inches.
-         * @return The location of the robot on the field.
-         */
-        public Vector getLocation () {
-            return location;
-        }
-        
-        /**
-         * Gets the robot's direction relative to the field, in degrees. A turn to the right will increase this measure.
-         * @return The robot's direction
-         * 
-         * @implNote The {@code direction} of the robot position is not the same measure as
-         * {@link GyroSwerveDrive#getGyroAngle()}. {@code getGyroAngle()} is only used for
-         * {@code GyroSwerveDrive.fieldRelativeUserInputDrive()} (that is, field relative teleop),
-         * whereas {@code Position.direction} is used for autonomous functionality.
-         */
-        public double getDirection () {
-            return direction;
-        }
-        
-        /**
-         * Gets a vector representing the movement required to move the robot from this position to
-         * another on the field.
-         * @param other The position to get the movement to
-         * @return A vector representing the movement from this position to another. Units are in inches.
-         */
-        public Vector movementTo (Position other) {
-            return other.location.subtract(this.location);
-        }
-        
-        /**
-         * Gets the distance from this position to another on the field, in inches.
-         * @param other The position to get the distance from
-         * @return The distance from this position to the other
-         */
-        public double distanceFrom (Position other) {
-            return movementTo(other).getMagnitude();
-        }
-        
     }
     
 }

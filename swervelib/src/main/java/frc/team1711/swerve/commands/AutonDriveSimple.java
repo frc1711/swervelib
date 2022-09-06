@@ -6,8 +6,13 @@ package frc.team1711.swerve.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.team1711.swerve.subsystems.AutoSwerveDrive;
+import frc.team1711.swerve.util.Angles;
 import frc.team1711.swerve.util.Vector;
-import frc.team1711.swerve.util.odometry.Odometry.Position;
+import frc.team1711.swerve.util.odometry.MovementManner;
+import frc.team1711.swerve.util.odometry.Position;
+import frc.team1711.swerve.util.odometry.RobotMovement;
+import frc.team1711.swerve.util.odometry.RobotTurn;
+import frc.team1711.swerve.util.odometry.TurnManner;
 
 /**
  * Drives the robot in a given direction without first turning the wheels. The wheels
@@ -19,91 +24,152 @@ class AutonDriveSimple extends CommandBase {
     
     private final AutoSwerveDrive swerveDrive;
     
-    private boolean finished;
+    private boolean finished = false;
+    private Position initialPosition;
     
-    // robotMovement and robotDirection can be used in the constructor method as
-    // alternatives to finalPosition, but in the initialization method they'll be
-    // converted to finalPosition anyway
+    // The constructor provides one of the two following options.
+    // Later on we convert them to fill in the gaps
+    
+    // CONSTRUCTOR OPTION #1:
     private RobotMovement robotMovement;
-    private RobotDirection robotDirection;
+    private RobotTurn robotTurn;
     
-    private Position finalPosition;
-    private final double speed, turnCorrection, distMarginOfError;
-    
+    // TODO: Before git commit, add functionality to accept (RobotTurn and RobotMovement) or (Position and RobotTurn.Manner and RobotMovement.Manner)
+    // TODO: Make RobotTurn actually turn the robot and have it influence whether the command is finished 
     AutonDriveSimple (
             AutoSwerveDrive swerveDrive,
             RobotMovement robotMovement,
-            RobotDirection robotDirection,
-            double speed,
-            double turnCorrection,
-            double distMarginOfError) {
-        // In the initialization method, robotMovement and robotDirection will be
-        // converted into an equivalent finalPosition value
+            RobotTurn robotTurn) {
         this.robotMovement = robotMovement;
-        this.robotDirection = robotDirection;
+        this.robotTurn = robotTurn;
         
         this.swerveDrive = swerveDrive;
-        this.speed = speed;
-        this.turnCorrection = turnCorrection;
-        this.distMarginOfError = distMarginOfError;
         
-        finished = false;
         addRequirements(swerveDrive);
     }
+    
+    // CONSTRUCTOR OPTION #2:
+    private Position finalPosition;
+    private MovementManner movementManner;
+    private TurnManner turnManner;
     
     AutonDriveSimple (
             AutoSwerveDrive swerveDrive,
             Position finalPosition,
-            double speed,
-            double turnCorrection,
-            double distMarginOfError) {
+            MovementManner movementManner,
+            TurnManner turnManner) {
+        // finalPosition, movementManner, and turnManner can be used in the constructor method
+        // but later on they'll be converted to robotMovement and robotTurn
         this.finalPosition = finalPosition;
+        this.movementManner = movementManner;
+        this.turnManner = turnManner;
         
         this.swerveDrive = swerveDrive;
-        this.speed = speed;
-        this.turnCorrection = turnCorrection;
-        this.distMarginOfError = distMarginOfError;
         
-        finished = false;
         addRequirements(swerveDrive);
     }
     
     @Override
     public void initialize () {
         swerveDrive.stop();
-        
-        // Convert movementVector and frameOfReference into finalPosition if necessary
-        finalPosition = getFinalPosition();
+        initialPosition = swerveDrive.getPosition(); // used in convertConstructorInputs
+        convertConstructorInputs(); // converts constructor inputs from option 1 to option 2 and vice versa
     }
     
-    public Position getFinalPosition () {
-        return new Position(
-            robotMovement.toFieldRel(swerveDrive.getPosition()),
-            robotDirection.toFieldRel(swerveDrive.getPosition()));
+    // finalPosition, movementManner, and turnManner can be used in the constructor method
+    // this converts them to robotMovement and robotTurn
+    private void convertConstructorInputs () {
+        if (robotMovement == null) {
+            // We have robotMovement and robotTurn but want finalPosition, movementManner, and turnManner
+            finalPosition = initialPosition.addMovementVector(robotMovement.toFieldRel(initialPosition));
+            movementManner = robotMovement.getManner();
+            turnManner = robotTurn.getManner();
+        } else {
+            // We have finalPosition, movementManner, and turnManner but want robotMovement and robotTurn
+            robotMovement = new RobotMovement(initialPosition.movementTo(finalPosition), FrameOfReference.FIELD, movementManner);
+            robotTurn = new RobotTurn(finalPosition.getDirection(), FrameOfReference.FIELD, turnManner);
+        }
+        
+        // If we already have robotMovement and robotTurn, then no conversion is necessary
+        if (robotMovement != null) return;
+        
+        // We have finalPosition, movementManner and turnManner and we need robotMovement and robotTurn
+        robotMovement = new RobotMovement(initialPosition.movementTo(finalPosition), FrameOfReference.FIELD, movementManner);
+        robotTurn = new RobotTurn(finalPosition.getDirection(), FrameOfReference.FIELD, turnManner);
     }
     
     @Override
     public void execute () {
-        // remainingMovement is the vector representing the rest of the movement until the auton's endpoint (field relative)
-        Vector remainingMovement = swerveDrive.getPosition().movementTo(finalPosition);
+        final Position currentPosition = swerveDrive.getPosition();
         
-        if (remainingMovement.getMagnitude() <= distMarginOfError) {
-            
-            // If the remaining movement is close enough to the endpoint, just stop
-            swerveDrive.stop();
-            finished = true;
+        // Drive the robot
+        final Vector movementVector = getMovementVector(currentPosition);
+        final double turnSpeed = getTurnSpeed(currentPosition);
+        swerveDrive.autoDrive(movementVector.getX(), movementVector.getY(), turnSpeed);
+        
+        // Update whether the command is finished
+        finished = isMovementFinished(currentPosition) && isTurnFinished(currentPosition);
+    }
+    
+    /**
+     * Gets the movement vector at a given point in time (every time execute() is called)
+     */
+    private Vector getMovementVector (Position currentPosition) {
+        // These 2 vectors are field relative:
+        final Vector totalMovement = initialPosition.movementTo(finalPosition);
+        final Vector remainingMovement = currentPosition.movementTo(finalPosition);
+        
+        // This is the speed we should move at according to the movementManner's speed supplier
+        final double speed = movementManner.getSpeedSupplier().getSpeed(
+            totalMovement.getMagnitude(),
+            remainingMovement.getMagnitude());
+        
+        if (isMovementFinished(currentPosition)) {
+            return Vector.ZERO;
         } else {
+            // The movement vector for this frame (but field relative)
+            // "speed / getMagnitude" scales fieldRelMove to make its magnitude equal to speed
+            Vector fieldRelMove = remainingMovement.scale(speed / remainingMovement.getMagnitude());
             
-            // Otherwise, the robot still needs to move. Here movement represents the movement for
-            // this roboRIO cycle only
-            Vector movement = remainingMovement.scale(speed / remainingMovement.getMagnitude());
+            // Get the direction relative to the robot to move in
+            double robotRelMoveDir = fieldRelMove.getRotationDegrees() - currentPosition.getDirection();
             
-            // Converts movement to be robot relative again
-            movement = movement.toRotationDegrees(movement.getRotationDegrees() - swerveDrive.getPosition().getDirection());
-            
-            // Drives according to the x and y components of the movement vector
-            swerveDrive.autoDrive(movement.getX(), movement.getY(), 0);
+            // Convert field relative move to robot relative, preserving magnitude
+            return fieldRelMove.toRotationDegrees(robotRelMoveDir);
         }
+    }
+    
+    /**
+     * Gets the turn speed at a given point in time (every time execute() is called)
+     */
+    private double getTurnSpeed (Position currentPosition) {
+        // Gets the total turn from initial to final direction on the interval [-180, 180]
+        // TODO: There will be a bug here if we try to turn 170 deg to the right, let's say, and begin by turning 20 deg to the left
+        // that is: final direction = 170       initial direction = 0       current direction = -20
+        // (one of wrapDegreesZeroCenter will be negative)
+        final double totalTurn = Angles.wrapDegreesZeroCenter(finalPosition.getDirection() - initialPosition.getDirection());
+        final double remainingTurn = Angles.wrapDegreesZeroCenter(finalPosition.getDirection() - currentPosition.getDirection());
+        
+        // This is the speed we should turn at according to the turnManner's speed supplier
+        final double speed = turnManner.getSpeedSupplier().getSpeed(totalTurn, remainingTurn);
+        
+        if (isTurnFinished(currentPosition)) return 0;
+        else return speed;
+    }
+    
+    /**
+     * Returns true if the movement is finished based on movementManner.getMarginOfError(), false otherwise
+     */
+    private boolean isMovementFinished (Position currentPosition) {
+        return currentPosition.distanceFrom(finalPosition) < movementManner.getMarginOfError();
+    }
+    
+    /**
+     * Returns true if the turn is finished based on turnManner.getMarginOfError(), false otherwise
+     */
+    private boolean isTurnFinished (Position currentPosition) {
+        final double err = Math.abs(Angles.wrapDegreesZeroCenter(currentPosition.getDirection() - finalPosition.getDirection()));
+        return err < turnManner.getMarginOfError();
     }
     
     @Override
@@ -114,91 +180,6 @@ class AutonDriveSimple extends CommandBase {
     @Override
     public boolean isFinished () {
         return finished;
-    }
-    
-    /**
-     * Represents a movement of the robot as a {@link Vector} and a {@link FrameOfReference}. This
-     * movement only includes strafing movement, not turning.
-     */
-    public static class RobotMovement {
-        
-        private final Vector movement;
-        private final FrameOfReference frameOfReference;
-        
-        /**
-         * Creates a new {@link RobotMovement} instance.
-         * @param movement              A {@link Vector} which represents the movement of the robot. A positive y value
-         * represents forward movement, and a positive x value represents movement to the right. Measured in inches.
-         * @param frameOfReference      A {@link FrameOfReference} which indicates how the movement {@code Vector} is to
-         * be interpreted. If {@code frameOfReference} is {@link FrameOfReference#FIELD}, then the movement {@code Vector}
-         * will be relative to however the robot's {@link Position} on the field was last reset with
-         * {@link AutoSwerveDrive#resetPosition(Position)}. If {@code frameOfReference} is
-         * {@link FrameOfReference#ROBOT}, then the movement {@code Vector} will be relative to the robot itself.
-         */
-        public RobotMovement (Vector movement, FrameOfReference frameOfReference) {
-            this.movement = movement;
-            this.frameOfReference = frameOfReference;
-        }
-        
-        /**
-         * Converts the movement vector to be field relative (if it isn't already explicitly field relative)
-         * given the robot's current {@link Position}.
-         * @param position The robot's {@code Position} on the field
-         * @return The equivalent field relative movement {@link Vector}, measured in inches
-         */
-        public Vector toFieldRel (Position position) {
-            // If the frame of reference is already field-relative, return
-            // the movement vector as-is
-            if (frameOfReference == FrameOfReference.FIELD) return movement;
-            
-            // If the frame of reference is robot-relative, first get the new
-            // direction the robot would have to travel in
-            final double newDir = movement.getRotationDegrees() + position.getDirection();
-            
-            // Return the movement vector rotated in the correct direction
-            return movement.toRotationDegrees(newDir);
-        }
-        
-    }
-    
-    /**
-     * Represents a direction or turn of the robot, containing a {@link FrameOfReference}.
-     */
-    public static class RobotDirection {
-        
-        private final double direction;
-        private final FrameOfReference frameOfReference;
-        
-        /**
-         * Creates a new {@link RobotDirection} instance.
-         * @param direction             The {@code double} which represents the turn or final direction
-         * of the robot. An angle of zero is facing forwards or upwards on the xy plane, and as the angle
-         * increases it progresses clockwise. Measured in degrees.
-         * @param frameOfReference      The {@link FrameOfReference} for the final direction. If
-         * this is {@link FrameOfReference#ROBOT}, the given {@code direction} will be considered
-         * a turn relative to the robot's current position. If this is {@link FrameOfReference#FIELD},
-         * then the {@code direction} will be relative to the field, based on however the robot's
-         * {@link Position} on the field was last reset with {@link AutoSwerveDrive#resetPosition(Position)}.
-         */
-        public RobotDirection (double direction, FrameOfReference frameOfReference) {
-            this.direction = direction;
-            this.frameOfReference = frameOfReference;
-        }
-        
-        /**
-         * Converts the direction to be field relative (if it isn't already explicitly field relative)
-         * given the robot's current {@link Position}.
-         * @param position The robot's {@code Position} on the field
-         * @return The equivalent field relative direction measured in degrees
-         */
-        public double toFieldRel (Position position) {
-            // If the frame of reference is already field-relative, do nothing
-            if (frameOfReference == FrameOfReference.FIELD) return direction;
-            
-            // If the frame of reference is robot-relative, simply add the current robot direction
-            return direction + position.getDirection();
-        }
-        
     }
     
 }
