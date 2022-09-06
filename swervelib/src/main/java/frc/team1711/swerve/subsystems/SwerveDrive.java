@@ -101,7 +101,7 @@ public class SwerveDrive extends SubsystemBase {
      * @param controlsConfig    The {@code ControlsConfig} to be used for relative driving speeds and processing of user inputs
      * @see #steerAndDriveAll(double, double)
      */
-    public final void userInputDrive (double strafeX, double strafeY, double steering, ControlsConfig controlsConfig) {
+    public void userInputDrive (double strafeX, double strafeY, double steering, ControlsConfig controlsConfig) {
         
         // Applies inputHandler to all inputs
         Vector strafeVector = new Vector(strafeX, strafeY);
@@ -124,7 +124,7 @@ public class SwerveDrive extends SubsystemBase {
      * @param steering          The steering speed, where a positive value steers clockwise from a top-down point of view
      * @see #steerAndDriveAll(double, double)
      */
-    public final void autoDrive (double strafeX, double strafeY, double steering) {
+    public void autoDrive (double strafeX, double strafeY, double steering) {
         updateOdometry();
         
         // Calculating strafe vector, the vector all the wheels would move at if swerve were to only strafe
@@ -204,7 +204,7 @@ public class SwerveDrive extends SubsystemBase {
      * @param speed             The speed to drive at
      * @see #userInputDrive(double, double, double, ControlsConfig)
      */
-    public final void steerAndDriveAll (double direction, double speed) {
+    public void steerAndDriveAll (double direction, double speed) {
         updateOdometry();
         flWheel.steerAndDrive(direction, speed);
         frWheel.steerAndDrive(direction, speed);
@@ -222,7 +222,7 @@ public class SwerveDrive extends SubsystemBase {
      * @return A {@code boolean}, which is {@code true} when all wheels are within the range, and
      * {@code false} otherwise.
      */
-    public final boolean steerAllWithinRange (double direction, double marginOfError) {
+    public boolean steerAllWithinRange (double direction, double marginOfError) {
         steerAndDriveAll(direction, 0);
         
         return  flWheel.checkWithin180Range(direction, marginOfError) &&
@@ -234,7 +234,7 @@ public class SwerveDrive extends SubsystemBase {
     /**
      * Stops all modules immediately.
      */
-    public final void stop () {
+    public void stop () {
         updateOdometry();
         flWheel.stop();
         frWheel.stop();
