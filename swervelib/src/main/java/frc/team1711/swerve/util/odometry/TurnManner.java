@@ -2,6 +2,7 @@ package frc.team1711.swerve.util.odometry;
 
 /**
  * {@code TurnManner} describes the way in which the robot performs an autonomous {@link RobotTurn}.
+ * @author Gabriel Seaver
  * 
  * @see MovementManner
  */

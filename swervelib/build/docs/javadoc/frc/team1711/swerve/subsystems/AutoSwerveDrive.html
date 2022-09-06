@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -152,7 +152,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public abstract class <span class="typeNameLabel">AutoSwerveDrive</span>
 extends <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></pre>
 <div class="block">Expands on the <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>GyroSwerveDrive</code></a> for autonomous control, requiring
- the use of <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> rather than <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a>.</div>
+ the use of <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> rather than <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a>. Uses
+ <a href="../util/odometry/Odometry.html" title="class in frc.team1711.swerve.util.odometry"><code>Odometry</code></a> to track the position of the robot on the field.</div>
 </li>
 </ul>
 </div>
@@ -219,18 +220,25 @@ extends <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsy
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDistanceTraveled()">getDistanceTraveled</a></span>()</code></th>
+<td class="colFirst"><code><a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPosition()">getPosition</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Gets the distance traveled, in inches, since the last distance reference was set.</div>
+<div class="block">Gets the current <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry"><code>Position</code></a> of the robot on the field.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDistanceReference()">setDistanceReference</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetPosition(frc.team1711.swerve.util.odometry.Position)">resetPosition</a></span>&#8203;(<a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a>&nbsp;newPosition)</code></th>
 <td class="colLast">
-<div class="block">Sets a distance reference on the encoders, such that the output of
- <a href="#getDistanceTraveled()"><code>getDistanceTraveled()</code></a> will be based on the distance from this reference.</div>
+<div class="block">Resets the robot's odometry to a given <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry"><code>Position</code></a>.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateOdometry()">updateOdometry</a></span>()</code></th>
+<td class="colLast">
+<div class="block">A method overridden in <a href="AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> which is called to update the odometry systems
+ whenever new inputs are passed to the wheels.</div>
 </td>
 </tr>
 </table>
@@ -239,7 +247,7 @@ extends <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsy
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></h3>
-<code><a href="GyroSwerveDrive.html#calibrateGyro()">calibrateGyro</a>, <a href="GyroSwerveDrive.html#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">fieldRelativeUserInputDrive</a>, <a href="GyroSwerveDrive.html#getGyroAngle()">getGyroAngle</a>, <a href="GyroSwerveDrive.html#resetGyro()">resetGyro</a></code></li>
+<code><a href="GyroSwerveDrive.html#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">fieldRelativeUserInputDrive</a>, <a href="GyroSwerveDrive.html#getAbsoluteGyroAngle()">getAbsoluteGyroAngle</a>, <a href="GyroSwerveDrive.html#getGyroAngle()">getGyroAngle</a>, <a href="GyroSwerveDrive.html#resetGyro()">resetGyro</a>, <a href="GyroSwerveDrive.html#resetGyro(double)">resetGyro</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.frc.team1711.swerve.subsystems.SwerveDrive">
@@ -320,33 +328,47 @@ extends <a href="GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsy
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="setDistanceReference()">
+<a id="resetPosition(frc.team1711.swerve.util.odometry.Position)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setDistanceReference</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setDistanceReference()</pre>
-<div class="block">Sets a distance reference on the encoders, such that the output of
- <a href="#getDistanceTraveled()"><code>getDistanceTraveled()</code></a> will be based on the distance from this reference.</div>
+<h4>resetPosition</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;resetPosition&#8203;(<a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a>&nbsp;newPosition)</pre>
+<div class="block">Resets the robot's odometry to a given <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry"><code>Position</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newPosition</code> - The new <code>Position</code> for the robot's odometry</dd>
+</dl>
 </li>
 </ul>
-<a id="getDistanceTraveled()">
+<a id="getPosition()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPosition</h4>
+<pre class="methodSignature">public&nbsp;<a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a>&nbsp;getPosition()</pre>
+<div class="block">Gets the current <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry"><code>Position</code></a> of the robot on the field.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The robot's <code>Position</code></dd>
+</dl>
+</li>
+</ul>
+<a id="updateOdometry()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getDistanceTraveled</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;getDistanceTraveled()</pre>
-<div class="block">Gets the distance traveled, in inches, since the last distance reference was set.
- This value is determined by the average distance traveled for each <a href="AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a>,
- so the return value of this method is <b>only going to be accurate if all
- <code>AutoSwerveWheel</code> wheels are steered in the same direction</b> (or an equivalent angle).</div>
+<h4>updateOdometry</h4>
+<pre class="methodSignature">protected&nbsp;void&nbsp;updateOdometry()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="SwerveDrive.html#updateOdometry()">SwerveDrive</a></code></span></div>
+<div class="block">A method overridden in <a href="AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> which is called to update the odometry systems
+ whenever new inputs are passed to the wheels.</div>
 <dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The number of inches traveled</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#setDistanceReference()"><code>setDistanceReference()</code></a></dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="SwerveDrive.html#updateOdometry()">updateOdometry</a></code>&nbsp;in class&nbsp;<code><a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></code></dd>
 </dl>
 </li>
 </ul>

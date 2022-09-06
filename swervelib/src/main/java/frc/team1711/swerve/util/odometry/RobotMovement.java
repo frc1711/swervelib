@@ -12,6 +12,7 @@ import frc.team1711.swerve.util.Vector;
  * @author Gabriel Seaver
  * 
  * @see RobotTurn
+ * @see frc.team1711.swerve.commands.AutonDrive
  */
 public class RobotMovement {
     
@@ -26,7 +27,7 @@ public class RobotMovement {
      * @param frameOfReference      A {@link FrameOfReference} which indicates how the movement {@code Vector} is to
      * be interpreted. If {@code frameOfReference} is {@link FrameOfReference#FIELD}, then the movement {@code Vector}
      * will be relative to however the robot's {@link Position} on the field was last reset with
-     * {@link AutoSwerveDrive#resetPosition(Position)}. If {@code frameOfReference} is
+     * {@link frc.team1711.swerve.subsystems.AutoSwerveDrive#resetPosition(Position)}. If {@code frameOfReference} is
      * {@link FrameOfReference#ROBOT}, then the movement {@code Vector} will be relative to the robot itself.
      * @param manner                A {@link MovementManner} which contains information on the way the movement
      * along the path is to be performed by the robot.

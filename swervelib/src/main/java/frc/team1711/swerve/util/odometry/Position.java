@@ -8,7 +8,7 @@ import frc.team1711.swerve.util.Vector;
 
 /**
  * Represents position of the robot on the field, with location and direction components. Used with the
- * {@link AutoSwerveDrive} subsystem.
+ * {@link frc.team1711.swerve.subsystems.AutoSwerveDrive} subsystem.
  * @author Gabriel Seaver
  */
 public class Position {
@@ -17,14 +17,15 @@ public class Position {
     private final double direction;
     
     /**
-     * Creates a new robot {@code Position}
+     * Creates a new robot {@code Position}.
+     * 
+     * <p><b>The {@code direction} of the robot position is not the same measure as
+     * {@link frc.team1711.swerve.subsystems.GyroSwerveDrive#getGyroAngle()}.
+     * {@code getGyroAngle()} is only used for {@code GyroSwerveDrive.fieldRelativeUserInputDrive()}
+     * (that is, field relative teleop), whereas {@code Position.direction} is used for autonomous functionality.</b></p>
+     * 
      * @param location A {@code Vector} representing the robot's location on the field, measured in inches.
      * @param direction A {@code double} representing the direction angle of the robot, measured in degrees.
-     * 
-     * @implNote The {@code direction} of the robot position is not the same measure as
-     * {@link GyroSwerveDrive#getGyroAngle()}. {@code getGyroAngle()} is only used for
-     * {@code GyroSwerveDrive.fieldRelativeUserInputDrive()} (that is, field relative teleop),
-     * whereas {@code Position.direction} is used for autonomous functionality.
      */
     public Position (Vector location, double direction) {
         this.location = location;
@@ -59,12 +60,13 @@ public class Position {
     
     /**
      * Gets the robot's direction relative to the field, in degrees. A turn to the right will increase this measure.
-     * @return The robot's direction
      * 
-     * @implNote The {@code direction} of the robot position is not the same measure as
-     * {@link GyroSwerveDrive#getGyroAngle()}. {@code getGyroAngle()} is only used for
-     * {@code GyroSwerveDrive.fieldRelativeUserInputDrive()} (that is, field relative teleop),
-     * whereas {@code Position.direction} is used for autonomous functionality.
+     * <p><b>The {@code direction} of the robot position is not the same measure as
+     * {@link frc.team1711.swerve.subsystems.GyroSwerveDrive#getGyroAngle()}.
+     * {@code getGyroAngle()} is only used for {@code GyroSwerveDrive.fieldRelativeUserInputDrive()}
+     * (that is, field relative teleop), whereas {@code Position.direction} is used for autonomous functionality.</b></p>
+     * 
+     * @return The robot's direction
      */
     public double getDirection () {
         return direction;

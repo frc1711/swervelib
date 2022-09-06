@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -259,6 +259,14 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateOdometry()">updateOdometry</a></span>()</code></th>
+<td class="colLast">
+<div class="block">A method overridden in <a href="AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> which is called to update the odometry systems
+ whenever new inputs are passed to the wheels.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">userInputDrive</a></span>&#8203;(double&nbsp;strafeX,
               double&nbsp;strafeY,
@@ -448,11 +456,22 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <a id="stop()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
 <pre class="methodSignature">public final&nbsp;void&nbsp;stop()</pre>
 <div class="block">Stops all modules immediately.</div>
+</li>
+</ul>
+<a id="updateOdometry()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>updateOdometry</h4>
+<pre class="methodSignature">protected&nbsp;void&nbsp;updateOdometry()</pre>
+<div class="block">A method overridden in <a href="AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> which is called to update the odometry systems
+ whenever new inputs are passed to the wheels.</div>
 </li>
 </ul>
 </li>

@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -125,17 +125,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>edu.wpi.first.wpilibj2.command.CommandBase</li>
 <li>
 <ul class="inheritance">
-<li>edu.wpi.first.wpilibj2.command.CommandGroupBase</li>
-<li>
-<ul class="inheritance">
-<li>edu.wpi.first.wpilibj2.command.SequentialCommandGroup</li>
-<li>
-<ul class="inheritance">
 <li>frc.team1711.swerve.commands.AutonDrive</li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -150,13 +140,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">AutonDrive</span>
-extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
-<div class="block">A command which drives a given <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> in any
- direction, without turning.</div>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)"><code>fromMovement(AutoSwerveDrive, double, double, double, double, double, FrameOfReference)</code></a></dd>
-</dl>
+extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
+<div class="block">A command to drive the robot to a given <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry"><code>Position</code></a> on the field, or to drive
+ using robot-relative or field-relative <a href="../util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotTurn</code></a> and <a href="../util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotMovement</code></a>
+ descriptor objects.</div>
 </li>
 </ul>
 </div>
@@ -194,29 +181,23 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">AutonDrive</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
-          double&nbsp;direction,
-          double&nbsp;distance,
-          double&nbsp;speed,
-          double&nbsp;wheelMarginOfError,
-          double&nbsp;correctionScalar,
-          <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,frc.team1711.swerve.util.odometry.Position,frc.team1711.swerve.util.odometry.MovementManner,frc.team1711.swerve.util.odometry.TurnManner)">AutonDrive</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+          <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a>&nbsp;finalPosition,
+          <a href="../util/odometry/MovementManner.html" title="class in frc.team1711.swerve.util.odometry">MovementManner</a>&nbsp;movementManner,
+          <a href="../util/odometry/TurnManner.html" title="class in frc.team1711.swerve.util.odometry">TurnManner</a>&nbsp;turnManner)</code></th>
 <td class="colLast">
-<div class="block">Constructs an <code>AutonDrive</code> command.</div>
+<div class="block">Constructs an <a href="AutonDrive.html" title="class in frc.team1711.swerve.commands"><code>AutonDrive</code></a> command given an <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> subsystem instance,
+ a <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry"><code>Position</code></a> final position on the field, a <a href="../util/odometry/MovementManner.html" title="class in frc.team1711.swerve.util.odometry"><code>MovementManner</code></a> describing how the robot
+ should strafe, and a <a href="../util/odometry/TurnManner.html" title="class in frc.team1711.swerve.util.odometry"><code>TurnManner</code></a> describing how the robot should turn.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">AutonDrive</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
-          double&nbsp;direction,
-          double&nbsp;distance,
-          double&nbsp;speed,
-          double&nbsp;wheelMarginOfError,
-          double&nbsp;correctionScalar,
-          <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference,
-          double&nbsp;easeOutSpeed,
-          double&nbsp;easeOutDistance)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.team1711.swerve.subsystems.AutoSwerveDrive,frc.team1711.swerve.util.odometry.RobotMovement,frc.team1711.swerve.util.odometry.RobotTurn)">AutonDrive</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
+          <a href="../util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry">RobotMovement</a>&nbsp;robotMovement,
+          <a href="../util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry">RobotTurn</a>&nbsp;robotTurn)</code></th>
 <td class="colLast">
-<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase.</div>
+<div class="block">Construct an <a href="AutonDrive.html" title="class in frc.team1711.swerve.commands"><code>AutonDrive</code></a> command given an <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> subsystem instance,
+ a <a href="../util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotMovement</code></a>, and a <a href="../util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotTurn</code></a>.</div>
 </td>
 </tr>
 </table>
@@ -231,55 +212,33 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static <a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">fromMovement</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
-            double&nbsp;inchesRight,
-            double&nbsp;inchesForward,
-            double&nbsp;speed,
-            double&nbsp;wheelMarginOfError,
-            double&nbsp;correctionScalar,
-            <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference)</code></th>
-<td class="colLast">
-<div class="block">Constructs an <code>AutonDrive</code> command from a desired distance to the right and forwards.</div>
-</td>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#end(boolean)">end</a></span>&#8203;(boolean&nbsp;interrupted)</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static <a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">fromMovement</a></span>&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
-            double&nbsp;inchesRight,
-            double&nbsp;inchesForward,
-            double&nbsp;speed,
-            double&nbsp;wheelMarginOfError,
-            double&nbsp;correctionScalar,
-            <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference,
-            double&nbsp;easeOutSpeed,
-            double&nbsp;easeOutDistance)</code></th>
-<td class="colLast">
-<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase from a desired distance to the right and forwards.</div>
-</td>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute()">execute</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initialize()">initialize</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isFinished()">isFinished</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </table>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.SequentialCommandGroup">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;edu.wpi.first.wpilibj2.command.SequentialCommandGroup</h3>
-<code>addCommands, andThen, beforeStarting, end, execute, initialize, isFinished, runsWhenDisabled</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.CommandGroupBase">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;edu.wpi.first.wpilibj2.command.CommandGroupBase</h3>
-<code>clearGroupedCommand, clearGroupedCommands, deadline, parallel, race, requireUngrouped, requireUngrouped, sequence</code></li>
-</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.CommandBase">
 <!--   -->
@@ -299,7 +258,7 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;edu.wpi.first.wpilibj2.command.Command</h3>
-<code>alongWith, andThen, asProxy, beforeStarting, cancel, deadlineWith, hasRequirement, isScheduled, perpetually, raceWith, schedule, schedule, until, withInterrupt, withTimeout</code></li>
+<code>alongWith, andThen, andThen, asProxy, beforeStarting, beforeStarting, cancel, deadlineWith, hasRequirement, isScheduled, perpetually, raceWith, runsWhenDisabled, schedule, schedule, until, withInterrupt, withTimeout</code></li>
 </ul>
 </li>
 </ul>
@@ -317,73 +276,47 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">
+<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,frc.team1711.swerve.util.odometry.RobotMovement,frc.team1711.swerve.util.odometry.RobotTurn)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>AutonDrive</h4>
 <pre>public&nbsp;AutonDrive&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
-                  double&nbsp;direction,
-                  double&nbsp;distance,
-                  double&nbsp;speed,
-                  double&nbsp;wheelMarginOfError,
-                  double&nbsp;correctionScalar,
-                  <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference,
-                  double&nbsp;easeOutSpeed,
-                  double&nbsp;easeOutDistance)</pre>
-<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase.</div>
+                  <a href="../util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry">RobotMovement</a>&nbsp;robotMovement,
+                  <a href="../util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry">RobotTurn</a>&nbsp;robotTurn)</pre>
+<div class="block">Construct an <a href="AutonDrive.html" title="class in frc.team1711.swerve.commands"><code>AutonDrive</code></a> command given an <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> subsystem instance,
+ a <a href="../util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotMovement</code></a>, and a <a href="../util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotTurn</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>swerveDrive</code> - The <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> drive train.</dd>
-<dd><code>direction</code> - The direction, in degrees, to travel in. Zero degrees corresponds with
- directly forward, and an increase in <code>direction</code> corresponds with a direction further
- clockwise from a top-down view. This value must be on the interval [0, 360).</dd>
-<dd><code>distance</code> - The distance to travel in the specified direction, in inches. This value
- must be on the interval (0, infinity).</dd>
-<dd><code>speed</code> - The speed to travel at. This value must be on the interval (0, 1].</dd>
-<dd><code>wheelMarginOfError</code> - The acceptable margin of error for each wheel, in degrees, away from
- their target steering directions before the robot starts actually moving.</dd>
-<dd><code>correctionScalar</code> - The speed to turn at per degree offset from the intended direction. For
- example, if the robot is going ten degrees to the right of where it wants to, it will make a
- correction turn to the left at a speed of <code>10*correctionScalar</code>. A recommended starting value
- is <code>0.01</code>.</dd>
-<dd><code>frameOfReference</code> - The <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands"><code>FrameOfReference</code></a> for this autonomous command.</dd>
-<dd><code>easeOutDistance</code> - The distance before the destination at which to enter the ease-out phase.</dd>
-<dd><code>easeOutSpeed</code> - The reduced speed during the ease-out phase.</dd>
+<dd><code>swerveDrive</code> - A <code>AutoSwerveDrive</code> swerve drive subsystem.</dd>
+<dd><code>robotMovement</code> - A <code>RobotMovement</code> describing where and how to make the robot strafe
+ across the field. This can be robot relative or field relative.</dd>
+<dd><code>robotTurn</code> - A <code>RobotTurn</code> describing where and how to make the robot turn. This
+ can be to an exact field-relative direction or a turn relative to the robot.</dd>
 </dl>
 </li>
 </ul>
-<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">
+<a id="&lt;init&gt;(frc.team1711.swerve.subsystems.AutoSwerveDrive,frc.team1711.swerve.util.odometry.Position,frc.team1711.swerve.util.odometry.MovementManner,frc.team1711.swerve.util.odometry.TurnManner)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AutonDrive</h4>
 <pre>public&nbsp;AutonDrive&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
-                  double&nbsp;direction,
-                  double&nbsp;distance,
-                  double&nbsp;speed,
-                  double&nbsp;wheelMarginOfError,
-                  double&nbsp;correctionScalar,
-                  <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference)</pre>
-<div class="block">Constructs an <code>AutonDrive</code> command.</div>
+                  <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a>&nbsp;finalPosition,
+                  <a href="../util/odometry/MovementManner.html" title="class in frc.team1711.swerve.util.odometry">MovementManner</a>&nbsp;movementManner,
+                  <a href="../util/odometry/TurnManner.html" title="class in frc.team1711.swerve.util.odometry">TurnManner</a>&nbsp;turnManner)</pre>
+<div class="block">Constructs an <a href="AutonDrive.html" title="class in frc.team1711.swerve.commands"><code>AutonDrive</code></a> command given an <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> subsystem instance,
+ a <a href="../util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry"><code>Position</code></a> final position on the field, a <a href="../util/odometry/MovementManner.html" title="class in frc.team1711.swerve.util.odometry"><code>MovementManner</code></a> describing how the robot
+ should strafe, and a <a href="../util/odometry/TurnManner.html" title="class in frc.team1711.swerve.util.odometry"><code>TurnManner</code></a> describing how the robot should turn.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>swerveDrive</code> - The <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> drive train.</dd>
-<dd><code>direction</code> - The direction, in degrees, to travel in. Zero degrees corresponds with
- directly forward, and an increase in <code>direction</code> corresponds with a direction further
- clockwise from a top-down view. This value must be on the interval [0, 360).</dd>
-<dd><code>distance</code> - The distance to travel in the specified direction, in inches. This value
- must be on the interval (0, infinity).</dd>
-<dd><code>speed</code> - The speed to travel at. This value must be on the interval (0, 1].</dd>
-<dd><code>wheelMarginOfError</code> - The acceptable margin of error for each wheel, in degrees, away from
- their target steering directions before the robot starts actually moving.</dd>
-<dd><code>correctionScalar</code> - The speed to turn at per degree offset from the intended direction. For
- example, if the robot is going ten degrees to the right of where it wants to, it will make a
- correction turn to the left at a speed of <code>10*correctionScalar</code>. A recommended starting value
- is <code>0.01</code>.</dd>
-<dd><code>frameOfReference</code> - The <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands"><code>FrameOfReference</code></a> for this autonomous command.</dd>
+<dd><code>swerveDrive</code> - A <code>AutoSwerveDrive</code> swerve drive subsystem.</dd>
+<dd><code>finalPosition</code> - A final position for the robot on the field. Exactly where this will practically
+ be will depend on how the robot's odometry was last reset with <a href="../subsystems/AutoSwerveDrive.html#resetPosition(frc.team1711.swerve.util.odometry.Position)"><code>AutoSwerveDrive.resetPosition(Position)</code></a>.</dd>
+<dd><code>movementManner</code> - A <code>MovementManner</code> object describing how the robot should strafe autonomously.</dd>
+<dd><code>turnManner</code> - A <code>TurnManner</code> object describing how the robot should turn autonomously.</dd>
 </dl>
 </li>
 </ul>
@@ -397,82 +330,40 @@ extends edu.wpi.first.wpilibj2.command.SequentialCommandGroup</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference,double,double)">
+<a id="initialize()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>fromMovement</h4>
-<pre class="methodSignature">public static&nbsp;<a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a>&nbsp;fromMovement&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
-                                      double&nbsp;inchesRight,
-                                      double&nbsp;inchesForward,
-                                      double&nbsp;speed,
-                                      double&nbsp;wheelMarginOfError,
-                                      double&nbsp;correctionScalar,
-                                      <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference,
-                                      double&nbsp;easeOutSpeed,
-                                      double&nbsp;easeOutDistance)</pre>
-<div class="block">Constructs an <code>AutonDrive</code> command with an ease-out phase from a desired distance to the right and forwards.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>swerveDrive</code> - The <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> drive train.</dd>
-<dd><code>inchesRight</code> - The number of inches to move to the right, where a negative value denotes
- movement to the left.</dd>
-<dd><code>inchesForward</code> - The number of inches to move forwards, where a negative value denotes
- movement backwards.</dd>
-<dd><code>speed</code> - The speed to travel at. This value must be on the interval (0, 1].</dd>
-<dd><code>wheelMarginOfError</code> - The acceptable margin of error for each wheel, in degrees, away from
- their target steering directions before the robot starts actually moving.</dd>
-<dd><code>correctionScalar</code> - The speed to turn at per degree offset from the intended direction. For
- example, if the robot is going ten degrees to the right of where it wants to, it will make a
- correction turn to the left at a speed of <code>10*correctionScalar</code>. A recommended starting value
- is <code>0.01</code>.</dd>
-<dd><code>frameOfReference</code> - The <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands"><code>FrameOfReference</code></a> for this autonomous command. Note that a
- frame of reference relative to the field does not mean that <code>inchesRight</code> and
- <code>inchesForward</code> are relative to the initial position of the gyro: only steering is relative
- to the gyro's initial orientation.</dd>
-<dd><code>easeOutDistance</code> - The distance before the destination at which to enter the ease-out phase.</dd>
-<dd><code>easeOutSpeed</code> - The reduced speed during the ease-out phase.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The <code>AutonDrive</code></dd>
-</dl>
+<h4>initialize</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;initialize()</pre>
 </li>
 </ul>
-<a id="fromMovement(frc.team1711.swerve.subsystems.AutoSwerveDrive,double,double,double,double,double,frc.team1711.swerve.commands.FrameOfReference)">
+<a id="execute()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>execute</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;execute()</pre>
+</li>
+</ul>
+<a id="end(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>end</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;end&#8203;(boolean&nbsp;interrupted)</pre>
+</li>
+</ul>
+<a id="isFinished()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>fromMovement</h4>
-<pre class="methodSignature">public static&nbsp;<a href="AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a>&nbsp;fromMovement&#8203;(<a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a>&nbsp;swerveDrive,
-                                      double&nbsp;inchesRight,
-                                      double&nbsp;inchesForward,
-                                      double&nbsp;speed,
-                                      double&nbsp;wheelMarginOfError,
-                                      double&nbsp;correctionScalar,
-                                      <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a>&nbsp;frameOfReference)</pre>
-<div class="block">Constructs an <code>AutonDrive</code> command from a desired distance to the right and forwards.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>swerveDrive</code> - The <a href="../subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> drive train.</dd>
-<dd><code>inchesRight</code> - The number of inches to move to the right, where a negative value denotes
- movement to the left.</dd>
-<dd><code>inchesForward</code> - The number of inches to move forwards, where a negative value denotes
- movement backwards.</dd>
-<dd><code>speed</code> - The speed to travel at. This value must be on the interval (0, 1].</dd>
-<dd><code>wheelMarginOfError</code> - The acceptable margin of error for each wheel, in degrees, away from
- their target steering directions before the robot starts actually moving.</dd>
-<dd><code>correctionScalar</code> - The speed to turn at per degree offset from the intended direction. For
- example, if the robot is going ten degrees to the right of where it wants to, it will make a
- correction turn to the left at a speed of <code>10*correctionScalar</code>. A recommended starting value
- is <code>0.01</code>.</dd>
-<dd><code>frameOfReference</code> - The <a href="FrameOfReference.html" title="enum in frc.team1711.swerve.commands"><code>FrameOfReference</code></a> for this autonomous command. Note that a
- frame of reference relative to the field does not mean that <code>inchesRight</code> and
- <code>inchesForward</code> are relative to the initial position of the gyro: only steering is relative
- to the gyro's initial orientation.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The <code>AutonDrive</code></dd>
-</dl>
+<h4>isFinished</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;isFinished()</pre>
 </li>
 </ul>
 </li>

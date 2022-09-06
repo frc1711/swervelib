@@ -70,15 +70,16 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
     
     /**
      * Gets the gyro yaw angle on the range [0, 360) degrees.
-     * @return The gyro yaw angle.
      * 
-     * @implNote This isn't necessarily related to the results of {@link Position#getDirection()}
-     * or any related odometry methods. <b>This gyro angle is only used in
+     * <p><b>IMPLEMENTATION NOTE: This isn't necessarily related to the results of {@link Position#getDirection()}
+     * or any related odometry methods. This gyro angle is only used in
      * the swerve library for controlling
-     * {@link #fieldRelativeUserInputDrive(double, double, double, ControlsConfig)}</b>. As
+     * {@link #fieldRelativeUserInputDrive(double, double, double, ControlsConfig)}. As
      * a rule, use {@code GyroSwerveDrive.getGyroAngle()} for field-relative teleop purposes,
      * and {@code AutoSwerveDrive.getPosition().getDirection()} for field-relative auton with
-     * odometry.
+     * odometry.</b></p>
+     * 
+     * @return The gyro yaw angle.
      * 
      * @see #getAbsoluteGyroAngle()
      * @see #resetGyro()
@@ -102,16 +103,16 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
     /**
      * Resets the gyro heading to {@code toAngle} for {@link #getGyroAngle()} but does not affect
      * {@link #getAbsoluteGyroAngle()}.
-     * @param toAngle The angle to reset the gyro heading to.
      * 
-     * @implNote This does not affect the result of {@link Position#getDirection()}
-     * or any related odometry methods. <b>This gyro angle is only used in
+     * <p><b>IMPLEMENTATION NOTE: This does not affect the result of {@link Position#getDirection()}
+     * or any related odometry methods. This gyro angle is only used in
      * the swerve library for controlling
-     * {@link #fieldRelativeUserInputDrive(double, double, double, ControlsConfig)}</b>. As
+     * {@link #fieldRelativeUserInputDrive(double, double, double, ControlsConfig)}. As
      * a rule, use {@code GyroSwerveDrive.getGyroAngle()} for field-relative teleop purposes,
      * and {@code AutoSwerveDrive.getPosition().getDirection()} for field-relative auton with
-     * odometry.
+     * odometry.</b></p>
      * 
+     * @param toAngle The angle to reset the gyro heading to.
      * @see #resetGyro()
      */
     public void resetGyro (double toAngle) {
@@ -122,13 +123,13 @@ public abstract class GyroSwerveDrive extends SwerveDrive {
      * Resets the gyro heading to zero for {@link #getGyroAngle()} but does not affect
      * {@link #getAbsoluteGyroAngle()}.
      * 
-     * @implNote This does not affect the result of {@link Position#getDirection()}
-     * or any related odometry methods. <b>This gyro angle is only used in
+     * <p><b>IMPLEMENTATION NOTE: This does not affect the result of {@link Position#getDirection()}
+     * or any related odometry methods. This gyro angle is only used in
      * the swerve library for controlling
-     * {@link #fieldRelativeUserInputDrive(double, double, double, ControlsConfig)}</b>. As
+     * {@link #fieldRelativeUserInputDrive(double, double, double, ControlsConfig)}. As
      * a rule, use {@code GyroSwerveDrive.getGyroAngle()} for field-relative teleop purposes,
      * and {@code AutoSwerveDrive.getPosition().getDirection()} for field-relative auton with
-     * odometry.
+     * odometry.</b></p>
      * 
      * @see #resetGyro(double)
      */

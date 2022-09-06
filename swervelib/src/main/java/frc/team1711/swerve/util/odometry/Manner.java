@@ -2,6 +2,8 @@ package frc.team1711.swerve.util.odometry;
 
 /**
  * An abstract class representing the way in which an autonomous function is performed by the robot.
+ * @author Gabriel Seaver
+ * 
  * @see MovementManner
  * @see TurnManner
  */
@@ -43,9 +45,9 @@ public abstract class Manner {
      * A functional interface which gets the speed the robot should perform an abstract autonomous task given
      * the total amount to be completed (in arbitrary units) and the amount left to be completed.
      * 
-     * @implNote The interfaces which extend {@code SpeedSupplier} do not actually make changes,
+     * <p><b>IMPLEMENTATION NOTE: The interfaces which extend {@code SpeedSupplier} do not actually make changes,
      * but are specific to {@link MovementManner} or {@link TurnManner} for clarity. Because of this,
-     * any {@code SpeedSupplier} class can be casted to any other class which extends {@code SpeedSupplier}.
+     * any {@code SpeedSupplier} class can be casted to any other class which extends {@code SpeedSupplier}.</b></p>
      * 
      * @see MovementManner.MovementSpeedSupplier
      * @see TurnManner.TurnSpeedSupplier

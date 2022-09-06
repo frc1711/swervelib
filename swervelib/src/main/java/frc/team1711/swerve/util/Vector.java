@@ -10,7 +10,7 @@ package frc.team1711.swerve.util;
 public class Vector {
     
     /**
-     * The vector <0, 0>.
+     * The vector (0, 0).
      */
     public static final Vector ZERO = new Vector(0, 0);
     

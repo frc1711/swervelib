@@ -3,6 +3,7 @@ package frc.team1711.swerve.util.odometry;
 /**
  * {@code MovementManner} describes the way in which the robot moves along a given {@link RobotMovement}
  * path.
+ * @author Gabriel Seaver
  * 
  * @see TurnManner
  */

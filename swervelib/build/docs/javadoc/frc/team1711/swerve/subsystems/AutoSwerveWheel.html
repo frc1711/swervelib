@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6};
+var data = {"i0":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -182,18 +182,10 @@ extends <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystem
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>protected abstract double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPositionDifference()">getPositionDifference</a></span>()</code></th>
+<td class="colFirst"><code>abstract double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEncoderDistance()">getEncoderDistance</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Gets the drive encoder difference from the last drive encoder reset,
- converted into inches traveled along the ground.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>protected abstract void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetDriveEncoder()">resetDriveEncoder</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Resets the drive encoder to a value of zero.</div>
+<div class="block">Gets the number of inches traveled along the ground, according to the drive encoder.</div>
 </td>
 </tr>
 </table>
@@ -246,33 +238,20 @@ extends <a href="SwerveWheel.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="resetDriveEncoder()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>resetDriveEncoder</h4>
-<pre class="methodSignature">protected abstract&nbsp;void&nbsp;resetDriveEncoder()</pre>
-<div class="block">Resets the drive encoder to a value of zero. This can be used to set a
- reference point for determining the distance traveled over a period of time.</div>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#getPositionDifference()"><code>getPositionDifference()</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="getPositionDifference()">
+<a id="getEncoderDistance()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getPositionDifference</h4>
-<pre class="methodSignature">protected abstract&nbsp;double&nbsp;getPositionDifference()</pre>
-<div class="block">Gets the drive encoder difference from the last drive encoder reset,
- converted into inches traveled along the ground.</div>
+<h4>getEncoderDistance</h4>
+<pre class="methodSignature">public abstract&nbsp;double&nbsp;getEncoderDistance()</pre>
+<div class="block">Gets the number of inches traveled along the ground, according to the drive encoder.
+ Driving the wheel in reverse should decrease this value, and driving forwards should
+ increase it.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The inches traveled since the last <a href="#resetDriveEncoder()"><code>resetDriveEncoder()</code></a> call</dd>
+<dd>The inches this wheel has driven since the robot was enabled, with driving forwards
+ increasing the measure and driving backwards decreasing it.</dd>
 </dl>
 </li>
 </ul>

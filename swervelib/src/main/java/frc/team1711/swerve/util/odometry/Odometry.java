@@ -34,11 +34,11 @@ public class Odometry {
      * Creates a new {@link Odometry} object which tracks the position of an {@link AutoSwerveDrive} on the field.
      * This constructor method should not be called outside of the {@code AutoSwerveDrive} class. Use methods on the
      * {@code AutoSwerveDrive} class in order to access odometry functionality.
-     * @param swerveDrive
-     * @param frontLeftWheel
-     * @param frontRightWheel
-     * @param rearLeftWheel
-     * @param rearRightWheel
+     * @param swerveDrive       The {@code AutoSwerveDrive} subsystem.
+     * @param frontLeftWheel    The front left {@code AutoSwerveWheel}.
+     * @param frontRightWheel   The front right {@code AutoSwerveWheel}.
+     * @param rearLeftWheel     The rear left {@code AutoSwerveWheel}.
+     * @param rearRightWheel    The rear right {@code AutoSwerveWheel}.
      */
     public Odometry (
             AutoSwerveDrive swerveDrive,
