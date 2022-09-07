@@ -52,6 +52,9 @@ public class Odometry {
         this.rearLeftWheel = rearLeftWheel;
         this.rearRightWheel = rearRightWheel;
         
+        // Update wheel distances so the position doesn't jump when swerveDrive is initialized
+        updateWheelDistances();
+        
         gyroYawOffset = swerveDrive.getAbsoluteGyroAngle();
     }
     
@@ -60,13 +63,25 @@ public class Odometry {
      * {@link AutoSwerveDrive} every time the robot's movement kinematics are set.
      */
     public void update () {
+        // Get movement vectors for wheels
         final Vector frontLeftMovement = getWheelMovement(frontLeftWheel, frontLeftDistance),
             frontRightMovement = getWheelMovement(frontRightWheel, frontRightDistance),
             rearLeftMovement = getWheelMovement(rearLeftWheel, rearLeftDistance),
             rearRightMovement = getWheelMovement(rearRightWheel, rearRightDistance),
             movement = frontLeftMovement.add(frontRightMovement).add(rearLeftMovement).add(rearRightMovement).scale(0.25);
         
+        // Get new position
         position = position.addMovementVector(movement).withDirection(swerveDrive.getAbsoluteGyroAngle() - gyroYawOffset);
+        
+        // Update wheel distances
+        updateWheelDistances();
+    }
+    
+    private void updateWheelDistances () {
+        frontLeftDistance = frontLeftWheel.getEncoderDistance();
+        frontRightDistance = frontRightWheel.getEncoderDistance();
+        rearLeftDistance = rearLeftWheel.getEncoderDistance();
+        rearRightDistance = rearRightWheel.getEncoderDistance();
     }
     
     /**
