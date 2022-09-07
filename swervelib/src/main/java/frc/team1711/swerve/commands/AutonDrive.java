@@ -50,6 +50,7 @@ public class AutonDrive extends SequentialCommandGroup {
 			new AutonWheelTurn(swerveDrive, direction, wheelMarginOfError),
 			new AutonDriveSimple(swerveDrive, direction, distance - easeOutDistance, speed, correctionScalar, frameOfReference),
 			new AutonDriveSimple(swerveDrive, direction, easeOutDistance, easeOutSpeed, correctionScalar, frameOfReference));
+
 	}
 	
 	/**
@@ -77,7 +78,7 @@ public class AutonDrive extends SequentialCommandGroup {
 			double wheelMarginOfError,
 			double correctionScalar,
 			FrameOfReference frameOfReference) {
-		
+
 		super(
 			new AutonWheelTurn(swerveDrive, direction, wheelMarginOfError),
 			new AutonDriveSimple(swerveDrive, direction, distance, speed, correctionScalar, frameOfReference));
@@ -117,6 +118,9 @@ public class AutonDrive extends SequentialCommandGroup {
 				double easeOutDistance) {
 		final Vector moveVector = new Vector(inchesRight, inchesForward);
 		
+		speed = moveVector.getMagnitude() < 0 ? -speed : speed;
+		easeOutSpeed = moveVector.getMagnitude() < 0 ? -easeOutSpeed : easeOutSpeed;
+
 		if (easeOutDistance == 0)
 			return new AutonDrive(
 				swerveDrive,
