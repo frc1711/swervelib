@@ -160,18 +160,16 @@ public class AutonDrive extends CommandBase {
      * Gets the turn speed at a given point in time (every time execute() is called)
      */
     private double getTurnSpeed (Position currentPosition) {
-        // Gets the total turn from initial to final direction on the interval [-180, 180]
-        // TODO: There will be a bug here if we try to turn 170 deg to the right, let's say, and begin by turning 20 deg to the left
-        // that is: final direction = 170       initial direction = 0       current direction = -20
-        // (one of wrapDegreesZeroCenter will be negative)
-        final double totalTurn = Angles.wrapDegreesZeroCenter(finalPosition.getDirection() - initialPosition.getDirection());
-        final double remainingTurn = Angles.wrapDegreesZeroCenter(finalPosition.getDirection() - currentPosition.getDirection());
+        final double
+            totalTurn = Angles.wrapDegreesZeroCenter(finalPosition.getDirection() - initialPosition.getDirection()),
+            remainingTurn = Angles.wrapDegreesZeroCenter(finalPosition.getDirection() - currentPosition.getDirection());
         
         // This is the speed we should turn at according to the turnManner's speed supplier
-        final double speed = turnManner.getSpeedSupplier().getSpeed(totalTurn, remainingTurn);
+        final double speed = turnManner.getSpeedSupplier().getSpeed(Math.abs(totalTurn), Math.abs(remainingTurn));
         
-        if (isTurnFinished(currentPosition)) return 0;
-        else return speed;
+        if (isTurnFinished(currentPosition)) return 0;  // If the turn is complete, do not try to turn
+        else if (remainingTurn > 0) return speed;       // The turn is not complete, so if we must turn right turn at +speed
+        else return -speed;                             // The turn is not complete, so if we must turn left turn at -speed
     }
     
     /**
