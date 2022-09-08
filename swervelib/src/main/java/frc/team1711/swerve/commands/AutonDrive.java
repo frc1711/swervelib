@@ -98,7 +98,9 @@ public class AutonDrive extends CommandBase {
     private void convertConstructorInputs () {
         if (finalPosition == null) {
             // We have robotMovement and robotTurn but want finalPosition, movementManner, and turnManner
-            finalPosition = initialPosition.addMovementVector(robotMovement.toFieldRel(initialPosition));
+            finalPosition = initialPosition
+                .addMovementVector(robotMovement.toFieldRel(initialPosition))
+                .withDirection(robotTurn.toFieldRel(initialPosition));
             movementManner = robotMovement.getManner();
             turnManner = robotTurn.getManner();
         } else {
