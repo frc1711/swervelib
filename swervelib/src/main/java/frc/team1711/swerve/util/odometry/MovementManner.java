@@ -9,6 +9,8 @@ package frc.team1711.swerve.util.odometry;
  */
 public class MovementManner extends Manner {
     
+    private final MovementSpeedSupplier speedSupplier;
+    
     /**
      * Constructs a {@link MovementManner} instance, describing the manner in which the robot
      * should complete a given {@link RobotMovement} path.
@@ -18,7 +20,8 @@ public class MovementManner extends Manner {
      * the robot should move at given the total distance of the path and the remaining distance to travel.
      */
     public MovementManner (double marginOfError, MovementSpeedSupplier speedSupplier) {
-        super(marginOfError, speedSupplier);
+        super(marginOfError);
+        this.speedSupplier = speedSupplier;
     }
     
     /**
@@ -28,7 +31,7 @@ public class MovementManner extends Manner {
      */
     @Override
     public MovementSpeedSupplier getSpeedSupplier () {
-        return (MovementSpeedSupplier)super.getSpeedSupplier();
+        return speedSupplier;
     }
     
     /**
@@ -70,7 +73,7 @@ public class MovementManner extends Manner {
          * @return The equivalent {@code MovementManner.SpeedSupplier}.
          */
         public static MovementSpeedSupplier constantSpeed (double speed) {
-            return (MovementSpeedSupplier)SpeedSupplier.constantSpeed(speed);
+            return SpeedSupplier.constantSpeed(speed)::getSpeed;
         }
         
         /**
@@ -88,7 +91,7 @@ public class MovementManner extends Manner {
          * @return              The equivalent {@code MovementManner.SpeedSupplier}.
          */
         public static MovementSpeedSupplier proportionalSpeed (double speedScalar, double minSpeed) {
-            return (MovementSpeedSupplier)SpeedSupplier.proportionalSpeed(speedScalar, minSpeed);
+            return SpeedSupplier.proportionalSpeed(speedScalar, minSpeed)::getSpeed;
         }
     }
     

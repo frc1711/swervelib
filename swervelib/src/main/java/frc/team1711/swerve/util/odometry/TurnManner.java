@@ -8,6 +8,8 @@ package frc.team1711.swerve.util.odometry;
  */
 public class TurnManner extends Manner {
     
+    private final TurnSpeedSupplier speedSupplier;
+    
     /**
      * Constructs a {@link TurnManner} instance, describing the manner in which the robot
      * should complete a given autonomous {@link RobotTurn}.
@@ -17,7 +19,8 @@ public class TurnManner extends Manner {
      * the robot should turn at given the total angle measure of the turn and the remaining angle measure.
      */
     public TurnManner (double marginOfError, TurnSpeedSupplier speedSupplier) {
-        super(marginOfError, speedSupplier);
+        super(marginOfError);
+        this.speedSupplier = speedSupplier;
     }
     
     /**
@@ -27,7 +30,7 @@ public class TurnManner extends Manner {
      */
     @Override
     public TurnSpeedSupplier getSpeedSupplier () {
-        return (TurnSpeedSupplier)super.getSpeedSupplier();
+        return speedSupplier;
     }
     
     /**
@@ -69,7 +72,7 @@ public class TurnManner extends Manner {
          * @return The equivalent {@code TurnSpeedSupplier}.
          */
         public static TurnSpeedSupplier constantSpeed (double speed) {
-            return (TurnSpeedSupplier)SpeedSupplier.constantSpeed(speed);
+            return SpeedSupplier.constantSpeed(speed)::getSpeed;
         }
         
         /**
@@ -87,7 +90,7 @@ public class TurnManner extends Manner {
          * @return              The equivalent {@code TurnSpeedSupplier}.
          */
         public static TurnSpeedSupplier proportionalSpeed (double speedScalar, double minSpeed) {
-            return (TurnSpeedSupplier)SpeedSupplier.proportionalSpeed(speedScalar, minSpeed);
+            return SpeedSupplier.proportionalSpeed(speedScalar, minSpeed)::getSpeed;
         }
     }
     

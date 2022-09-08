@@ -10,27 +10,22 @@ package frc.team1711.swerve.util.odometry;
 public abstract class Manner {
     
     private final double marginOfError;
-    private final SpeedSupplier speedSupplier;
     
     /**
      * Represents the abstract creation of a manner, which includes a property describing the acceptible margin
      * of error from the endpoint of the auton, and a functional interface describing the speed at which the robot
      * should perform the autonomous activity given certain inputs.
      * @param marginOfError The margin of error from the endpoint of the autonomous activity
-     * @param speedSupplier A {@link SpeedSupplier} describing the speed at which to perform the activity
      */
-    public Manner (double marginOfError, SpeedSupplier speedSupplier) {
+    public Manner (double marginOfError) {
         this.marginOfError = marginOfError;
-        this.speedSupplier = speedSupplier;
     }
     
     /**
      * Gets the {@link SpeedSupplier} associated with this {@link Manner}.
      * @return A {@code SpeedSupplier}
      */
-    public SpeedSupplier getSpeedSupplier () {
-        return speedSupplier;
-    }
+    abstract public SpeedSupplier getSpeedSupplier ();
     
     /**
      * Gets the margin of error around the endpoint, such that if the robot's position is within
