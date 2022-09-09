@@ -332,19 +332,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/Vector.html#getRotationRadians()">getRotationRadians()</a></span> - Method in class frc.team1711.swerve.util.<a href="frc/team1711/swerve/util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html#getSpeed(double,double)">getSpeed(double, double)</a></span> - Method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">Manner.SpeedSupplier</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html#getSpeed(double)">getSpeed(double)</a></span> - Method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">Manner.SpeedSupplier</a></dt>
 <dd>
 <div class="block">Gets the speed the robot should perform the autonomous task at.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html#getSpeed(double,double)">getSpeed(double, double)</a></span> - Method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">MovementManner.MovementSpeedSupplier</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html#getSpeed(double)">getSpeed(double)</a></span> - Method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">MovementManner.MovementSpeedSupplier</a></dt>
 <dd>
-<div class="block">Gets the speed the robot should move at given the total distance of a <a href="frc/team1711/swerve/util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotMovement</code></a> path,
- in inches, and the distance already traveled.</div>
+<div class="block">Gets the speed the robot should move at given the distance yet to be traveled, in inches.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html#getSpeed(double,double)">getSpeed(double, double)</a></span> - Method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">TurnManner.TurnSpeedSupplier</a></dt>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html#getSpeed(double)">getSpeed(double)</a></span> - Method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">TurnManner.TurnSpeedSupplier</a></dt>
 <dd>
-<div class="block">Gets the speed the robot should turn at given the total angular measure of an autonomous <a href="frc/team1711/swerve/util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotTurn</code></a>,
- in degrees, and the remaining angle to turn.</div>
+<div class="block">Gets the speed the robot should turn at given the remaining angle to turn.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/Manner.html#getSpeedSupplier()">getSpeedSupplier()</a></span> - Method in class frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/Manner.html" title="class in frc.team1711.swerve.util.odometry">Manner</a></dt>
 <dd>
@@ -430,7 +428,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><span class="typeNameLink">Manner.SpeedSupplier</span></a> - Interface in <a href="frc/team1711/swerve/util/odometry/package-summary.html">frc.team1711.swerve.util.odometry</a></dt>
 <dd>
 <div class="block">A functional interface which gets the speed the robot should perform an abstract autonomous task given
- the total amount to be completed (in arbitrary units) and the amount left to be completed.</div>
+ the amount left to be completed.</div>
 </dd>
 <dt><a href="frc/team1711/swerve/util/odometry/MovementManner.html" title="class in frc.team1711.swerve.util.odometry"><span class="typeNameLink">MovementManner</span></a> - Class in <a href="frc/team1711/swerve/util/odometry/package-summary.html">frc.team1711.swerve.util.odometry</a></dt>
 <dd>
@@ -444,8 +442,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><span class="typeNameLink">MovementManner.MovementSpeedSupplier</span></a> - Interface in <a href="frc/team1711/swerve/util/odometry/package-summary.html">frc.team1711.swerve.util.odometry</a></dt>
 <dd>
-<div class="block">A functional interface which gets the speed the robot should move at given the total
- distance of a <a href="frc/team1711/swerve/util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotMovement</code></a> path and the distance that has yet to be traveled.</div>
+<div class="block">A functional interface which gets the speed the robot should move at given the distance
+ that has yet to be traveled.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/Position.html#movementTo(frc.team1711.swerve.util.odometry.Position)">movementTo(Position)</a></span> - Method in class frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a></dt>
 <dd>
@@ -484,21 +482,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/Position.html#%3Cinit%3E(frc.team1711.swerve.util.Vector,double)">Position(Vector, double)</a></span> - Constructor for class frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a></dt>
 <dd>
 <div class="block">Creates a new robot <code>Position</code>.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html#proportionalSpeed(double,double)">proportionalSpeed(double, double)</a></span> - Static method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">Manner.SpeedSupplier</a></dt>
-<dd>
-<div class="block">Returns a <a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>Manner.SpeedSupplier</code></a> representing a proportional speed to the
- amount remaining in the autonomous path.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html#proportionalSpeed(double,double)">proportionalSpeed(double, double)</a></span> - Static method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">MovementManner.MovementSpeedSupplier</a></dt>
-<dd>
-<div class="block">Returns a <a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>Manner.SpeedSupplier</code></a> representing a proportional speed to the
- distance remaining along the <a href="frc/team1711/swerve/util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotMovement</code></a> path.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html#proportionalSpeed(double,double)">proportionalSpeed(double, double)</a></span> - Static method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">TurnManner.TurnSpeedSupplier</a></dt>
-<dd>
-<div class="block">Returns a <a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>TurnManner.TurnSpeedSupplier</code></a> representing a proportional speed to the
- angle remaining along the autonomous <a href="frc/team1711/swerve/util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotTurn</code></a>.</div>
 </dd>
 </dl>
 <a id="I:R">
@@ -578,6 +561,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/subsystems/SwerveWheel.html#setDriveSpeed(double)">setDriveSpeed(double)</a></span> - Method in class frc.team1711.swerve.subsystems.<a href="frc/team1711/swerve/subsystems/SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a></dt>
 <dd>
 <div class="block">Sets the drive speed of the wheel on the interval [-1, 1].</div>
+</dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html#speedWithSlowdown(double,double,double)">speedWithSlowdown(double, double, double)</a></span> - Static method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">Manner.SpeedSupplier</a></dt>
+<dd>
+<div class="block">Returns a <a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>Manner.SpeedSupplier</code></a> representing a speed that slows down after a certain proximity
+ to the endpoint of the autonomous task, until a minimum speed is hit.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html#speedWithSlowdown(double,double,double)">speedWithSlowdown(double, double, double)</a></span> - Static method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">MovementManner.MovementSpeedSupplier</a></dt>
+<dd>
+<div class="block">Returns a <a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>MovementManner.MovementSpeedSupplier</code></a> representing a speed that slows down after a certain distance
+ to the autonomous endpoint, until a minimum speed is hit.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html#speedWithSlowdown(double,double,double)">speedWithSlowdown(double, double, double)</a></span> - Static method in interface frc.team1711.swerve.util.odometry.<a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">TurnManner.TurnSpeedSupplier</a></dt>
+<dd>
+<div class="block">Returns a <a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>TurnManner.TurnSpeedSupplier</code></a> representing a speed that slows down after a certain angular offset
+ from the autonomous direction endpoint, until a minimum speed is hit.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/team1711/swerve/util/InputHandler.Curve.html#squareCurve">squareCurve</a></span> - Static variable in interface frc.team1711.swerve.util.<a href="frc/team1711/swerve/util/InputHandler.Curve.html" title="interface in frc.team1711.swerve.util">InputHandler.Curve</a></dt>
 <dd>
@@ -683,8 +681,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><span class="typeNameLink">TurnManner.TurnSpeedSupplier</span></a> - Interface in <a href="frc/team1711/swerve/util/odometry/package-summary.html">frc.team1711.swerve.util.odometry</a></dt>
 <dd>
-<div class="block">A functional interface which gets the speed the robot should turn at given the total
- angular measure of an autonomous <a href="frc/team1711/swerve/util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotTurn</code></a> path and the remaining angle to turn.</div>
+<div class="block">A functional interface which gets the speed the robot should turn at given the
+ remaining angle to turn.</div>
 </dd>
 </dl>
 <a id="I:U">

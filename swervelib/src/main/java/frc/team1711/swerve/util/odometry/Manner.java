@@ -38,7 +38,7 @@ public abstract class Manner {
     
     /**
      * A functional interface which gets the speed the robot should perform an abstract autonomous task given
-     * the total amount to be completed (in arbitrary units) and the amount left to be completed.
+     * the amount left to be completed.
      * 
      * <p><b>IMPLEMENTATION NOTE: The interfaces which extend {@code SpeedSupplier} do not actually make changes,
      * but are specific to {@link MovementManner} or {@link TurnManner} for clarity. Because of this,
@@ -52,11 +52,10 @@ public abstract class Manner {
         
         /**
          * Gets the speed the robot should perform the autonomous task at.
-         * @param total         The total amount to be completed, in an arbitrary unit.
-         * @param remaining     The amount already completed.
+         * @param remaining     The amount already completed, in an arbitrary unit.
          * @return The speed the robot should perform the task at, on the interval [0, 1].
          */
-        public double getSpeed (double total, double remaining);
+        public double getSpeed (double remaining);
         
         /**
          * Returns a {@link SpeedSupplier} representing a constant speed at all points in the
@@ -65,33 +64,30 @@ public abstract class Manner {
          * @return The equivalent {@code Manner.SpeedSupplier}.
          */
         public static SpeedSupplier constantSpeed (double speed) {
-            return (a, b) -> speed;
+            return a -> speed;
         }
         
         /**
-         * Returns a {@link Manner.SpeedSupplier} representing a proportional speed to the
-         * amount remaining in the autonomous path.
-         * @param speedScalar   The scalar for the proportion of the autonomous task remaining. For example,
-         * if 50% of the path is completed and {@code speedScalar} is {@code 0.8}, then the speed {@code 0.4}
-         * will be returned. As a result, {@code speedScalar} is both the maximum speed the robot will complete the task at
-         * and the speed the robot will complete the task at when it hasn't yet begun.
-         * @param minSpeed      The minimum speed the robot will complete the task at. If the robot is very near
-         * the end of the path, the proportional speed may be too slow for the robot to finish.
-         * {@code minSpeed} solves this problem: if the speed obtained from the proportion of the path remaining
-         * multiplied by the {@code speedScalar} is slower than {@code minSpeed}, the robot will just work at
-         * a speed of {@code minSpeed}.
-         * @return              The equivalent {@code Manner.SpeedSupplier}.
+         * Returns a {@link Manner.SpeedSupplier} representing a speed that slows down after a certain proximity
+         * to the endpoint of the autonomous task, until a minimum speed is hit. That is, this type of
+         * {@code Manner.SpeedSupplier} will return a given default (maximum) speed up until the robot must
+         * slow down (the slowdown offset). Then, the robot will slow down proportionally after the slowdown offset.
+         * However, the robot will not slow down past a given minimum speed.
+         * @param maxSpeed          The speed the robot will move/complete the autonomous task at for the majority
+         * of the path.
+         * @param slowdownOffset    The point (in units for distance, rotation, etc.) from the end position of the
+         * autonomous task at which the robot will begin proportionally slowing down.
+         * @param minSpeed          After the slowdown offset, the robot will not move any slower than {@code minSpeed}.
+         * This is to prevent the robot moving so slowly that friction or some other force prevents the robot from fully
+         * completing the autonomous path.
+         * @return                  A {@code Manner.SpeedSupplier} described by the given parameters.
          */
-        public static SpeedSupplier proportionalSpeed (double speedScalar, double minSpeed) {
-            return (total, remaining) -> {
-                // Gets the proportion of the path left to complete, with a maximum of
-                // 1 in case the robot started the path in slightly the wrong direction
-                final double propLeft = Math.min(remaining / total, 1);
-                
-                // Returns the proportion remaining * the speed scalar, but if the
-                // speed is less than the given minimum speed then the minimum speed
-                // is returned instead
-                return Math.max(propLeft * speedScalar, minSpeed);
+        public static SpeedSupplier speedWithSlowdown (double maxSpeed, double slowdownOffset, double minSpeed) {
+            return remaining -> {
+                // Return the max speed if we haven't hit slowdownOffset yet
+                if (remaining > slowdownOffset) return maxSpeed;
+                // Return the reduced speed after the slowdown offset (but limited with a minimum of minSpeed)
+                return Math.max(maxSpeed * remaining / slowdownOffset, minSpeed);
             };
         }
     }

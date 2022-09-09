@@ -134,13 +134,11 @@ public class AutonDrive extends CommandBase {
      * Gets the movement vector at a given point in time (every time execute() is called)
      */
     private Vector getMovementVector (Position currentPosition) {
-        // These 2 vectors are field relative:
-        final Vector totalMovement = initialPosition.movementTo(finalPosition);
+        // This vector is field relative:
         final Vector remainingMovement = currentPosition.movementTo(finalPosition);
         
         // This is the speed we should move at according to the movementManner's speed supplier
         final double speed = movementManner.getSpeedSupplier().getSpeed(
-            totalMovement.getMagnitude(),
             remainingMovement.getMagnitude());
         
         if (isMovementFinished(currentPosition)) {
@@ -163,11 +161,10 @@ public class AutonDrive extends CommandBase {
      */
     private double getTurnSpeed (Position currentPosition) {
         final double
-            totalTurn = Angles.wrapDegreesZeroCenter(finalPosition.getDirection() - initialPosition.getDirection()),
             remainingTurn = Angles.wrapDegreesZeroCenter(finalPosition.getDirection() - currentPosition.getDirection());
         
         // This is the speed we should turn at according to the turnManner's speed supplier
-        final double speed = turnManner.getSpeedSupplier().getSpeed(Math.abs(totalTurn), Math.abs(remainingTurn));
+        final double speed = turnManner.getSpeedSupplier().getSpeed(Math.abs(remainingTurn));
         
         if (isTurnFinished(currentPosition)) return 0;  // If the turn is complete, do not try to turn
         else if (remainingTurn > 0) return speed;       // The turn is not complete, so if we must turn right turn at +speed

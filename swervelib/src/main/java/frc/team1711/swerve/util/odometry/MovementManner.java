@@ -17,7 +17,7 @@ public class MovementManner extends Manner {
      * @param marginOfError A {@code double} describing how far the robot can be from its endpoint in
      * order for the path to be considered finished, in inches.
      * @param speedSupplier A {@link MovementSpeedSupplier} which provides the speed
-     * the robot should move at given the total distance of the path and the remaining distance to travel.
+     * the robot should move at given the remaining distance to travel.
      */
     public MovementManner (double marginOfError, MovementSpeedSupplier speedSupplier) {
         super(marginOfError);
@@ -46,10 +46,10 @@ public class MovementManner extends Manner {
     }
     
     /**
-     * A functional interface which gets the speed the robot should move at given the total
-     * distance of a {@link RobotMovement} path and the distance that has yet to be traveled. An instance
-     * of this functional interface can be accessed from a given {@code RobotMovement} called
-     * {@code movement} through the following code: {@code movement.getManner().getSpeedSupplier()}.
+     * A functional interface which gets the speed the robot should move at given the distance
+     * that has yet to be traveled. An instance of this functional interface can be accessed from
+     * a given {@code RobotMovement} called {@code movement} through the following code:
+     * {@code movement.getManner().getSpeedSupplier()}.
      * 
      * @see TurnManner.TurnSpeedSupplier
      */
@@ -57,14 +57,12 @@ public class MovementManner extends Manner {
     public static interface MovementSpeedSupplier extends SpeedSupplier {
         
         /**
-         * Gets the speed the robot should move at given the total distance of a {@link RobotMovement} path,
-         * in inches, and the distance already traveled.
-         * @param totalPathDistance The total distance of the {@code RobotMovement} path, in inches.
+         * Gets the speed the robot should move at given the distance yet to be traveled, in inches.
          * @param remainingDistance The distance from the robot to the endpoint of the path, in inches.
          * @return The speed the robot should move at, on the interval [0, 1].
          */
         @Override
-        public double getSpeed (double totalPathDistance, double remainingDistance);
+        public double getSpeed (double remainingDistance);
         
         /**
          * Returns a {@link MovementManner.SpeedSupplier} representing a constant speed at any point
@@ -77,21 +75,23 @@ public class MovementManner extends Manner {
         }
         
         /**
-         * Returns a {@link MovementManner.SpeedSupplier} representing a proportional speed to the
-         * distance remaining along the {@link RobotMovement} path.
-         * @param speedScalar   The scalar for the proportional distance of the path remaining. For example,
-         * if 50% of the path is completed and {@code speedScalar} is {@code 0.8}, then the speed {@code 0.4}
-         * will be returned. As a result, {@code speedScalar} is both the maximum speed the robot will move along
-         * the path and the speed the robot will move along the path when it hasn't yet moved from its starting point.
-         * @param minSpeed      The minimum speed the robot will move along the path. If the robot is very near
-         * the end of the path, the proportional speed may be too slow for the robot to move to complete the path.
-         * {@code minSpeed} solves this problem: if the speed obtained from the proportion of the path remaining
-         * multiplied by the {@code speedScalar} is slower than {@code minSpeed}, the robot will just move at
-         * a speed of {@code minSpeed}.
-         * @return              The equivalent {@code MovementManner.SpeedSupplier}.
+         * Returns a {@link MovementManner.MovementSpeedSupplier} representing a speed that slows down after a certain distance
+         * to the autonomous endpoint, until a minimum speed is hit. That is, this type of
+         * {@code MovementManner.MovementSpeedSupplier} will return a given default (maximum) speed up until the robot must
+         * slow down (the slowdown distance). Then, when the robot is closer to the endpoint than this distance, the robot will
+         * slow down proportionally to the distance from the endpoint. However, the robot will not slow down past a given
+         * minimum speed.
+         * @param maxSpeed          The speed the robot will move/complete the autonomous driving at for the majority
+         * of the path.
+         * @param slowdownDistance  The distance, in inches, from the endpoint of the autonomous driving at which the robot
+         * will begin proportionally slowing down.
+         * @param minSpeed          The calculated speed will never be any slower than {@code minSpeed}.
+         * This is to prevent the robot moving so slowly after the slowdown distance that friction or some other force
+         * prevents the robot from fully completing the autonomous path.
+         * @return                  A {@code MovementManner.MovementSpeedSupplier} described by the given parameters.
          */
-        public static MovementSpeedSupplier proportionalSpeed (double speedScalar, double minSpeed) {
-            return SpeedSupplier.proportionalSpeed(speedScalar, minSpeed)::getSpeed;
+        public static MovementSpeedSupplier speedWithSlowdown (double maxSpeed, double slowdownDistance, double minSpeed) {
+            return SpeedSupplier.speedWithSlowdown(maxSpeed, slowdownDistance, minSpeed)::getSpeed;
         }
     }
     

@@ -137,7 +137,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>@FunctionalInterface
 public static interface <span class="typeNameLabel">Manner.SpeedSupplier</span></pre>
 <div class="block">A functional interface which gets the speed the robot should perform an abstract autonomous task given
- the total amount to be completed (in arbitrary units) and the amount left to be completed.
+ the amount left to be completed.
  
  <p><b>IMPLEMENTATION NOTE: The interfaces which extend <code>SpeedSupplier</code> do not actually make changes,
  but are specific to <a href="MovementManner.html" title="class in frc.team1711.swerve.util.odometry"><code>MovementManner</code></a> or <a href="TurnManner.html" title="class in frc.team1711.swerve.util.odometry"><code>TurnManner</code></a> for clarity. Because of this,
@@ -177,19 +177,19 @@ public static interface <span class="typeNameLabel">Manner.SpeedSupplier</span><
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpeed(double,double)">getSpeed</a></span>&#8203;(double&nbsp;total,
-        double&nbsp;remaining)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpeed(double)">getSpeed</a></span>&#8203;(double&nbsp;remaining)</code></th>
 <td class="colLast">
 <div class="block">Gets the speed the robot should perform the autonomous task at.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static <a href="Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">Manner.SpeedSupplier</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#proportionalSpeed(double,double)">proportionalSpeed</a></span>&#8203;(double&nbsp;speedScalar,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#speedWithSlowdown(double,double,double)">speedWithSlowdown</a></span>&#8203;(double&nbsp;maxSpeed,
+                 double&nbsp;slowdownOffset,
                  double&nbsp;minSpeed)</code></th>
 <td class="colLast">
-<div class="block">Returns a <a href="Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>Manner.SpeedSupplier</code></a> representing a proportional speed to the
- amount remaining in the autonomous path.</div>
+<div class="block">Returns a <a href="Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>Manner.SpeedSupplier</code></a> representing a speed that slows down after a certain proximity
+ to the endpoint of the autonomous task, until a minimum speed is hit.</div>
 </td>
 </tr>
 </table>
@@ -209,19 +209,17 @@ public static interface <span class="typeNameLabel">Manner.SpeedSupplier</span><
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getSpeed(double,double)">
+<a id="getSpeed(double)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getSpeed</h4>
-<pre class="methodSignature">double&nbsp;getSpeed&#8203;(double&nbsp;total,
-                double&nbsp;remaining)</pre>
+<pre class="methodSignature">double&nbsp;getSpeed&#8203;(double&nbsp;remaining)</pre>
 <div class="block">Gets the speed the robot should perform the autonomous task at.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>total</code> - The total amount to be completed, in an arbitrary unit.</dd>
-<dd><code>remaining</code> - The amount already completed.</dd>
+<dd><code>remaining</code> - The amount already completed, in an arbitrary unit.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The speed the robot should perform the task at, on the interval [0, 1].</dd>
 </dl>
@@ -244,29 +242,31 @@ public static interface <span class="typeNameLabel">Manner.SpeedSupplier</span><
 </dl>
 </li>
 </ul>
-<a id="proportionalSpeed(double,double)">
+<a id="speedWithSlowdown(double,double,double)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>proportionalSpeed</h4>
-<pre class="methodSignature">static&nbsp;<a href="Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">Manner.SpeedSupplier</a>&nbsp;proportionalSpeed&#8203;(double&nbsp;speedScalar,
+<h4>speedWithSlowdown</h4>
+<pre class="methodSignature">static&nbsp;<a href="Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">Manner.SpeedSupplier</a>&nbsp;speedWithSlowdown&#8203;(double&nbsp;maxSpeed,
+                                              double&nbsp;slowdownOffset,
                                               double&nbsp;minSpeed)</pre>
-<div class="block">Returns a <a href="Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>Manner.SpeedSupplier</code></a> representing a proportional speed to the
- amount remaining in the autonomous path.</div>
+<div class="block">Returns a <a href="Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry"><code>Manner.SpeedSupplier</code></a> representing a speed that slows down after a certain proximity
+ to the endpoint of the autonomous task, until a minimum speed is hit. That is, this type of
+ <code>Manner.SpeedSupplier</code> will return a given default (maximum) speed up until the robot must
+ slow down (the slowdown offset). Then, the robot will slow down proportionally after the slowdown offset.
+ However, the robot will not slow down past a given minimum speed.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>speedScalar</code> - The scalar for the proportion of the autonomous task remaining. For example,
- if 50% of the path is completed and <code>speedScalar</code> is <code>0.8</code>, then the speed <code>0.4</code>
- will be returned. As a result, <code>speedScalar</code> is both the maximum speed the robot will complete the task at
- and the speed the robot will complete the task at when it hasn't yet begun.</dd>
-<dd><code>minSpeed</code> - The minimum speed the robot will complete the task at. If the robot is very near
- the end of the path, the proportional speed may be too slow for the robot to finish.
- <code>minSpeed</code> solves this problem: if the speed obtained from the proportion of the path remaining
- multiplied by the <code>speedScalar</code> is slower than <code>minSpeed</code>, the robot will just work at
- a speed of <code>minSpeed</code>.</dd>
+<dd><code>maxSpeed</code> - The speed the robot will move/complete the autonomous task at for the majority
+ of the path.</dd>
+<dd><code>slowdownOffset</code> - The point (in units for distance, rotation, etc.) from the end position of the
+ autonomous task at which the robot will begin proportionally slowing down.</dd>
+<dd><code>minSpeed</code> - After the slowdown offset, the robot will not move any slower than <code>minSpeed</code>.
+ This is to prevent the robot moving so slowly that friction or some other force prevents the robot from fully
+ completing the autonomous path.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The equivalent <code>Manner.SpeedSupplier</code>.</dd>
+<dd>A <code>Manner.SpeedSupplier</code> described by the given parameters.</dd>
 </dl>
 </li>
 </ul>

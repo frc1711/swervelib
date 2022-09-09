@@ -16,7 +16,7 @@ public class TurnManner extends Manner {
      * @param marginOfError A {@code double} describing how far the robot can be from its endpoint in
      * order for the turn to be considered finished, in degrees.
      * @param speedSupplier A {@link TurnSpeedSupplier} which provides the speed
-     * the robot should turn at given the total angle measure of the turn and the remaining angle measure.
+     * the robot should turn at given the remaining angle measure.
      */
     public TurnManner (double marginOfError, TurnSpeedSupplier speedSupplier) {
         super(marginOfError);
@@ -45,10 +45,10 @@ public class TurnManner extends Manner {
     }
     
     /**
-     * A functional interface which gets the speed the robot should turn at given the total
-     * angular measure of an autonomous {@link RobotTurn} path and the remaining angle to turn. An instance
-     * of this functional interface can be accessed from a given {@code RobotTurn} called
-     * {@code turn} through the following code: {@code turn.getManner().getSpeedSupplier()}.
+     * A functional interface which gets the speed the robot should turn at given the
+     * remaining angle to turn. An instance of this functional interface can be accessed from
+     * a given {@code RobotTurn} called {@code turn} through the following code:
+     * {@code turn.getManner().getSpeedSupplier()}.
      * 
      * @see MovementManner.MovementSpeedSupplier
      */
@@ -56,14 +56,12 @@ public class TurnManner extends Manner {
     public static interface TurnSpeedSupplier extends SpeedSupplier {
         
         /**
-         * Gets the speed the robot should turn at given the total angular measure of an autonomous {@link RobotTurn},
-         * in degrees, and the remaining angle to turn.
-         * @param totalTurn The absolute value of the total {@code RobotTurn} angle, in degrees.
+         * Gets the speed the robot should turn at given the remaining angle to turn.
          * @param remainingTurn The absolute value of the remaining angle for the robot to turn, in degrees.
          * @return The speed the robot should turn at, on the interval [0, 1].
          */
         @Override
-        public double getSpeed (double totalTurn, double remainingTurn);
+        public double getSpeed (double remainingTurn);
         
         /**
          * Returns a {@link TurnSpeedSupplier} representing a constant turn speed at any point
@@ -76,21 +74,23 @@ public class TurnManner extends Manner {
         }
         
         /**
-         * Returns a {@link TurnSpeedSupplier} representing a proportional speed to the
-         * angle remaining along the autonomous {@link RobotTurn}.
-         * @param speedScalar   The scalar for the proportional distance of the path remaining. For example,
-         * if 50% of the turn is completed and {@code speedScalar} is {@code 0.8}, then the speed {@code 0.4}
-         * will be returned. As a result, {@code speedScalar} is both the maximum speed the robot will turn
-         * and the speed the robot will turn when it hasn't yet moved from its starting angle.
-         * @param minSpeed      The minimum speed the robot will turn. If the robot is very near
-         * the end of the turn, the proportional speed may be too slow for the robot to finish the {@code RobotTurn}.
-         * {@code minSpeed} solves this problem: if the speed obtained from the proportion of the turn remaining
-         * multiplied by the {@code speedScalar} is slower than {@code minSpeed}, the robot will just turn at
-         * a speed of {@code minSpeed}.
-         * @return              The equivalent {@code TurnSpeedSupplier}.
+         * Returns a {@link TurnManner.TurnSpeedSupplier} representing a speed that slows down after a certain angular offset
+         * from the autonomous direction endpoint, until a minimum speed is hit. That is, this type of
+         * {@code TurnManner.TurnSpeedSupplier} will return a given default (maximum) speed up until the robot must
+         * slow down (the slowdown angle). Then, when the robot is closer to the endpoint than this angle, the robot will
+         * slow down proportionally to the angle from the endpoint. However, the robot will not slow down past a given
+         * minimum speed.
+         * @param maxSpeed          The speed the robot will move/complete the autonomous turning at for the majority
+         * of the turn.
+         * @param slowdownAngle     The angle, in degrees, from the endpoint of the autonomous turn at which the robot
+         * will begin proportionally slowing down.
+         * @param minSpeed          The calculated speed will never be any slower than {@code minSpeed}.
+         * This is to prevent the robot turning so slowly after the slowdown angle that friction or some other force
+         * prevents the robot from fully completing the autonomous turn.
+         * @return                  A {@code TurnManner.TurnSpeedSupplier} described by the given parameters.
          */
-        public static TurnSpeedSupplier proportionalSpeed (double speedScalar, double minSpeed) {
-            return SpeedSupplier.proportionalSpeed(speedScalar, minSpeed)::getSpeed;
+        public static TurnSpeedSupplier speedWithSlowdown (double maxSpeed, double slowdownAngle, double minSpeed) {
+            return SpeedSupplier.speedWithSlowdown(maxSpeed, slowdownAngle, minSpeed)::getSpeed;
         }
     }
     
