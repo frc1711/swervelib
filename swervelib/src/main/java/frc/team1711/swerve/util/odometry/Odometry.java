@@ -53,9 +53,9 @@ public class Odometry {
         this.rearRightWheel = rearRightWheel;
         
         // Update wheel distances so the position doesn't jump when swerveDrive is initialized
+        // Reset offset so the direction doesn't jump either
         updateWheelDistances();
-        
-        gyroYawOffset = swerveDrive.getAbsoluteGyroAngle();
+        setGyroYawOffset(0);
     }
     
     /**
@@ -63,18 +63,26 @@ public class Odometry {
      * {@link AutoSwerveDrive} every time the robot's movement kinematics are set.
      */
     public void update () {
-        // Get movement vectors for wheels
+        // Get field-relative movement vectors for wheels
         final Vector frontLeftMovement = getWheelMovement(frontLeftWheel, frontLeftDistance),
             frontRightMovement = getWheelMovement(frontRightWheel, frontRightDistance),
             rearLeftMovement = getWheelMovement(rearLeftWheel, rearLeftDistance),
             rearRightMovement = getWheelMovement(rearRightWheel, rearRightDistance),
             movement = frontLeftMovement.add(frontRightMovement).add(rearLeftMovement).add(rearRightMovement).scale(0.25);
         
-        // Get new position
-        position = position.addMovementVector(movement).withDirection(swerveDrive.getAbsoluteGyroAngle() - gyroYawOffset);
+        // Get new location by adding the field-relative wheel movement. Direction is trivial
+        position = position.addMovementVector(movement).withDirection(getDirection());
         
         // Update wheel distances
         updateWheelDistances();
+    }
+    
+    private double getDirection () {
+        return swerveDrive.getAbsoluteGyroAngle() - gyroYawOffset;
+    }
+    
+    private void setGyroYawOffset (double newDirection) {
+        gyroYawOffset = swerveDrive.getAbsoluteGyroAngle() - newDirection;
     }
     
     private void updateWheelDistances () {
@@ -94,7 +102,10 @@ public class Odometry {
         
         // Sets the gyro yaw offset such that as we make new positions when the odometry is updated
         // the new position directions will match
-        gyroYawOffset = swerveDrive.getAbsoluteGyroAngle() - position.getDirection();
+        setGyroYawOffset(newPosition.getDirection());
+        
+        // Update wheel distances so there isn't a jump if it's been awhile since the last update
+        updateWheelDistances();
     }
     
     /**
@@ -106,8 +117,11 @@ public class Odometry {
         return position;
     }
     
+    /**
+     * Gets the movement of the wheel as a field-relative vector
+     */
     private Vector getWheelMovement (AutoSwerveWheel wheel, double prevDistance) {
-        final double direction = swerveDrive.getAbsoluteGyroAngle() + wheel.getDirection();
+        final double direction = getDirection() + wheel.getDirection();
         final double magnitude = wheel.getEncoderDistance() - prevDistance;
         return Vector.fromPolarDegrees(direction, magnitude);
     }
