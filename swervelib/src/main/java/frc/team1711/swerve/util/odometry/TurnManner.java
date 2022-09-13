@@ -8,6 +8,11 @@ package frc.team1711.swerve.util.odometry;
  */
 public class TurnManner extends Manner {
     
+    /**
+     * A {@code TurnManner} where the robot will not attempt to move and the path will immediately be completed.
+     */
+    public static final TurnManner NONE = new TurnManner(Double.POSITIVE_INFINITY, TurnSpeedSupplier.constantSpeed(0));
+    
     private final TurnSpeedSupplier speedSupplier;
     
     /**

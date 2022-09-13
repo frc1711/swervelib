@@ -9,6 +9,11 @@ package frc.team1711.swerve.util.odometry;
  */
 public class MovementManner extends Manner {
     
+    /**
+     * A {@code MovementManner} where the robot will not attempt to move and the path will immediately be completed.
+     */
+    public static final MovementManner NONE = new MovementManner(Double.POSITIVE_INFINITY, MovementSpeedSupplier.constantSpeed(0));
+    
     private final MovementSpeedSupplier speedSupplier;
     
     /**

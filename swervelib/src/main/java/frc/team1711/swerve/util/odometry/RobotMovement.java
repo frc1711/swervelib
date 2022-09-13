@@ -16,6 +16,11 @@ import frc.team1711.swerve.util.Vector;
  */
 public class RobotMovement {
     
+    /**
+     * A {@code RobotMovement} describing no movement whatsoever.
+     */
+    public static final RobotMovement NONE = new RobotMovement(Vector.ZERO, FrameOfReference.ROBOT, MovementManner.NONE);
+    
     private final Vector movement;
     private final FrameOfReference frameOfReference;
     private final MovementManner manner;

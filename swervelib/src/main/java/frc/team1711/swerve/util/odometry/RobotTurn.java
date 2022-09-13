@@ -15,6 +15,11 @@ import frc.team1711.swerve.subsystems.AutoSwerveDrive;
  */
 public class RobotTurn {
     
+    /**
+     * A {@code RobotTurn} describing no movement whatsoever.
+     */
+    public static final RobotTurn NONE = new RobotTurn(0, FrameOfReference.ROBOT, TurnManner.NONE);
+    
     private final double direction;
     private final FrameOfReference frameOfReference;
     private final TurnManner manner;
