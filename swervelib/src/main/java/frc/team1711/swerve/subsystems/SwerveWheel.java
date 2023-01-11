@@ -64,7 +64,7 @@ abstract public class SwerveWheel {
      * @return The steering direction of the wheel
      * @see #setDirection(double)
      */
-    abstract protected double getDirection ();
+    abstract public double getDirection ();
     
     /**
      * Sets the target steering direction of the wheel on the interval [0, 360), where zero degrees
@@ -90,9 +90,9 @@ abstract public class SwerveWheel {
      */
     protected boolean checkWithinRange (double direction, double marginOfError) {
         // Gets absolute difference in directions
-		double directionalDifference = Math.abs(Angles.wrapDegreesZeroCenter(direction - getDirection()));
+        double directionalDifference = Math.abs(Angles.wrapDegreesZeroCenter(direction - getDirection()));
         return directionalDifference <= marginOfError;
-	}
+    }
     
     /**
      * Does the same check as {@link #checkWithinRange(double, double)}, except it will also
@@ -111,7 +111,7 @@ abstract public class SwerveWheel {
     /**
      * Stops all movement.
      */
-    protected void stop () {
+    public void stop () {
         setDriveSpeed(0);
         stopSteering();
     }

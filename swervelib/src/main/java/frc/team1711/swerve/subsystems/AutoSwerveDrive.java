@@ -4,70 +4,61 @@
 package frc.team1711.swerve.subsystems;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import frc.team1711.swerve.util.odometry.Odometry;
+import frc.team1711.swerve.util.odometry.Position;
 
 /**
  * Expands on the {@link GyroSwerveDrive} for autonomous control, requiring
- * the use of {@link AutoSwerveWheel} rather than {@link SwerveWheel}.
+ * the use of {@link AutoSwerveWheel} rather than {@link SwerveWheel}. Uses
+ * {@link Odometry} to track the position of the robot on the field.
  * @author Gabriel Seaver
  */
 public abstract class AutoSwerveDrive extends GyroSwerveDrive {
-	
-	private final AutoSwerveWheel
-		flWheel,
-		frWheel,
-		rlWheel,
-		rrWheel;
-	
-	/**
+    
+    private final Odometry odometry;
+    
+    /**
      * Creates a new {@code AutoSwerveDrive} given {@link AutoSwerveWheel} wheels.
-	 * @param gyro					The {@link Gyro} to be used for field-relative control
-     * @param flWheel				The front left {@code AutoSwerveWheel}
-     * @param frWheel				The front right {@code AutoSwerveWheel}
-     * @param rlWheel				The rear left {@code AutoSwerveWheel}
-     * @param rrWheel				The rear right {@code AutoSwerveWheel}
+     * @param gyro                  The {@link Gyro} to be used for field-relative control
+     * @param flWheel               The front left {@code AutoSwerveWheel}
+     * @param frWheel               The front right {@code AutoSwerveWheel}
+     * @param rlWheel               The rear left {@code AutoSwerveWheel}
+     * @param rrWheel               The rear right {@code AutoSwerveWheel}
      * @param wheelbaseToTrackRatio	The distance between the centers of the left and right wheels divided
-	 * by the distance between the centers of the front and back wheels
+     * by the distance between the centers of the front and back wheels
      */
     public AutoSwerveDrive (
-			Gyro gyro,
-			AutoSwerveWheel flWheel,
-			AutoSwerveWheel frWheel,
-			AutoSwerveWheel rlWheel,
-			AutoSwerveWheel rrWheel,
-			double wheelbaseToTrackRatio) {
+            Gyro gyro,
+            AutoSwerveWheel flWheel,
+            AutoSwerveWheel frWheel,
+            AutoSwerveWheel rlWheel,
+            AutoSwerveWheel rrWheel,
+            double wheelbaseToTrackRatio) {
         
-		super(gyro, flWheel, frWheel, rlWheel, rrWheel, wheelbaseToTrackRatio);
-		
-		this.flWheel = flWheel;
-		this.frWheel = frWheel;
-		this.rlWheel = rlWheel;
-		this.rrWheel = rrWheel;
-    }
-	
-	/**
-     * Sets a distance reference on the encoders, such that the output of
-     * {@link #getDistanceTraveled()} will be based on the distance from this reference.
-     */
-    public void setDistanceReference () {
-        flWheel.resetDriveEncoder();
-        frWheel.resetDriveEncoder();
-        rlWheel.resetDriveEncoder();
-        rrWheel.resetDriveEncoder();
+        super(gyro, flWheel, frWheel, rlWheel, rrWheel, wheelbaseToTrackRatio);
+        
+        odometry = new Odometry(this, flWheel, frWheel, rlWheel, rrWheel);
     }
     
     /**
-     * Gets the distance traveled, in inches, since the last distance reference was set.
-     * This value is determined by the average distance traveled for each {@link AutoSwerveWheel},
-     * so the return value of this method is <b>only going to be accurate if all
-     * {@code AutoSwerveWheel} wheels are steered in the same direction</b> (or an equivalent angle).
-     * @return The number of inches traveled
-     * @see #setDistanceReference()
+     * Resets the robot's odometry to a given {@link Position}.
+     * @param newPosition The new {@code Position} for the robot's odometry
      */
-    public double getDistanceTraveled () {
-        return (Math.abs(flWheel.getPositionDifference()) +
-                Math.abs(frWheel.getPositionDifference()) +
-                Math.abs(rlWheel.getPositionDifference()) +
-                Math.abs(rrWheel.getPositionDifference())) / 4;
+    public void resetPosition (Position newPosition) {
+        odometry.resetPosition(newPosition);
     }
-	
+    
+    /**
+     * Gets the current {@link Position} of the robot on the field.
+     * @return The robot's {@code Position}
+     */
+    public Position getPosition () {
+        return odometry.getPosition();
+    }
+    
+    @Override
+    protected void updateOdometry () {
+        odometry.update();
+    }
+    
 }

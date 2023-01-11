@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -259,6 +259,14 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateOdometry()">updateOdometry</a></span>()</code></th>
+<td class="colLast">
+<div class="block">A method overridden in <a href="AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> which is called to update the odometry systems
+ whenever new inputs are passed to the wheels.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">userInputDrive</a></span>&#8203;(double&nbsp;strafeX,
               double&nbsp;strafeY,
@@ -361,10 +369,10 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>userInputDrive</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;userInputDrive&#8203;(double&nbsp;strafeX,
-                                 double&nbsp;strafeY,
-                                 double&nbsp;steering,
-                                 <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a>&nbsp;controlsConfig)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;userInputDrive&#8203;(double&nbsp;strafeX,
+                           double&nbsp;strafeY,
+                           double&nbsp;steering,
+                           <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a>&nbsp;controlsConfig)</pre>
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs, all on the interval [-1, 1],
  where +<code>strafeY</code> is forwards and +<code>strafeX</code> is to the right. Inputs are assumed to be from a user-controlled
  device, so <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.ControlsConfig</code></a> is applied.</div>
@@ -385,9 +393,9 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>autoDrive</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;autoDrive&#8203;(double&nbsp;strafeX,
-                            double&nbsp;strafeY,
-                            double&nbsp;steering)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;autoDrive&#8203;(double&nbsp;strafeX,
+                      double&nbsp;strafeY,
+                      double&nbsp;steering)</pre>
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs, all on the interval [-1, 1],
  where +<code>strafeY</code> is forwards and +<code>strafeX</code> is to the right. Inputs are assumed to be generated from
  a command, so no <a href="SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive.ControlsConfig</code></a> is applied to the inputs.</div>
@@ -407,8 +415,8 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>steerAndDriveAll</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;steerAndDriveAll&#8203;(double&nbsp;direction,
-                                   double&nbsp;speed)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;steerAndDriveAll&#8203;(double&nbsp;direction,
+                             double&nbsp;speed)</pre>
 <div class="block">Steers and drives all wheels in the same direction and with the same speed.
  <code>targetDirection</code> must use the system where 0 represents
  steering directly forwards and an increase represents steering further clockwise.
@@ -429,8 +437,8 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>steerAllWithinRange</h4>
-<pre class="methodSignature">public final&nbsp;boolean&nbsp;steerAllWithinRange&#8203;(double&nbsp;direction,
-                                         double&nbsp;marginOfError)</pre>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;steerAllWithinRange&#8203;(double&nbsp;direction,
+                                   double&nbsp;marginOfError)</pre>
 <div class="block">Steers all wheels to a direction within a certain range. Direction and margin of error
  are measured in degrees. The direction should use a system where zero represents
  directly forward and an increase in direction represents a further clockwise steering
@@ -448,11 +456,22 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <a id="stop()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;stop()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;stop()</pre>
 <div class="block">Stops all modules immediately.</div>
+</li>
+</ul>
+<a id="updateOdometry()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>updateOdometry</h4>
+<pre class="methodSignature">protected&nbsp;void&nbsp;updateOdometry()</pre>
+<div class="block">A method overridden in <a href="AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> which is called to update the odometry systems
+ whenever new inputs are passed to the wheels.</div>
 </li>
 </ul>
 </li>

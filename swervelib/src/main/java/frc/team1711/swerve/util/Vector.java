@@ -9,7 +9,12 @@ package frc.team1711.swerve.util;
  */
 public class Vector {
     
-    private double x, y;
+    /**
+     * The vector (0, 0).
+     */
+    public static final Vector ZERO = new Vector(0, 0);
+    
+    private final double x, y;
     
     /**
      * Makes a new vector.
@@ -86,6 +91,15 @@ public class Vector {
      */
     public Vector add (Vector v2) {
         return new Vector(x + v2.x, y + v2.y);
+    }
+    
+    /**
+     * Subtracts a vector and returns the difference vector.
+     * @param v2    The vector to subtract
+     * @return      The difference vector
+     */
+    public Vector subtract (Vector v2) {
+        return this.add(v2.scale(-1));
     }
     
     /**

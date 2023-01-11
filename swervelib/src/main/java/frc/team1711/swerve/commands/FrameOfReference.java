@@ -17,7 +17,7 @@ public enum FrameOfReference {
     
     /**
      * Denoting a frame of reference for an autonomous command that is relative
-     * to the field (or more precisely, relative to the gyro's initial orientation).
+     * to the field.
      */
     FIELD
 }

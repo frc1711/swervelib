@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":2,"i1":2,"i2":2,"i3":2,"i4":2,"i5":4,"i6":2,"i7":2,"i8":1,"i9":2,"i10":2,"i11":2,"i12":2};
+var data = {"i0":2,"i1":2,"i2":2,"i3":2,"i4":4,"i5":2,"i6":2,"i7":1,"i8":2,"i9":1,"i10":2,"i11":1,"i12":2,"i13":2,"i14":2,"i15":2,"i16":2,"i17":2,"i18":2,"i19":2,"i20":1,"i21":2};
 var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"],4:["t3","Enum Summary"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -120,24 +120,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i1" class="rowColor">
 <td class="colFirst"><a href="frc/team1711/swerve/commands/AutonDrive.html" title="class in frc.team1711.swerve.commands">AutonDrive</a></td>
 <th class="colLast" scope="row">
-<div class="block">A command which drives a given <a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> in any
- direction, without turning.</div>
+<div class="block">A command to drive the robot to a given <a href="frc/team1711/swerve/util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry"><code>Position</code></a> on the field, or to drive
+ using robot-relative or field-relative <a href="frc/team1711/swerve/util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotTurn</code></a> and <a href="frc/team1711/swerve/util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotMovement</code></a>
+ descriptor objects.</div>
 </th>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><a href="frc/team1711/swerve/commands/AutonTurn.html" title="class in frc.team1711.swerve.commands">AutonTurn</a></td>
-<th class="colLast" scope="row">
-<div class="block">Turns the entire <a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> body in a certain direction.</div>
-</th>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveDrive</a></td>
 <th class="colLast" scope="row">
 <div class="block">Expands on the <a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>GyroSwerveDrive</code></a> for autonomous control, requiring
  the use of <a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveWheel</code></a> rather than <a href="frc/team1711/swerve/subsystems/SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a>.</div>
 </th>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><a href="frc/team1711/swerve/subsystems/AutoSwerveWheel.html" title="class in frc.team1711.swerve.subsystems">AutoSwerveWheel</a></td>
 <th class="colLast" scope="row">
 <div class="block">Used by <a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> to represent a module with encoders on the drive motors
@@ -145,38 +140,89 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  functionality).</div>
 </th>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><a href="frc/team1711/swerve/commands/FrameOfReference.html" title="enum in frc.team1711.swerve.commands">FrameOfReference</a></td>
 <th class="colLast" scope="row">
 <div class="block">The spatial orientation to be used as a frame of reference for an autonomous command.</div>
 </th>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><a href="frc/team1711/swerve/subsystems/GyroSwerveDrive.html" title="class in frc.team1711.swerve.subsystems">GyroSwerveDrive</a></td>
 <th class="colLast" scope="row">
 <div class="block">Expands on the <a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> for field relative control, using a gyro.</div>
 </th>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><a href="frc/team1711/swerve/util/InputHandler.html" title="class in frc.team1711.swerve.util">InputHandler</a></td>
 <th class="colLast" scope="row">
 <div class="block">Represents a system for converting continuous user input into a usable input into robot-control functions.</div>
 </th>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><a href="frc/team1711/swerve/util/InputHandler.Curve.html" title="interface in frc.team1711.swerve.util">InputHandler.Curve</a></td>
 <th class="colLast" scope="row">
 <div class="block">A functional interface which represents an input curve, useful for allowing for better control
  at certain input magnitudes.</div>
 </th>
 </tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/Manner.html" title="class in frc.team1711.swerve.util.odometry">Manner</a></td>
+<th class="colLast" scope="row">
+<div class="block">An abstract class representing the way in which an autonomous function is performed by the robot.</div>
+</th>
+</tr>
 <tr id="i9" class="rowColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/Manner.SpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">Manner.SpeedSupplier</a></td>
+<th class="colLast" scope="row">
+<div class="block">A functional interface which gets the speed the robot should perform an abstract autonomous task given
+ the amount left to be completed.</div>
+</th>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/MovementManner.html" title="class in frc.team1711.swerve.util.odometry">MovementManner</a></td>
+<th class="colLast" scope="row">
+<div class="block"><code>MovementManner</code> describes the way in which the robot moves along a given <a href="frc/team1711/swerve/util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotMovement</code></a>
+ path.</div>
+</th>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/MovementManner.MovementSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">MovementManner.MovementSpeedSupplier</a></td>
+<th class="colLast" scope="row">
+<div class="block">A functional interface which gets the speed the robot should move at given the distance
+ that has yet to be traveled.</div>
+</th>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/Odometry.html" title="class in frc.team1711.swerve.util.odometry">Odometry</a></td>
+<th class="colLast" scope="row">
+<div class="block">A class used in coordination with <a href="frc/team1711/swerve/subsystems/AutoSwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>AutoSwerveDrive</code></a> in order to track the position of the robot on the field.</div>
+</th>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/Position.html" title="class in frc.team1711.swerve.util.odometry">Position</a></td>
+<th class="colLast" scope="row">
+<div class="block">Represents position of the robot on the field, with location and direction components.</div>
+</th>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/RobotMovement.html" title="class in frc.team1711.swerve.util.odometry">RobotMovement</a></td>
+<th class="colLast" scope="row">
+<div class="block">Represents an autonomous movement of the robot (only strafing, not turning).</div>
+</th>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry">RobotTurn</a></td>
+<th class="colLast" scope="row">
+<div class="block">Represents an autonomous robot turn, including both the turn itself and the way the robot makes the turn.</div>
+</th>
+</tr>
+<tr id="i16" class="altColor">
 <td class="colFirst"><a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></td>
 <th class="colLast" scope="row">
 <div class="block">Utilizes <a href="frc/team1711/swerve/subsystems/SwerveWheel.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveWheel</code></a> subsystems to create a singular, easy-to-use swerve drive.</div>
 </th>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><a href="frc/team1711/swerve/subsystems/SwerveDrive.ControlsConfig.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive.ControlsConfig</a></td>
 <th class="colLast" scope="row">
 <div class="block">A class representing the configuration of relative speeds for <a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> in
@@ -184,14 +230,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  an <a href="frc/team1711/swerve/util/InputHandler.html" title="class in frc.team1711.swerve.util"><code>InputHandler</code></a> which handles user-generated input.</div>
 </th>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><a href="frc/team1711/swerve/subsystems/SwerveWheel.html" title="class in frc.team1711.swerve.subsystems">SwerveWheel</a></td>
 <th class="colLast" scope="row">
 <div class="block">An abstract class used by <a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> to represent a
  module.</div>
 </th>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i19" class="rowColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/TurnManner.html" title="class in frc.team1711.swerve.util.odometry">TurnManner</a></td>
+<th class="colLast" scope="row">
+<div class="block"><code>TurnManner</code> describes the way in which the robot performs an autonomous <a href="frc/team1711/swerve/util/odometry/RobotTurn.html" title="class in frc.team1711.swerve.util.odometry"><code>RobotTurn</code></a>.</div>
+</th>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><a href="frc/team1711/swerve/util/odometry/TurnManner.TurnSpeedSupplier.html" title="interface in frc.team1711.swerve.util.odometry">TurnManner.TurnSpeedSupplier</a></td>
+<th class="colLast" scope="row">
+<div class="block">A functional interface which gets the speed the robot should turn at given the
+ remaining angle to turn.</div>
+</th>
+</tr>
+<tr id="i21" class="rowColor">
 <td class="colFirst"><a href="frc/team1711/swerve/util/Vector.html" title="class in frc.team1711.swerve.util">Vector</a></td>
 <th class="colLast" scope="row">
 <div class="block">A vector class used by <a href="frc/team1711/swerve/subsystems/SwerveDrive.html" title="class in frc.team1711.swerve.subsystems"><code>SwerveDrive</code></a> for calculating target velocities and rotational positions.</div>

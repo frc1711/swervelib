@@ -200,7 +200,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>protected abstract double</code></td>
+<td class="colFirst"><code>abstract double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirection()">getDirection</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the current steering direction, in degrees, on the interval [0, 360).</div>
@@ -231,7 +231,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code>protected void</code></td>
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop()">stop</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Stops all movement.</div>
@@ -342,7 +342,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDirection</h4>
-<pre class="methodSignature">protected abstract&nbsp;double&nbsp;getDirection()</pre>
+<pre class="methodSignature">public abstract&nbsp;double&nbsp;getDirection()</pre>
 <div class="block">Gets the current steering direction, in degrees, on the interval [0, 360).
  A direction of zero corresponds with directly forwards on the robot, and as
  the direction increases, the steering direction is further clockwise from a
@@ -426,7 +426,7 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>stop</h4>
-<pre class="methodSignature">protected&nbsp;void&nbsp;stop()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;stop()</pre>
 <div class="block">Stops all movement.</div>
 </li>
 </ul>

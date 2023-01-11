@@ -12,17 +12,12 @@ package frc.team1711.swerve.subsystems;
 abstract public class AutoSwerveWheel extends SwerveWheel {
     
     /**
-     * Resets the drive encoder to a value of zero. This can be used to set a
-     * reference point for determining the distance traveled over a period of time.
-     * @see #getPositionDifference()
+     * Gets the number of inches traveled along the ground, according to the drive encoder.
+     * Driving the wheel in reverse should decrease this value, and driving forwards should
+     * increase it.
+     * @return The inches this wheel has driven since the robot was enabled, with driving forwards
+     * increasing the measure and driving backwards decreasing it.
      */
-    abstract protected void resetDriveEncoder ();
-    
-    /**
-     * Gets the drive encoder difference from the last drive encoder reset,
-     * converted into inches traveled along the ground.
-     * @return The inches traveled since the last {@link #resetDriveEncoder()} call
-     */
-    abstract protected double getPositionDifference ();
+    abstract public double getEncoderDistance ();
     
 }

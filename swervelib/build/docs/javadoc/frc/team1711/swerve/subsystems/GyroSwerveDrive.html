@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -218,13 +218,6 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#calibrateGyro()">calibrateGyro</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Calls <code>Gyro.calibrate()</code> on the gyro.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">fieldRelativeUserInputDrive</a></span>&#8203;(double&nbsp;strafeX,
                            double&nbsp;strafeY,
                            double&nbsp;steering,
@@ -232,6 +225,13 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <td class="colLast">
 <div class="block">Drives the <code>SwerveDrive</code> given strafing and steering inputs, all on the interval [-1, 1],
  where +<code>strafeY</code> is forwards and +<code>strafeX</code> is to the right.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAbsoluteGyroAngle()">getAbsoluteGyroAngle</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the absolute gyro angle, unaffected by <a href="#resetGyro()"><code>resetGyro()</code></a>.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -245,7 +245,16 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetGyro()">resetGyro</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Calls <code>Gyro.reset()</code> on the gyro.</div>
+<div class="block">Resets the gyro heading to zero for <a href="#getGyroAngle()"><code>getGyroAngle()</code></a> but does not affect
+ <a href="#getAbsoluteGyroAngle()"><code>getAbsoluteGyroAngle()</code></a>.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetGyro(double)">resetGyro</a></span>&#8203;(double&nbsp;toAngle)</code></th>
+<td class="colLast">
+<div class="block">Resets the gyro heading to <code>toAngle</code> for <a href="#getGyroAngle()"><code>getGyroAngle()</code></a> but does not affect
+ <a href="#getAbsoluteGyroAngle()"><code>getAbsoluteGyroAngle()</code></a>.</div>
 </td>
 </tr>
 </table>
@@ -254,7 +263,7 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;frc.team1711.swerve.subsystems.<a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystems">SwerveDrive</a></h3>
-<code><a href="SwerveDrive.html#autoDrive(double,double,double)">autoDrive</a>, <a href="SwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable</a>, <a href="SwerveDrive.html#steerAllWithinRange(double,double)">steerAllWithinRange</a>, <a href="SwerveDrive.html#steerAndDriveAll(double,double)">steerAndDriveAll</a>, <a href="SwerveDrive.html#stop()">stop</a>, <a href="SwerveDrive.html#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">userInputDrive</a></code></li>
+<code><a href="SwerveDrive.html#autoDrive(double,double,double)">autoDrive</a>, <a href="SwerveDrive.html#initSendable(edu.wpi.first.util.sendable.SendableBuilder)">initSendable</a>, <a href="SwerveDrive.html#steerAllWithinRange(double,double)">steerAllWithinRange</a>, <a href="SwerveDrive.html#steerAndDriveAll(double,double)">steerAndDriveAll</a>, <a href="SwerveDrive.html#stop()">stop</a>, <a href="SwerveDrive.html#updateOdometry()">updateOdometry</a>, <a href="SwerveDrive.html#userInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)">userInputDrive</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.SubsystemBase">
@@ -360,31 +369,88 @@ extends <a href="SwerveDrive.html" title="class in frc.team1711.swerve.subsystem
 <li class="blockList">
 <h4>getGyroAngle</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getGyroAngle()</pre>
-<div class="block">Gets the gyro yaw angle on the range [0, 360) degrees.</div>
+<div class="block">Gets the gyro yaw angle on the range [0, 360) degrees.
+ 
+ <p><b>IMPLEMENTATION NOTE: This isn't necessarily related to the results of <a href="../util/odometry/Position.html#getDirection()"><code>Position.getDirection()</code></a>
+ or any related odometry methods. This gyro angle is only used in
+ the swerve library for controlling
+ <a href="#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)"><code>fieldRelativeUserInputDrive(double, double, double, ControlsConfig)</code></a>. As
+ a rule, use <code>GyroSwerveDrive.getGyroAngle()</code> for field-relative teleop purposes,
+ and <code>AutoSwerveDrive.getPosition().getDirection()</code> for field-relative auton with
+ odometry.</b></p></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The gyro yaw angle.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#getAbsoluteGyroAngle()"><code>getAbsoluteGyroAngle()</code></a>, 
+<a href="#resetGyro()"><code>resetGyro()</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="getAbsoluteGyroAngle()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAbsoluteGyroAngle</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;getAbsoluteGyroAngle()</pre>
+<div class="block">Gets the absolute gyro angle, unaffected by <a href="#resetGyro()"><code>resetGyro()</code></a>. The angle is not
+ constricted to being between 0 and 360 degrees, and will continuously increase or
+ decrease as the robot turns past full rotations.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The gyro yaw angle.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#getGyroAngle()"><code>getGyroAngle()</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="resetGyro(double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resetGyro</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;resetGyro&#8203;(double&nbsp;toAngle)</pre>
+<div class="block">Resets the gyro heading to <code>toAngle</code> for <a href="#getGyroAngle()"><code>getGyroAngle()</code></a> but does not affect
+ <a href="#getAbsoluteGyroAngle()"><code>getAbsoluteGyroAngle()</code></a>.
+ 
+ <p><b>IMPLEMENTATION NOTE: This does not affect the result of <a href="../util/odometry/Position.html#getDirection()"><code>Position.getDirection()</code></a>
+ or any related odometry methods. This gyro angle is only used in
+ the swerve library for controlling
+ <a href="#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)"><code>fieldRelativeUserInputDrive(double, double, double, ControlsConfig)</code></a>. As
+ a rule, use <code>GyroSwerveDrive.getGyroAngle()</code> for field-relative teleop purposes,
+ and <code>AutoSwerveDrive.getPosition().getDirection()</code> for field-relative auton with
+ odometry.</b></p></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>toAngle</code> - The angle to reset the gyro heading to.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#resetGyro()"><code>resetGyro()</code></a></dd>
 </dl>
 </li>
 </ul>
 <a id="resetGyro()">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>resetGyro</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;resetGyro()</pre>
-<div class="block">Calls <code>Gyro.reset()</code> on the gyro.</div>
-</li>
-</ul>
-<a id="calibrateGyro()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>calibrateGyro</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;calibrateGyro()</pre>
-<div class="block">Calls <code>Gyro.calibrate()</code> on the gyro.</div>
+<div class="block">Resets the gyro heading to zero for <a href="#getGyroAngle()"><code>getGyroAngle()</code></a> but does not affect
+ <a href="#getAbsoluteGyroAngle()"><code>getAbsoluteGyroAngle()</code></a>.
+ 
+ <p><b>IMPLEMENTATION NOTE: This does not affect the result of <a href="../util/odometry/Position.html#getDirection()"><code>Position.getDirection()</code></a>
+ or any related odometry methods. This gyro angle is only used in
+ the swerve library for controlling
+ <a href="#fieldRelativeUserInputDrive(double,double,double,frc.team1711.swerve.subsystems.SwerveDrive.ControlsConfig)"><code>fieldRelativeUserInputDrive(double, double, double, ControlsConfig)</code></a>. As
+ a rule, use <code>GyroSwerveDrive.getGyroAngle()</code> for field-relative teleop purposes,
+ and <code>AutoSwerveDrive.getPosition().getDirection()</code> for field-relative auton with
+ odometry.</b></p></div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="#resetGyro(double)"><code>resetGyro(double)</code></a></dd>
+</dl>
 </li>
 </ul>
 </li>
