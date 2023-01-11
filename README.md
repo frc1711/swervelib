@@ -1,3 +1,9 @@
+# :x:DEPRECATED:x:
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+Swervelib is now deprecated. Use WPILibJ built-in [swerve drive kinematics](https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html) and other swerve drive utilities instead.
+
+
 # Implementing Swervelib
 
 This is just a small library in order to help implement swerve drive more easily.
